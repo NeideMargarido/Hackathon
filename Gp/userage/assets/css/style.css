@@ -25,6 +25,13 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", sans-serif;
 }
+ul {
+  list-style-type: none;
+  width: 100%;
+  padding-left: 0px;
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
+  padding: 40px;
+}
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -1086,8 +1093,44 @@ section {
   }
 }
 
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: inline-block;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
 
+.btn-cancel {
+  color: #fff;
+  background-color:red;
+  border-color: #ffff;
+}
+.btnsetting {
+  background-color: #fff;
+  margin-bottom: 10px;
+  border: 1px solid #ff5757;
+  color:#ff5757;
+  width:100%;
+}
+.btnsetting:hover {
+  background-color: #ff5757;
+  border: 1px solid #ff5757;
+  color:#fff;
+  width:100%;
+}
 
+.btn-subscribe {
+  color: #fff;
+  background-color:green;
+  border-color: #fff;
+}
 
 
 }
