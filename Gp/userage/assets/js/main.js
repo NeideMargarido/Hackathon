@@ -191,3 +191,45 @@
   });
 
 })(jQuery);
+
+//SETTINGS
+function showName() {
+  $("#cemail").css('display', 'none');
+  $("#cpassword").css('display', 'none');
+  $("#cname").css('display', 'block');
+  $("#btnname").css('background-color', '#ff5757');
+  $('#btnname').css('color', '#fff');
+
+
+  $('#btnemail').css('color', '#ff5757');
+  $("#btnemail").css('background-color', '#fff');
+  $('#btnpassword').css('color', '#ff5757');
+  $("#btnpassword").css('background-color', '#fff');
+}
+function showEmail() {
+  $("#cemail").css('display', 'block');
+  $("#cpassword").css('display', 'none');
+  $("#cname").css('display', 'none');
+  $("#btnemail").css('background-color', '#ff5757');
+  $('#btnemail').css('color', '#fff');
+
+
+  $('#btnname').css('color', '#ff5757');
+  $("#btnname").css('background-color', '#fff');
+  $('#btnpassword').css('color', '#ff5757');
+  $("#btnpassword").css('background-color', '#fff');
+}
+function showPassword() {
+  $("#cemail").css('display', 'none');
+  $("#cpassword").css('display', 'block');
+  $("#cname").css('display', 'none');
+  $("#btnpassword").css('background-color', '#ff5757');
+  $('#btnpassword').css('color', '#fff');
+
+
+  $('#btnname').css('color', '#ff5757');
+  $("#btnname").css('background-color', '#fff');
+  $('#btnemail').css('color', '#ff5757');
+  $("#btnemail").css('background-color', '#fff');
+}
+// ------ // --------
