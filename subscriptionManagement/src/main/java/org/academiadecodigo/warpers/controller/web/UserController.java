@@ -27,7 +27,7 @@ import javax.validation.Valid;
  * Controller responsible for rendering {@link User} related views
  */
 @Controller
-@RequestMapping("/customer")
+@RequestMapping("/")
 public class UserController {
 
     private UserService userService;
@@ -82,10 +82,10 @@ public class UserController {
      * @param model the model object
      * @return the view to render
      */
-    @RequestMapping(method = RequestMethod.GET, path = {"/list", "/", ""})
+    @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
     public String listCustomers(Model model) {
         model.addAttribute("customers", userToUserDto.convert(userService.list()));
-        return "customer/list";
+        return "index";
     }
 
     /**

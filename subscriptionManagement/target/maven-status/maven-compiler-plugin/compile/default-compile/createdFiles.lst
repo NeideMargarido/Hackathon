@@ -1,6 +1,5 @@
 org/academiadecodigo/warpers/persistence/model/Model.class
 org/academiadecodigo/warpers/errors/ErrorMessage.class
-org/academiadecodigo/warpers/converters/CustomerToCustomerDto.class
 org/academiadecodigo/warpers/converters/AbstractConverter.class
 org/academiadecodigo/warpers/command/AccountTransactionDto.class
 org/academiadecodigo/warpers/controller/web/GlobalControllerExceptionHandler.class
@@ -16,15 +15,16 @@ org/academiadecodigo/warpers/converters/AccountToAccountDto.class
 org/academiadecodigo/warpers/persistence/model/subscription/NetflixSub.class
 org/academiadecodigo/warpers/controller/rest/RestSubscriptionController.class
 org/academiadecodigo/warpers/controller/rest/RestIndexController.class
+org/academiadecodigo/warpers/converters/UserDtoToUser.class
 org/academiadecodigo/warpers/controller/rest/RestIndexController$1.class
 org/academiadecodigo/warpers/persistence/dao/SubscriptionDao.class
 org/academiadecodigo/warpers/command/UserDto.class
 org/academiadecodigo/warpers/exceptions/JavaBankException.class
 org/academiadecodigo/warpers/persistence/model/User.class
-org/academiadecodigo/warpers/converters/CustomerDtoToCustomer.class
 org/academiadecodigo/warpers/controller/rest/RestIndexController$ApiVersion.class
 org/academiadecodigo/warpers/persistence/dao/UserDao.class
 org/academiadecodigo/warpers/services/SubscriptionService.class
+org/academiadecodigo/warpers/converters/UserToUserDto.class
 org/academiadecodigo/warpers/services/SubscriptionServiceImpl.class
 org/academiadecodigo/warpers/exceptions/CustomerNotFoundException.class
 org/academiadecodigo/warpers/persistence/model/subscription/SubscriptionType.class
