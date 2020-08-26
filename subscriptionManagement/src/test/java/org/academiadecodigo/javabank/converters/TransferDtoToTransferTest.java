@@ -1,7 +1,8 @@
 package org.academiadecodigo.javabank.converters;
 
-import org.academiadecodigo.javabank.command.TransferDto;
-import org.academiadecodigo.javabank.domain.Transfer;
+import org.academiadecodigo.warpers.command.TransferDto;
+import org.academiadecodigo.warpers.converters.TransferDtoToTransfer;
+import org.academiadecodigo.warpers.domain.Transfer;
 import org.junit.Before;
 import org.junit.Test;
 

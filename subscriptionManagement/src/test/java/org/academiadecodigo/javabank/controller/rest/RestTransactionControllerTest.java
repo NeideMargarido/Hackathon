@@ -1,15 +1,16 @@
 package org.academiadecodigo.javabank.controller.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.academiadecodigo.javabank.command.AccountTransactionDto;
-import org.academiadecodigo.javabank.command.TransferDto;
-import org.academiadecodigo.javabank.converters.TransferDtoToTransfer;
-import org.academiadecodigo.javabank.domain.Transfer;
-import org.academiadecodigo.javabank.exceptions.AccountNotFoundException;
-import org.academiadecodigo.javabank.exceptions.CustomerNotFoundException;
-import org.academiadecodigo.javabank.exceptions.TransactionInvalidException;
-import org.academiadecodigo.javabank.services.AccountService;
-import org.academiadecodigo.javabank.services.TransferService;
+import org.academiadecodigo.warpers.command.AccountTransactionDto;
+import org.academiadecodigo.warpers.command.TransferDto;
+import org.academiadecodigo.warpers.controller.rest.RestTransactionController;
+import org.academiadecodigo.warpers.converters.TransferDtoToTransfer;
+import org.academiadecodigo.warpers.domain.Transfer;
+import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
+import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
+import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
+import org.academiadecodigo.warpers.services.SubscriptionService;
+import org.academiadecodigo.warpers.services.TransferService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
@@ -31,7 +32,7 @@ public class RestTransactionControllerTest {
     private TransferDtoToTransfer transferDtoToTransfer;
 
     @Mock
-    private AccountService accountService;
+    private SubscriptionService subscriptionService;
 
     @InjectMocks
     private RestTransactionController restTransactionController;
@@ -175,7 +176,7 @@ public class RestTransactionControllerTest {
                 .content(objectMapper.writeValueAsBytes(accountTransactionDto)))
                 .andExpect(status().isOk());
 
-        verify(accountService, times(1)).deposit(fakeAccountId, fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        verify(subscriptionService, times(1)).deposit(fakeAccountId, fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
     }
 
     @Test
@@ -199,7 +200,7 @@ public class RestTransactionControllerTest {
         accountTransactionDto.setAmount(amount);
 
 
-        doThrow(new CustomerNotFoundException()).when(accountService).deposit(accountTransactionDto.getId(), invalidCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        doThrow(new CustomerNotFoundException()).when(subscriptionService).deposit(accountTransactionDto.getId(), invalidCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
 
         mockMvc.perform(put("/api/customer/{cid}/deposit", invalidCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -207,7 +208,7 @@ public class RestTransactionControllerTest {
                 .content(objectMapper.writeValueAsBytes(accountTransactionDto)))
                 .andExpect(status().isNotFound());
 
-        verify(accountService, times(1)).deposit(accountTransactionDto.getId(), invalidCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        verify(subscriptionService, times(1)).deposit(accountTransactionDto.getId(), invalidCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
     }
 
 
@@ -223,7 +224,7 @@ public class RestTransactionControllerTest {
         accountTransactionDto.setAmount(amount);
 
 
-        doThrow(new AccountNotFoundException()).when(accountService).deposit(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        doThrow(new AccountNotFoundException()).when(subscriptionService).deposit(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
 
         mockMvc.perform(put("/api/customer/{cid}/deposit", fakeCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -231,7 +232,7 @@ public class RestTransactionControllerTest {
                 .content(objectMapper.writeValueAsBytes(accountTransactionDto)))
                 .andExpect(status().isNotFound());
 
-        verify(accountService, times(1)).deposit(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        verify(subscriptionService, times(1)).deposit(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
     }
 
     @Test
@@ -246,7 +247,7 @@ public class RestTransactionControllerTest {
         accountTransactionDto.setAmount(amount);
 
 
-        doThrow(new TransactionInvalidException()).when(accountService).deposit(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        doThrow(new TransactionInvalidException()).when(subscriptionService).deposit(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
 
         mockMvc.perform(put("/api/customer/{cid}/deposit", fakeCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -254,7 +255,7 @@ public class RestTransactionControllerTest {
                 .content(objectMapper.writeValueAsBytes(accountTransactionDto)))
                 .andExpect(status().isBadRequest());
 
-        verify(accountService, times(1)).deposit(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        verify(subscriptionService, times(1)).deposit(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
     }
 
     @Test
@@ -275,7 +276,7 @@ public class RestTransactionControllerTest {
                 .content(objectMapper.writeValueAsBytes(accountTransactionDto)))
                 .andExpect(status().isOk());
 
-        verify(accountService, times(1)).withdraw(fakeAccountId, fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        verify(subscriptionService, times(1)).withdraw(fakeAccountId, fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
 
     }
 
@@ -300,7 +301,7 @@ public class RestTransactionControllerTest {
         accountTransactionDto.setAmount(amount);
 
 
-        doThrow(new CustomerNotFoundException()).when(accountService).withdraw(accountTransactionDto.getId(), invalidCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        doThrow(new CustomerNotFoundException()).when(subscriptionService).withdraw(accountTransactionDto.getId(), invalidCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
 
         mockMvc.perform(put("/api/customer/{cid}/withdraw", invalidCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -308,7 +309,7 @@ public class RestTransactionControllerTest {
                 .content(objectMapper.writeValueAsBytes(accountTransactionDto)))
                 .andExpect(status().isNotFound());
 
-        verify(accountService, times(1)).withdraw(accountTransactionDto.getId(), invalidCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        verify(subscriptionService, times(1)).withdraw(accountTransactionDto.getId(), invalidCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
     }
 
 
@@ -324,7 +325,7 @@ public class RestTransactionControllerTest {
         accountTransactionDto.setAmount(amount);
 
 
-        doThrow(new AccountNotFoundException()).when(accountService).withdraw(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        doThrow(new AccountNotFoundException()).when(subscriptionService).withdraw(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
 
         mockMvc.perform(put("/api/customer/{cid}/withdraw", fakeCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -332,7 +333,7 @@ public class RestTransactionControllerTest {
                 .content(objectMapper.writeValueAsBytes(accountTransactionDto)))
                 .andExpect(status().isNotFound());
 
-        verify(accountService, times(1)).withdraw(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        verify(subscriptionService, times(1)).withdraw(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
     }
 
     @Test
@@ -347,7 +348,7 @@ public class RestTransactionControllerTest {
         accountTransactionDto.setAmount(amount);
 
 
-        doThrow(new TransactionInvalidException()).when(accountService).withdraw(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        doThrow(new TransactionInvalidException()).when(subscriptionService).withdraw(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
 
         mockMvc.perform(put("/api/customer/{cid}/withdraw", fakeCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -355,7 +356,7 @@ public class RestTransactionControllerTest {
                 .content(objectMapper.writeValueAsBytes(accountTransactionDto)))
                 .andExpect(status().isBadRequest());
 
-        verify(accountService, times(1)).withdraw(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
+        verify(subscriptionService, times(1)).withdraw(accountTransactionDto.getId(), fakeCustomerId, Double.parseDouble(accountTransactionDto.getAmount()));
     }
 
 }

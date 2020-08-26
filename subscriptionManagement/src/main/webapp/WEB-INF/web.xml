@@ -35,7 +35,7 @@
     </context-param>
 
     <listener>
-        <listener-class>org.academiadecodigo.javabank.Log4jWebConfig</listener-class>
+        <listener-class>org.academiadecodigo.warpers.Log4jWebConfig</listener-class>
     </listener>
 
     <!--
@@ -62,7 +62,7 @@
 
     <filter>
         <filter-name>cors</filter-name>
-        <filter-class>org.academiadecodigo.javabank.CorsFilter</filter-class>
+        <filter-class>org.academiadecodigo.warpers.CorsFilter</filter-class>
     </filter>
 
     <filter-mapping>

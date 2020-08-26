@@ -1,7 +1,7 @@
 package org.academiadecodigo.javabank.persistence.jpa.dao;
 
-import org.academiadecodigo.javabank.persistence.dao.jpa.JpaRecipientDao;
-import org.academiadecodigo.javabank.persistence.model.Recipient;
+import org.academiadecodigo.warpers.persistence.dao.jpa.JpaRecipientDao;
+import org.academiadecodigo.warpers.persistence.model.Recipient;
 import org.junit.Before;
 import org.junit.Test;
 
