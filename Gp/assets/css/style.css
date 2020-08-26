@@ -1591,3 +1591,18 @@ section {
   background-color: #ff5757;
   color:#fff;
 }
+#btnregister {
+  width: 49% ;
+}
+
+@media only screen and (max-width: 768px) {
+  #btnlogin {
+    width: 100%; 
+    background-color: #ff5757;
+    color:#fff;
+    margin-bottom:20px;
+  }
+  #btnregister {
+    width: 100% !important;
+  }
+}
