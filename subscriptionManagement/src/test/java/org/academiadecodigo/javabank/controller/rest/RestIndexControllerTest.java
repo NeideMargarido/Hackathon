@@ -1,5 +1,6 @@
 package org.academiadecodigo.javabank.controller.rest;
 
+import org.academiadecodigo.warpers.controller.rest.RestIndexController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

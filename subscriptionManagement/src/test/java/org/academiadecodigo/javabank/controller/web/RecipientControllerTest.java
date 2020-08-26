@@ -1,18 +1,18 @@
 package org.academiadecodigo.javabank.controller.web;
 
-import org.academiadecodigo.javabank.command.AccountDto;
-import org.academiadecodigo.javabank.command.CustomerDto;
-import org.academiadecodigo.javabank.command.RecipientDto;
-import org.academiadecodigo.javabank.command.TransferDto;
-import org.academiadecodigo.javabank.controller.web.RecipientController;
-import org.academiadecodigo.javabank.converters.*;
-import org.academiadecodigo.javabank.domain.Transfer;
-import org.academiadecodigo.javabank.persistence.model.Customer;
-import org.academiadecodigo.javabank.persistence.model.Recipient;
-import org.academiadecodigo.javabank.persistence.model.account.Account;
-import org.academiadecodigo.javabank.services.CustomerService;
-import org.academiadecodigo.javabank.services.RecipientService;
-import org.academiadecodigo.javabank.services.TransferService;
+import org.academiadecodigo.warpers.command.SubscriptionDto;
+import org.academiadecodigo.warpers.command.UserDto;
+import org.academiadecodigo.warpers.command.RecipientDto;
+import org.academiadecodigo.warpers.command.TransferDto;
+import org.academiadecodigo.warpers.controller.web.RecipientController;
+import org.academiadecodigo.warpers.converters.*;
+import org.academiadecodigo.warpers.domain.Transfer;
+import org.academiadecodigo.warpers.persistence.model.Customer;
+import org.academiadecodigo.warpers.persistence.model.Recipient;
+import org.academiadecodigo.warpers.persistence.model.account.Account;
+import org.academiadecodigo.warpers.services.UserService;
+import org.academiadecodigo.warpers.services.RecipientService;
+import org.academiadecodigo.warpers.services.TransferService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
@@ -35,7 +35,7 @@ public class RecipientControllerTest {
     private RecipientService recipientService;
 
     @Mock
-    private CustomerService customerService;
+    private UserService userService;
 
     @Mock
     private TransferService transferService;
@@ -99,12 +99,12 @@ public class RecipientControllerTest {
         fakeRecipientDto.setPhone(fakeRecipientPhone);
         fakeRecipientDto.setDescription(fakeRecipientDescription);
 
-        CustomerDto customerDto = new CustomerDto();
+        UserDto userDto = new UserDto();
 
-        when(customerService.get(fakeCustomerId)).thenReturn(fakeCustomer);
+        when(userService.get(fakeCustomerId)).thenReturn(fakeCustomer);
         when(recipientService.get(fakeRecipientId)).thenReturn(fakeRecipient);
         when(recipientToRecipientDto.convert(fakeRecipient)).thenReturn(fakeRecipientDto);
-        when(customerToCustomerDto.convert(fakeCustomer)).thenReturn(customerDto);
+        when(customerToCustomerDto.convert(fakeCustomer)).thenReturn(userDto);
 
         //exercise
         mockMvc.perform(get("/customer/" + fakeCustomerId + "/recipient/" + fakeRecipientId + "/edit/"))
@@ -112,10 +112,10 @@ public class RecipientControllerTest {
                 //verify
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipient/add-update"))
-                .andExpect(model().attribute("customer", equalTo(customerDto)))
+                .andExpect(model().attribute("customer", equalTo(userDto)))
                 .andExpect(model().attribute("recipient", equalTo(fakeRecipientDto)));
 
-        verify(customerService, times(1)).get(fakeCustomerId);
+        verify(userService, times(1)).get(fakeCustomerId);
         verify(recipientService, times(1)).get(fakeRecipientId);
         verify(recipientToRecipientDto, times(1)).convert(fakeRecipient);
     }
@@ -153,11 +153,11 @@ public class RecipientControllerTest {
         recipientDto.setPhone(fakeRecipientPhone);
         recipientDto.setDescription(fakeRecipientDescription);
 
-        CustomerDto fakeCustomerDto = new CustomerDto();
-        fakeCustomerDto.setId(fakeCustomerId);
+        UserDto fakeUserDto = new UserDto();
+        fakeUserDto.setId(fakeCustomerId);
 
         when(recipientDtoToRecipient.convert(ArgumentMatchers.any(RecipientDto.class))).thenReturn(fakeRecipient);
-        when(customerToCustomerDto.convert(ArgumentMatchers.any(Customer.class))).thenReturn(fakeCustomerDto);
+        when(customerToCustomerDto.convert(ArgumentMatchers.any(Customer.class))).thenReturn(fakeUserDto);
 
         //exercise
         mockMvc.perform(post("/customer/" + fakeCustomerId + "/recipient")
@@ -176,7 +176,7 @@ public class RecipientControllerTest {
 
         ArgumentCaptor<RecipientDto> boundRecipient = ArgumentCaptor.forClass(RecipientDto.class);
         verify(recipientDtoToRecipient, times(1)).convert(boundRecipient.capture());
-        verify(customerService, times(1)).addRecipient(fakeCustomerId, fakeRecipient);
+        verify(userService, times(1)).addRecipient(fakeCustomerId, fakeRecipient);
 
         assertEquals(fakeRecipientId, boundRecipient.getValue().getId());
         assertEquals(fakeRecipientName, boundRecipient.getValue().getName());
@@ -197,20 +197,20 @@ public class RecipientControllerTest {
         fakeRecipientList.add(new Recipient());
         fakeRecipientList.add(new Recipient());
 
-        CustomerDto customerDto = new CustomerDto();
+        UserDto userDto = new UserDto();
 
-        List<AccountDto> accountDtos = new ArrayList<>();
-        accountDtos.add(new AccountDto());
-        accountDtos.add(new AccountDto());
+        List<SubscriptionDto> subscriptionDtos = new ArrayList<>();
+        subscriptionDtos.add(new SubscriptionDto());
+        subscriptionDtos.add(new SubscriptionDto());
 
         List<RecipientDto> recipientDtos = new ArrayList<>();
         recipientDtos.add(new RecipientDto());
         recipientDtos.add(new RecipientDto());
 
-        when(customerService.get(fakeCustomerId)).thenReturn(fakeCustomer);
-        when(customerService.listRecipients(fakeCustomerId)).thenReturn(fakeRecipientList);
-        when(customerToCustomerDto.convert(fakeCustomer)).thenReturn(customerDto);
-        when(accountToAccountDto.convert(ArgumentMatchers.<Account>anyList())).thenReturn(accountDtos);
+        when(userService.get(fakeCustomerId)).thenReturn(fakeCustomer);
+        when(userService.listRecipients(fakeCustomerId)).thenReturn(fakeRecipientList);
+        when(customerToCustomerDto.convert(fakeCustomer)).thenReturn(userDto);
+        when(accountToAccountDto.convert(ArgumentMatchers.<Account>anyList())).thenReturn(subscriptionDtos);
         when(recipientToRecipientDto.convert(fakeRecipientList)).thenReturn(recipientDtos);
 
         //exercise
@@ -218,13 +218,13 @@ public class RecipientControllerTest {
 
                 //verify
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("customer", equalTo(customerDto)))
-                .andExpect(model().attribute("accounts", equalTo(accountDtos)))
+                .andExpect(model().attribute("customer", equalTo(userDto)))
+                .andExpect(model().attribute("accounts", equalTo(subscriptionDtos)))
                 .andExpect(model().attribute("recipients", equalTo(recipientDtos)))
                 .andExpect(view().name("recipient/list"));
 
-        verify(customerService, times(1)).get(fakeCustomerId);
-        verify(customerService, times(1)).listRecipients(fakeCustomerId);
+        verify(userService, times(1)).get(fakeCustomerId);
+        verify(userService, times(1)).listRecipients(fakeCustomerId);
     }
 
     @Test
@@ -240,7 +240,7 @@ public class RecipientControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/customer/" + fakeCustomerId + "/recipient"));
 
-        verify(customerService, times(1)).removeRecipient(fakeCustomerId, fakeRecipientId);
+        verify(userService, times(1)).removeRecipient(fakeCustomerId, fakeRecipientId);
     }
 
     @Test
@@ -255,7 +255,7 @@ public class RecipientControllerTest {
         fakeCustomer.setEmail("mail@gmail.com");
         fakeCustomer.setPhone("912345678");
 
-        when(customerService.get(fakeCustomerId)).thenReturn(fakeCustomer);
+        when(userService.get(fakeCustomerId)).thenReturn(fakeCustomer);
         //exercise
         mockMvc.perform(get("/customer/" + fakeCustomerId + "/recipient/add"))
 
@@ -264,7 +264,7 @@ public class RecipientControllerTest {
         //.andExpect(view().name("recipient/add-update"))
         //.andExpect(model().attribute("customer", equalTo(fakeCustomer)));
 
-        verify(customerService, times(1)).get(fakeCustomerId);
+        verify(userService, times(1)).get(fakeCustomerId);
     }
 
     @Test
@@ -287,15 +287,15 @@ public class RecipientControllerTest {
         fakeRecipientList.add(new Recipient());
         fakeRecipientList.add(new Recipient());
 
-        CustomerDto customerDto = new CustomerDto();
+        UserDto userDto = new UserDto();
 
         List<RecipientDto> recipientDtos = new ArrayList<>();
         recipientDtos.add(new RecipientDto());
         recipientDtos.add(new RecipientDto());
 
-        when(customerService.get(fakeCustomerId)).thenReturn(fakeCustomer);
-        when(customerService.listRecipients(fakeCustomerId)).thenReturn(fakeRecipientList);
-        when(customerToCustomerDto.convert(fakeCustomer)).thenReturn(customerDto);
+        when(userService.get(fakeCustomerId)).thenReturn(fakeCustomer);
+        when(userService.listRecipients(fakeCustomerId)).thenReturn(fakeRecipientList);
+        when(customerToCustomerDto.convert(fakeCustomer)).thenReturn(userDto);
         when(recipientToRecipientDto.convert(fakeRecipientList)).thenReturn(recipientDtos);
 
         //exercise
@@ -303,12 +303,12 @@ public class RecipientControllerTest {
 
                 //verify
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("customer", equalTo(customerDto)))
+                .andExpect(model().attribute("customer", equalTo(userDto)))
                 .andExpect(model().attribute("recipients", equalTo(recipientDtos)))
                 .andExpect(view().name("recipient/transfer"));
 
-        verify(customerService, times(1)).get(fakeCustomerId);
-        verify(customerService, times(1)).listRecipients(fakeCustomerId);
+        verify(userService, times(1)).get(fakeCustomerId);
+        verify(userService, times(1)).listRecipients(fakeCustomerId);
 
     }
 

@@ -1,7 +1,8 @@
 package org.academiadecodigo.javabank.converters;
 
-import org.academiadecodigo.javabank.command.RecipientDto;
-import org.academiadecodigo.javabank.persistence.model.Recipient;
+import org.academiadecodigo.warpers.command.RecipientDto;
+import org.academiadecodigo.warpers.converters.RecipientToRecipientDto;
+import org.academiadecodigo.warpers.persistence.model.Recipient;
 import org.junit.Before;
 import org.junit.Test;
 

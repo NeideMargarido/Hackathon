@@ -1,16 +1,17 @@
 package org.academiadecodigo.javabank.controller.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.academiadecodigo.javabank.command.RecipientDto;
-import org.academiadecodigo.javabank.converters.RecipientDtoToRecipient;
-import org.academiadecodigo.javabank.converters.RecipientToRecipientDto;
-import org.academiadecodigo.javabank.exceptions.AccountNotFoundException;
-import org.academiadecodigo.javabank.exceptions.CustomerNotFoundException;
-import org.academiadecodigo.javabank.exceptions.RecipientNotFoundException;
-import org.academiadecodigo.javabank.persistence.model.Customer;
-import org.academiadecodigo.javabank.persistence.model.Recipient;
-import org.academiadecodigo.javabank.services.CustomerService;
-import org.academiadecodigo.javabank.services.RecipientService;
+import org.academiadecodigo.warpers.command.RecipientDto;
+import org.academiadecodigo.warpers.controller.rest.RestRecipientController;
+import org.academiadecodigo.warpers.converters.RecipientDtoToRecipient;
+import org.academiadecodigo.warpers.converters.RecipientToRecipientDto;
+import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
+import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
+import org.academiadecodigo.warpers.exceptions.RecipientNotFoundException;
+import org.academiadecodigo.warpers.persistence.model.Customer;
+import org.academiadecodigo.warpers.persistence.model.Recipient;
+import org.academiadecodigo.warpers.services.UserService;
+import org.academiadecodigo.warpers.services.RecipientService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
@@ -31,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class RestRecipientControllerTest {
 
     @Mock
-    private CustomerService customerService;
+    private UserService userService;
 
     @Mock
     private RecipientToRecipientDto recipientToRecipientDto;
@@ -83,7 +84,7 @@ public class RestRecipientControllerTest {
         fakeRecipientDto.setDescription(fakeRecipientDescription);
 
 
-        when(customerService.listRecipients(fakeCustomerId)).thenReturn(recipients);
+        when(userService.listRecipients(fakeCustomerId)).thenReturn(recipients);
         when(recipientToRecipientDto.convert(ArgumentMatchers.any(Recipient.class))).thenReturn(fakeRecipientDto);
 
         mockMvc.perform(get("/api/customer/{cid}/recipient", fakeCustomerId))
@@ -95,7 +96,7 @@ public class RestRecipientControllerTest {
                 .andExpect(jsonPath("$[0].description").value(fakeRecipientDescription))
                 .andExpect(status().isOk());
 
-        verify(customerService, times(1)).listRecipients(fakeCustomerId);
+        verify(userService, times(1)).listRecipients(fakeCustomerId);
         verify(recipientToRecipientDto, times(1)).convert(ArgumentMatchers.any(Recipient.class));
     }
 
@@ -104,12 +105,12 @@ public class RestRecipientControllerTest {
 
         int invalidCustomerId = 777;
 
-        doThrow(new CustomerNotFoundException()).when(customerService).listRecipients(invalidCustomerId);
+        doThrow(new CustomerNotFoundException()).when(userService).listRecipients(invalidCustomerId);
 
         mockMvc.perform(get("/api/customer/{cid}/recipient", invalidCustomerId))
                 .andExpect(status().isNotFound());
 
-        verify(customerService, times(1)).listRecipients(invalidCustomerId);
+        verify(userService, times(1)).listRecipients(invalidCustomerId);
     }
 
     @Test
@@ -197,7 +198,7 @@ public class RestRecipientControllerTest {
 
 
         when(recipientDtoToRecipient.convert(ArgumentMatchers.any(RecipientDto.class))).thenReturn(fakeRecipient);
-        when(customerService.addRecipient(fakeCustomerId, fakeRecipient)).thenReturn(fakeRecipient);
+        when(userService.addRecipient(fakeCustomerId, fakeRecipient)).thenReturn(fakeRecipient);
 
         mockMvc.perform(post("/api/customer/{cid}/recipient", fakeCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -209,7 +210,7 @@ public class RestRecipientControllerTest {
         ArgumentCaptor<RecipientDto> boundRecipient = ArgumentCaptor.forClass(RecipientDto.class);
 
         verify(recipientDtoToRecipient, times(1)).convert(boundRecipient.capture());
-        verify(customerService, times(1)).addRecipient(fakeCustomerId, fakeRecipient);
+        verify(userService, times(1)).addRecipient(fakeCustomerId, fakeRecipient);
 
         assertEquals(null, boundRecipient.getValue().getId());
         assertEquals(fakeRecipientName, boundRecipient.getValue().getName());
@@ -237,7 +238,7 @@ public class RestRecipientControllerTest {
 
 
         when(recipientDtoToRecipient.convert(ArgumentMatchers.any(RecipientDto.class))).thenReturn(fakeRecipient);
-        doThrow(new CustomerNotFoundException()).when(customerService).addRecipient(invalidCustomerId, fakeRecipient);
+        doThrow(new CustomerNotFoundException()).when(userService).addRecipient(invalidCustomerId, fakeRecipient);
 
         mockMvc.perform(post("/api/customer/{cid}/recipient", invalidCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -246,7 +247,7 @@ public class RestRecipientControllerTest {
                 .andExpect(status().isNotFound());
 
         verify(recipientDtoToRecipient, times(1)).convert(ArgumentMatchers.any(RecipientDto.class));
-        verify(customerService, times(1)).addRecipient(invalidCustomerId, fakeRecipient);
+        verify(userService, times(1)).addRecipient(invalidCustomerId, fakeRecipient);
     }
 
     @Test
@@ -258,7 +259,7 @@ public class RestRecipientControllerTest {
 
 
         when(recipientDtoToRecipient.convert(ArgumentMatchers.any(RecipientDto.class))).thenReturn(fakeRecipient);
-        doThrow(new AccountNotFoundException()).when(customerService).addRecipient(fakeCustomerId, fakeRecipient);
+        doThrow(new AccountNotFoundException()).when(userService).addRecipient(fakeCustomerId, fakeRecipient);
 
         mockMvc.perform(post("/api/customer/{cid}/recipient", fakeCustomerId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -267,7 +268,7 @@ public class RestRecipientControllerTest {
                 .andExpect(status().isNotFound());
 
         verify(recipientDtoToRecipient, times(1)).convert(ArgumentMatchers.any(RecipientDto.class));
-        verify(customerService, times(1)).addRecipient(fakeCustomerId, fakeRecipient);
+        verify(userService, times(1)).addRecipient(fakeCustomerId, fakeRecipient);
     }
 
     @Test
@@ -302,7 +303,7 @@ public class RestRecipientControllerTest {
 
 
         when(recipientDtoToRecipient.convert(ArgumentMatchers.any(RecipientDto.class))).thenReturn(fakeRecipient);
-        when(customerService.addRecipient(fakeCustomerId, fakeRecipient)).thenReturn(fakeRecipient);
+        when(userService.addRecipient(fakeCustomerId, fakeRecipient)).thenReturn(fakeRecipient);
 
         mockMvc.perform(put("/api/customer/{cid}/recipient/{rid}", fakeCustomerId, fakeRecipientId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -313,7 +314,7 @@ public class RestRecipientControllerTest {
         ArgumentCaptor<RecipientDto> boundRecipient = ArgumentCaptor.forClass(RecipientDto.class);
 
         verify(recipientDtoToRecipient, times(1)).convert(boundRecipient.capture());
-        verify(customerService, times(1)).addRecipient(fakeCustomerId, fakeRecipient);
+        verify(userService, times(1)).addRecipient(fakeCustomerId, fakeRecipient);
 
         assertEquals((Integer) fakeRecipientId, boundRecipient.getValue().getId());
         assertEquals(fakeRecipientName, boundRecipient.getValue().getName());
@@ -361,7 +362,7 @@ public class RestRecipientControllerTest {
 
 
         when(recipientDtoToRecipient.convert(ArgumentMatchers.any(RecipientDto.class))).thenReturn(recipient);
-        doThrow(new CustomerNotFoundException()).when(customerService).addRecipient(invalidCustomerId, recipient);
+        doThrow(new CustomerNotFoundException()).when(userService).addRecipient(invalidCustomerId, recipient);
 
         mockMvc.perform(put("/api/customer/{cid}/recipient/{rid}", invalidCustomerId, fakeRecipientId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -370,7 +371,7 @@ public class RestRecipientControllerTest {
                 .andExpect(status().isNotFound());
 
         verify(recipientDtoToRecipient, times(1)).convert(ArgumentMatchers.any(RecipientDto.class));
-        verify(customerService, times(1)).addRecipient(invalidCustomerId, recipient);
+        verify(userService, times(1)).addRecipient(invalidCustomerId, recipient);
     }
 
     @Test
@@ -383,7 +384,7 @@ public class RestRecipientControllerTest {
 
 
         when(recipientDtoToRecipient.convert(ArgumentMatchers.any(RecipientDto.class))).thenReturn(recipient);
-        doThrow(new AccountNotFoundException()).when(customerService).addRecipient(fakeCustomerId, recipient);
+        doThrow(new AccountNotFoundException()).when(userService).addRecipient(fakeCustomerId, recipient);
 
         mockMvc.perform(put("/api/customer/{cid}/recipient/{rid}", fakeCustomerId, fakeRecipientId)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -392,7 +393,7 @@ public class RestRecipientControllerTest {
                 .andExpect(status().isNotFound());
 
         verify(recipientDtoToRecipient, times(1)).convert(ArgumentMatchers.any(RecipientDto.class));
-        verify(customerService, times(1)).addRecipient(fakeCustomerId, recipient);
+        verify(userService, times(1)).addRecipient(fakeCustomerId, recipient);
     }
 
     @Test
@@ -404,7 +405,7 @@ public class RestRecipientControllerTest {
         mockMvc.perform(delete("/api/customer/{cid}/recipient/{rid}", fakeCustomerId, fakeRecipientId))
                 .andExpect(status().isNoContent());
 
-        verify(customerService, times(1)).removeRecipient(fakeCustomerId, fakeRecipientId);
+        verify(userService, times(1)).removeRecipient(fakeCustomerId, fakeRecipientId);
     }
 
     @Test
@@ -413,12 +414,12 @@ public class RestRecipientControllerTest {
         int invalidCustomerId = 999;
         int fakeRecipientId = 888;
 
-        doThrow(new CustomerNotFoundException()).when(customerService).removeRecipient(invalidCustomerId, fakeRecipientId);
+        doThrow(new CustomerNotFoundException()).when(userService).removeRecipient(invalidCustomerId, fakeRecipientId);
 
         mockMvc.perform(delete("/api/customer/{cid}/recipient/{rid}", invalidCustomerId, fakeRecipientId))
                 .andExpect(status().isNotFound());
 
-        verify(customerService, times(1)).removeRecipient(invalidCustomerId, fakeRecipientId);
+        verify(userService, times(1)).removeRecipient(invalidCustomerId, fakeRecipientId);
     }
 
     @Test
@@ -427,12 +428,12 @@ public class RestRecipientControllerTest {
         int fakeCustomerId = 999;
         int invalidRecipientId = 888;
 
-        doThrow(new RecipientNotFoundException()).when(customerService).removeRecipient(fakeCustomerId, invalidRecipientId);
+        doThrow(new RecipientNotFoundException()).when(userService).removeRecipient(fakeCustomerId, invalidRecipientId);
 
         mockMvc.perform(delete("/api/customer/{cid}/recipient/{rid}", fakeCustomerId, invalidRecipientId))
                 .andExpect(status().isNotFound());
 
-        verify(customerService, times(1)).removeRecipient(fakeCustomerId, invalidRecipientId);
+        verify(userService, times(1)).removeRecipient(fakeCustomerId, invalidRecipientId);
     }
 
     @Test
@@ -441,11 +442,11 @@ public class RestRecipientControllerTest {
         int fakeCustomerId = 999;
         int fakeRecipientId = 888;
 
-        doThrow(new AccountNotFoundException()).when(customerService).removeRecipient(fakeCustomerId, fakeRecipientId);
+        doThrow(new AccountNotFoundException()).when(userService).removeRecipient(fakeCustomerId, fakeRecipientId);
 
         mockMvc.perform(delete("/api/customer/{cid}/recipient/{rid}", fakeCustomerId, fakeRecipientId))
                 .andExpect(status().isNotFound());
 
-        verify(customerService, times(1)).removeRecipient(fakeCustomerId, fakeRecipientId);
+        verify(userService, times(1)).removeRecipient(fakeCustomerId, fakeRecipientId);
     }
 }

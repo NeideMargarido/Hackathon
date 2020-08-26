@@ -1,7 +1,8 @@
 package org.academiadecodigo.javabank.services;
 
-import org.academiadecodigo.javabank.persistence.dao.RecipientDao;
-import org.academiadecodigo.javabank.persistence.model.Recipient;
+import org.academiadecodigo.warpers.persistence.dao.RecipientDao;
+import org.academiadecodigo.warpers.persistence.model.Recipient;
+import org.academiadecodigo.warpers.services.RecipientServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 

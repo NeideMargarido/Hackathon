@@ -1,15 +1,16 @@
 package org.academiadecodigo.javabank.services;
 
-import org.academiadecodigo.javabank.domain.Transfer;
-import org.academiadecodigo.javabank.exceptions.AccountNotFoundException;
-import org.academiadecodigo.javabank.exceptions.CustomerNotFoundException;
-import org.academiadecodigo.javabank.exceptions.JavaBankException;
-import org.academiadecodigo.javabank.exceptions.TransactionInvalidException;
-import org.academiadecodigo.javabank.persistence.dao.AccountDao;
-import org.academiadecodigo.javabank.persistence.dao.CustomerDao;
-import org.academiadecodigo.javabank.persistence.model.Customer;
-import org.academiadecodigo.javabank.persistence.model.Recipient;
-import org.academiadecodigo.javabank.persistence.model.account.Account;
+import org.academiadecodigo.warpers.domain.Transfer;
+import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
+import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
+import org.academiadecodigo.warpers.exceptions.JavaBankException;
+import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
+import org.academiadecodigo.warpers.persistence.dao.SubscriptionDao;
+import org.academiadecodigo.warpers.persistence.dao.UserDao;
+import org.academiadecodigo.warpers.persistence.model.Customer;
+import org.academiadecodigo.warpers.persistence.model.Recipient;
+import org.academiadecodigo.warpers.persistence.model.account.Account;
+import org.academiadecodigo.warpers.services.TransferServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,17 +22,17 @@ import static org.mockito.Mockito.*;
 public class TransferServiceImplTest {
 
     private TransferServiceImpl transferService;
-    private AccountDao accountDao;
-    private CustomerDao customerDao;
+    private SubscriptionDao subscriptionDao;
+    private UserDao userDao;
 
     @Before
     public void setup() {
-        accountDao = mock(AccountDao.class);
-        customerDao = mock(CustomerDao.class);
+        subscriptionDao = mock(SubscriptionDao.class);
+        userDao = mock(UserDao.class);
 
         transferService = new TransferServiceImpl();
-        transferService.setAccountDao(accountDao);
-        transferService.setCustomerDao(customerDao);
+        transferService.setSubscriptionDao(subscriptionDao);
+        transferService.setUserDao(userDao);
     }
 
     @Test
@@ -50,8 +51,8 @@ public class TransferServiceImplTest {
         fakeTransfer.setDstId(fakeDstId);
         fakeTransfer.setAmount(fakeAmount);
 
-        when(accountDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
-        when(accountDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
+        when(subscriptionDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
+        when(subscriptionDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
         when(fakeSrcAccount.canDebit(fakeAmount)).thenReturn(true);
         when(fakeDstAccount.canCredit(fakeAmount)).thenReturn(true);
 
@@ -59,14 +60,14 @@ public class TransferServiceImplTest {
         transferService.transfer(fakeTransfer);
 
         //verify
-        verify(accountDao, times(1)).findById(fakeSrcId);
-        verify(accountDao, times(1)).findById(fakeDstId);
+        verify(subscriptionDao, times(1)).findById(fakeSrcId);
+        verify(subscriptionDao, times(1)).findById(fakeDstId);
         verify(fakeSrcAccount, times(1)).canDebit(fakeAmount);
         verify(fakeDstAccount, times(1)).canCredit(fakeAmount);
         verify(fakeSrcAccount, times(1)).debit(fakeAmount);
         verify(fakeDstAccount, times(1)).credit(fakeAmount);
-        verify(accountDao, times(1)).saveOrUpdate(fakeSrcAccount);
-        verify(accountDao, times(1)).saveOrUpdate(fakeDstAccount);
+        verify(subscriptionDao, times(1)).saveOrUpdate(fakeSrcAccount);
+        verify(subscriptionDao, times(1)).saveOrUpdate(fakeDstAccount);
     }
 
     @Test(expected = AccountNotFoundException.class)
@@ -81,8 +82,8 @@ public class TransferServiceImplTest {
 
         Transfer fakeTransfer = mock(Transfer.class);
 
-        when(accountDao.findById(invalidSrcAccountId)).thenReturn(null);
-        when(accountDao.findById(fakeDstAccountId)).thenReturn(fakeDstAccount);
+        when(subscriptionDao.findById(invalidSrcAccountId)).thenReturn(null);
+        when(subscriptionDao.findById(fakeDstAccountId)).thenReturn(fakeDstAccount);
         when(fakeTransfer.getSrcId()).thenReturn(invalidSrcAccountId);
         when(fakeTransfer.getDstId()).thenReturn(fakeDstAccountId);
         when(fakeTransfer.getAmount()).thenReturn(fakeAmount);
@@ -103,8 +104,8 @@ public class TransferServiceImplTest {
 
         Transfer fakeTransfer = mock(Transfer.class);
 
-        when(accountDao.findById(fakeSrcAccountId)).thenReturn(fakeDstAccount);
-        when(accountDao.findById(invalidDstAccountId)).thenReturn(null);
+        when(subscriptionDao.findById(fakeSrcAccountId)).thenReturn(fakeDstAccount);
+        when(subscriptionDao.findById(invalidDstAccountId)).thenReturn(null);
         when(fakeTransfer.getDstId()).thenReturn(fakeSrcAccountId);
         when(fakeTransfer.getSrcId()).thenReturn(invalidDstAccountId);
         when(fakeTransfer.getAmount()).thenReturn(fakeAmount);
@@ -129,8 +130,8 @@ public class TransferServiceImplTest {
         fakeTransfer.setDstId(fakeDstId);
         fakeTransfer.setAmount(invalidAmount);
 
-        when(accountDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
-        when(accountDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
+        when(subscriptionDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
+        when(subscriptionDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
         when(fakeSrcAccount.canDebit(invalidAmount)).thenReturn(false);
         when(fakeDstAccount.canCredit(invalidAmount)).thenReturn(true);
 
@@ -154,8 +155,8 @@ public class TransferServiceImplTest {
         fakeTransfer.setDstId(fakeDstId);
         fakeTransfer.setAmount(invalidAmount);
 
-        when(accountDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
-        when(accountDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
+        when(subscriptionDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
+        when(subscriptionDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
         when(fakeSrcAccount.canDebit(invalidAmount)).thenReturn(true);
         when(fakeDstAccount.canCredit(invalidAmount)).thenReturn(false);
 
@@ -187,9 +188,9 @@ public class TransferServiceImplTest {
         fakeTransfer.setDstId(fakeDstId);
         fakeTransfer.setAmount(fakeAmount);
 
-        when(accountDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
-        when(accountDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
-        when(customerDao.findById(anyInt())).thenReturn(fakeCustomer);
+        when(subscriptionDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
+        when(subscriptionDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
+        when(userDao.findById(anyInt())).thenReturn(fakeCustomer);
         when(fakeRecipient.getAccountNumber()).thenReturn(fakeDstId);
         when(fakeSrcAccount.canDebit(fakeAmount)).thenReturn(true);
         when(fakeDstAccount.canCredit(fakeAmount)).thenReturn(true);
@@ -204,17 +205,17 @@ public class TransferServiceImplTest {
         transferService.transfer(fakeTransfer, fakeCustomerId);
 
         //verify
-        verify(customerDao, times(1)).findById(fakeCustomerId);
-        verify(accountDao, times(1)).findById(fakeSrcId);
-        verify(accountDao, times(1)).findById(fakeDstId);
+        verify(userDao, times(1)).findById(fakeCustomerId);
+        verify(subscriptionDao, times(1)).findById(fakeSrcId);
+        verify(subscriptionDao, times(1)).findById(fakeDstId);
         verify(fakeAccountsList, times(1)).contains(fakeSrcAccount);
         verify(fakeAccountsList, times(1)).contains(fakeDstAccount);
         verify(fakeSrcAccount, times(1)).canDebit(fakeAmount);
         verify(fakeDstAccount, times(1)).canCredit(fakeAmount);
         verify(fakeSrcAccount, times(1)).debit(fakeAmount);
         verify(fakeDstAccount, times(1)).credit(fakeAmount);
-        verify(accountDao, times(1)).saveOrUpdate(fakeSrcAccount);
-        verify(accountDao, times(1)).saveOrUpdate(fakeDstAccount);
+        verify(subscriptionDao, times(1)).saveOrUpdate(fakeSrcAccount);
+        verify(subscriptionDao, times(1)).saveOrUpdate(fakeDstAccount);
     }
 
     @Test(expected = CustomerNotFoundException.class)
@@ -231,7 +232,7 @@ public class TransferServiceImplTest {
         fakeTransfer.setDstId(fakeDstId);
         fakeTransfer.setAmount(fakeAmount);
 
-        when(customerDao.findById(anyInt())).thenReturn(null);
+        when(userDao.findById(anyInt())).thenReturn(null);
 
         //exercise
         transferService.transfer(fakeTransfer, invalidCustomerId);
@@ -256,9 +257,9 @@ public class TransferServiceImplTest {
         Customer fakeCustomer = mock(Customer.class);
         List fakeAccountsList = mock(List.class);
 
-        when(customerDao.findById(fakeCustomerId)).thenReturn(fakeCustomer);
-        when(accountDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
-        when(accountDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
+        when(userDao.findById(fakeCustomerId)).thenReturn(fakeCustomer);
+        when(subscriptionDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
+        when(subscriptionDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
         when(fakeCustomer.getAccounts()).thenReturn(fakeAccountsList);
         when(fakeAccountsList.contains(fakeSrcAccount)).thenReturn(false);
 
@@ -291,9 +292,9 @@ public class TransferServiceImplTest {
         fakeTransfer.setDstId(fakeDstId);
         fakeTransfer.setAmount(fakeAmount);
 
-        when(accountDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
-        when(accountDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
-        when(customerDao.findById(anyInt())).thenReturn(fakeCustomer);
+        when(subscriptionDao.findById(fakeSrcId)).thenReturn(fakeSrcAccount);
+        when(subscriptionDao.findById(fakeDstId)).thenReturn(fakeDstAccount);
+        when(userDao.findById(anyInt())).thenReturn(fakeCustomer);
         when(fakeRecipient.getAccountNumber()).thenReturn(invalidAccountNumber);
         when(fakeSrcAccount.canDebit(fakeAmount)).thenReturn(true);
         when(fakeDstAccount.canCredit(fakeAmount)).thenReturn(true);
