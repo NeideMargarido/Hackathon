@@ -4,8 +4,8 @@ import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.command.AccountTransactionDto;
 import org.academiadecodigo.warpers.command.UserDto;
 import org.academiadecodigo.warpers.converters.AccountToAccountDto;
-import org.academiadecodigo.warpers.converters.CustomerDtoToCustomer;
-import org.academiadecodigo.warpers.converters.CustomerToCustomerDto;
+import org.academiadecodigo.warpers.converters.UserDtoToUser;
+import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.AssociationExistsException;
 import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
 import org.academiadecodigo.warpers.persistence.model.User;
@@ -32,8 +32,8 @@ public class UserController {
 
     private UserService userService;
 
-    private CustomerToCustomerDto customerToCustomerDto;
-    private CustomerDtoToCustomer customerDtoToCustomer;
+    private UserToUserDto userToUserDto;
+    private UserDtoToUser userDtoToUser;
     private AccountToAccountDto accountToAccountDto;
 
     /**
@@ -49,21 +49,21 @@ public class UserController {
     /**
      * Sets the converter for converting between customer model objects and customer DTO
      *
-     * @param customerToCustomerDto the customer to customer DTO converter to set
+     * @param userToUserDto the customer to customer DTO converter to set
      */
     @Autowired
-    public void setCustomerToCustomerDto(CustomerToCustomerDto customerToCustomerDto) {
-        this.customerToCustomerDto = customerToCustomerDto;
+    public void setUserToUserDto(UserToUserDto userToUserDto) {
+        this.userToUserDto = userToUserDto;
     }
 
     /**
      * Sets the converter for converting between customer DTO and customer model objects
      *
-     * @param customerDtoToCustomer the customer DTO to customer converter to set
+     * @param userDtoToUser the customer DTO to customer converter to set
      */
     @Autowired
-    public void setCustomerDtoToCustomer(CustomerDtoToCustomer customerDtoToCustomer) {
-        this.customerDtoToCustomer = customerDtoToCustomer;
+    public void setUserDtoToUser(UserDtoToUser userDtoToUser) {
+        this.userDtoToUser = userDtoToUser;
     }
 
     /**
@@ -84,7 +84,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.GET, path = {"/list", "/", ""})
     public String listCustomers(Model model) {
-        model.addAttribute("customers", customerToCustomerDto.convert(userService.list()));
+        model.addAttribute("customers", userToUserDto.convert(userService.list()));
         return "customer/list";
     }
 
@@ -109,7 +109,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/edit")
     public String editCustomer(@PathVariable Integer id, Model model) {
-        model.addAttribute("customer", customerToCustomerDto.convert(userService.get(id)));
+        model.addAttribute("customer", userToUserDto.convert(userService.get(id)));
         return "customer/add-update";
     }
 
@@ -127,7 +127,7 @@ public class UserController {
         User user = userService.get(id);
 
         // command objects for user show view
-        model.addAttribute("user", customerToCustomerDto.convert(user));
+        model.addAttribute("user", userToUserDto.convert(user));
         model.addAttribute("accounts", accountToAccountDto.convert(user.getSubscriptions()));
         model.addAttribute("accountTypes", SubscriptionType.list());
         //model.addAttribute("customerBalance", userService.getBalance(id));
@@ -157,7 +157,7 @@ public class UserController {
             return "customer/add-update";
         }
 
-        User savedUser = userService.save(customerDtoToCustomer.convert(userDto));
+        User savedUser = userService.save(userDtoToUser.convert(userDto));
 
         redirectAttributes.addFlashAttribute("lastAction", "Saved " + savedUser.getFirstName() + " " + savedUser.getLastName());
         return "redirect:/customer/" + savedUser.getId();

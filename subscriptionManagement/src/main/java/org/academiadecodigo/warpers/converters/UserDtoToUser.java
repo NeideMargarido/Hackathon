@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * A {@link Converter} implementation, responsible for {@link UserDto} to {@link User} type conversion
  */
 @Component
-public class CustomerDtoToCustomer implements Converter<UserDto, User> {
+public class UserDtoToUser implements Converter<UserDto, User> {
 
     private UserService userService;
 
@@ -40,6 +40,8 @@ public class CustomerDtoToCustomer implements Converter<UserDto, User> {
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
+        user.setPassword(userDto.getPassword());
+        user.setCountry(userDto.getCountry());
 
         return user;
     }

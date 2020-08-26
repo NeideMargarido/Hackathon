@@ -3,7 +3,7 @@ package org.academiadecodigo.warpers.controller.web;
 import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.command.AccountTransactionDto;
 import org.academiadecodigo.warpers.converters.AccountDtoToAccount;
-import org.academiadecodigo.warpers.converters.CustomerToCustomerDto;
+import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
 import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.academiadecodigo.warpers.services.SubscriptionService;
@@ -30,7 +30,7 @@ public class SubscriptionController {
     private SubscriptionService subscriptionService;
 
     private AccountDtoToAccount accountDtoToAccount;
-    private CustomerToCustomerDto customerToCustomerDto;
+    private UserToUserDto userToUserDto;
 
     /**
      * Sets the customer service
@@ -67,11 +67,11 @@ public class SubscriptionController {
     /**
      * Sets the converter for converting between customer model objects and customer DTO
      *
-     * @param customerToCustomerDto the customer to customer DTO converter to set
+     * @param userToUserDto the customer to customer DTO converter to set
      */
     @Autowired
-    public void setCustomerToCustomerDto(CustomerToCustomerDto customerToCustomerDto) {
-        this.customerToCustomerDto = customerToCustomerDto;
+    public void setUserToUserDto(UserToUserDto userToUserDto) {
+        this.userToUserDto = userToUserDto;
     }
 
     /**

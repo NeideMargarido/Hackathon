@@ -29,6 +29,16 @@ public class UserDto {
     @Size(min = 9, max = 16)
     private String phone;
 
+    @NotNull(message = "Password is mandatory")
+    @NotBlank(message = "Password is mandatory")
+    @Size(min = 3)
+    private String password;
+
+    @NotNull(message = "Country is mandatory")
+    @NotBlank(message = "Country is mandatory")
+    @Size(min = 3)
+    private String country;
+
     /**
      * Gets the id of the customer DTO
      *
@@ -117,6 +127,22 @@ public class UserDto {
      */
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     /**

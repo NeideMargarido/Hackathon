@@ -1,8 +1,8 @@
 package org.academiadecodigo.warpers.controller.rest;
 
 import org.academiadecodigo.warpers.command.UserDto;
-import org.academiadecodigo.warpers.converters.CustomerDtoToCustomer;
-import org.academiadecodigo.warpers.converters.CustomerToCustomerDto;
+import org.academiadecodigo.warpers.converters.UserDtoToUser;
+import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.AssociationExistsException;
 import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
 import org.academiadecodigo.warpers.persistence.model.User;
@@ -29,8 +29,8 @@ import java.util.stream.Collectors;
 public class RestUserController {
 
     private UserService userService;
-    private CustomerDtoToCustomer customerDtoToCustomer;
-    private CustomerToCustomerDto customerToCustomerDto;
+    private UserDtoToUser userDtoToUser;
+    private UserToUserDto userToUserDto;
 
     /**
      * Sets the customer service
@@ -45,21 +45,21 @@ public class RestUserController {
     /**
      * Sets the converter for converting between customer DTO and customer model objects
      *
-     * @param customerDtoToCustomer the customer DTO to customer converter to set
+     * @param userDtoToUser the customer DTO to customer converter to set
      */
     @Autowired
-    public void setCustomerDtoToCustomer(CustomerDtoToCustomer customerDtoToCustomer) {
-        this.customerDtoToCustomer = customerDtoToCustomer;
+    public void setUserDtoToUser(UserDtoToUser userDtoToUser) {
+        this.userDtoToUser = userDtoToUser;
     }
 
     /**
      * Sets the converter for converting between customer model objects and customer DTO
      *
-     * @param customerToCustomerDto the customer to customer DTO converter to set
+     * @param userToUserDto the customer to customer DTO converter to set
      */
     @Autowired
-    public void setCustomerToCustomerDto(CustomerToCustomerDto customerToCustomerDto) {
-        this.customerToCustomerDto = customerToCustomerDto;
+    public void setUserToUserDto(UserToUserDto userToUserDto) {
+        this.userToUserDto = userToUserDto;
     }
 
     /**
@@ -71,7 +71,7 @@ public class RestUserController {
     public ResponseEntity<List<UserDto>> listCustomers() {
 
         List<UserDto> userDtos = userService.list().stream()
-                .map(customer -> customerToCustomerDto.convert(customer))
+                .map(customer -> userToUserDto.convert(customer))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
@@ -92,7 +92,7 @@ public class RestUserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(customerToCustomerDto.convert(user), HttpStatus.OK);
+        return new ResponseEntity<>(userToUserDto.convert(user), HttpStatus.OK);
     }
 
     /**
@@ -110,7 +110,7 @@ public class RestUserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        User savedUser = userService.save(customerDtoToCustomer.convert(userDto));
+        User savedUser = userService.save(userDtoToUser.convert(userDto));
 
         // get help from the framework building the path for the newly created resource
         UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + savedUser.getId()).build();
@@ -147,7 +147,7 @@ public class RestUserController {
 
         userDto.setId(id);
 
-        userService.save(customerDtoToCustomer.convert(userDto));
+        userService.save(userDtoToUser.convert(userDto));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
