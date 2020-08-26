@@ -260,7 +260,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Get Startet Button */
 .get-started-btn {
-  color: #fff;
+  color: #ff5757;
+  background: #fff;
   border-radius: 4px;
   padding: 7px 25px 8px 25px;
   white-space: nowrap;
@@ -1178,7 +1179,7 @@ section {
 
 .contact .php-email-form {
   width: 100%;
-  background: #fff;
+  background: transparent;
 }
 
 .contact .php-email-form .form-group {
@@ -1359,7 +1360,7 @@ section {
 
 .portfolio-details .portfolio-details-carousel .owl-dot {
   display: inline-block;
-  margin: 0 10px 0 0;
+  margin: 0 20px 0 0;
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -1577,4 +1578,16 @@ section {
   text-align: center;
   font-size: 13px;
   color: #fff;
+}
+
+
+/* Icons */
+.icons {
+  width: 30px;
+}
+
+#btnlogin {
+  width: 50%; 
+  background-color: #ff5757;
+  color:#fff;
 }
