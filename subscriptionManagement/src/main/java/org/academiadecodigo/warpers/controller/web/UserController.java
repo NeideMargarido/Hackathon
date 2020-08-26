@@ -3,14 +3,13 @@ package org.academiadecodigo.warpers.controller.web;
 import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.command.AccountTransactionDto;
 import org.academiadecodigo.warpers.command.UserDto;
-import org.academiadecodigo.warpers.command.TransferDto;
 import org.academiadecodigo.warpers.converters.AccountToAccountDto;
 import org.academiadecodigo.warpers.converters.CustomerDtoToCustomer;
 import org.academiadecodigo.warpers.converters.CustomerToCustomerDto;
 import org.academiadecodigo.warpers.exceptions.AssociationExistsException;
 import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
-import org.academiadecodigo.warpers.persistence.model.Customer;
-import org.academiadecodigo.warpers.persistence.model.account.AccountType;
+import org.academiadecodigo.warpers.persistence.model.User;
+import org.academiadecodigo.warpers.persistence.model.subscription.SubscriptionType;
 import org.academiadecodigo.warpers.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 /**
- * Controller responsible for rendering {@link Customer} related views
+ * Controller responsible for rendering {@link User} related views
  */
 @Controller
 @RequestMapping("/customer")
@@ -125,13 +124,13 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public String showCustomer(@PathVariable Integer id, Model model) throws Exception {
 
-        Customer customer = userService.get(id);
+        User user = userService.get(id);
 
-        // command objects for customer show view
-        model.addAttribute("customer", customerToCustomerDto.convert(customer));
-        model.addAttribute("accounts", accountToAccountDto.convert(customer.getAccounts()));
-        model.addAttribute("accountTypes", AccountType.list());
-        model.addAttribute("customerBalance", userService.getBalance(id));
+        // command objects for user show view
+        model.addAttribute("user", customerToCustomerDto.convert(user));
+        model.addAttribute("accounts", accountToAccountDto.convert(user.getSubscriptions()));
+        model.addAttribute("accountTypes", SubscriptionType.list());
+        //model.addAttribute("customerBalance", userService.getBalance(id));
 
         // command objects for modals
         SubscriptionDto subscriptionDto = new SubscriptionDto();
@@ -139,10 +138,8 @@ public class UserController {
         accountTransactionDto.setId(id);
 
         model.addAttribute("account", subscriptionDto);
-        model.addAttribute("accountTransaction", accountTransactionDto);
 
-        model.addAttribute("transfer", new TransferDto());
-        return "customer/show";
+        return "user/show";
     }
 
     /**
@@ -160,10 +157,10 @@ public class UserController {
             return "customer/add-update";
         }
 
-        Customer savedCustomer = userService.save(customerDtoToCustomer.convert(userDto));
+        User savedUser = userService.save(customerDtoToCustomer.convert(userDto));
 
-        redirectAttributes.addFlashAttribute("lastAction", "Saved " + savedCustomer.getFirstName() + " " + savedCustomer.getLastName());
-        return "redirect:/customer/" + savedCustomer.getId();
+        redirectAttributes.addFlashAttribute("lastAction", "Saved " + savedUser.getFirstName() + " " + savedUser.getLastName());
+        return "redirect:/customer/" + savedUser.getId();
     }
 
     /**
@@ -188,9 +185,9 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.GET, path = "{id}/delete")
     public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws AssociationExistsException, CustomerNotFoundException {
-        Customer customer = userService.get(id);
+        User user = userService.get(id);
         userService.delete(id);
-        redirectAttributes.addFlashAttribute("lastAction", "Deleted " + customer.getFirstName() + " " + customer.getLastName());
-        return "redirect:/customer";
+        redirectAttributes.addFlashAttribute("lastAction", "Deleted " + user.getFirstName() + " " + user.getLastName());
+        return "redirect:/user";
     }
 }

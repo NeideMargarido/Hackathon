@@ -6,7 +6,7 @@
     <artifactId>javabank-step13-rest</artifactId>
     <version>0.0.1</version>
     <packaging>war</packaging>
-    <name>Java Bank Webapp</name>
+    <name>Warpers</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -171,6 +171,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
                     <source>1.8</source>
                     <target>10</target>
                 </configuration>

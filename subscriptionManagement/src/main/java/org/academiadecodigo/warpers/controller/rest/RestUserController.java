@@ -5,7 +5,7 @@ import org.academiadecodigo.warpers.converters.CustomerDtoToCustomer;
 import org.academiadecodigo.warpers.converters.CustomerToCustomerDto;
 import org.academiadecodigo.warpers.exceptions.AssociationExistsException;
 import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
-import org.academiadecodigo.warpers.persistence.model.Customer;
+import org.academiadecodigo.warpers.persistence.model.User;
 import org.academiadecodigo.warpers.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * REST controller responsible for {@link Customer} related CRUD operations
+ * REST controller responsible for {@link User} related CRUD operations
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -86,13 +86,13 @@ public class RestUserController {
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public ResponseEntity<UserDto> showCustomer(@PathVariable Integer id) {
 
-        Customer customer = userService.get(id);
+        User user = userService.get(id);
 
-        if (customer == null) {
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(customerToCustomerDto.convert(customer), HttpStatus.OK);
+        return new ResponseEntity<>(customerToCustomerDto.convert(user), HttpStatus.OK);
     }
 
     /**
@@ -110,10 +110,10 @@ public class RestUserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Customer savedCustomer = userService.save(customerDtoToCustomer.convert(userDto));
+        User savedUser = userService.save(customerDtoToCustomer.convert(userDto));
 
         // get help from the framework building the path for the newly created resource
-        UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + savedCustomer.getId()).build();
+        UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + savedUser.getId()).build();
 
         // set headers with the created path
         HttpHeaders headers = new HttpHeaders();

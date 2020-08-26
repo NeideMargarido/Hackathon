@@ -1,17 +1,17 @@
 package org.academiadecodigo.warpers.converters;
 
 import org.academiadecodigo.warpers.command.UserDto;
-import org.academiadecodigo.warpers.persistence.model.Customer;
+import org.academiadecodigo.warpers.persistence.model.User;
 import org.academiadecodigo.warpers.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
- * A {@link Converter} implementation, responsible for {@link UserDto} to {@link Customer} type conversion
+ * A {@link Converter} implementation, responsible for {@link UserDto} to {@link User} type conversion
  */
 @Component
-public class CustomerDtoToCustomer implements Converter<UserDto, Customer> {
+public class CustomerDtoToCustomer implements Converter<UserDto, User> {
 
     private UserService userService;
 
@@ -32,15 +32,15 @@ public class CustomerDtoToCustomer implements Converter<UserDto, Customer> {
      * @return the customer
      */
     @Override
-    public Customer convert(UserDto userDto) {
+    public User convert(UserDto userDto) {
 
-        Customer customer = (userDto.getId() != null ? userService.get(userDto.getId()) : new Customer());
+        User user = (userDto.getId() != null ? userService.get(userDto.getId()) : new User());
 
-        customer.setFirstName(userDto.getFirstName());
-        customer.setLastName(userDto.getLastName());
-        customer.setEmail(userDto.getEmail());
-        customer.setPhone(userDto.getPhone());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setPhone(userDto.getPhone());
 
-        return customer;
+        return user;
     }
 }

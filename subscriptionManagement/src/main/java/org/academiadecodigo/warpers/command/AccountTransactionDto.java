@@ -1,6 +1,6 @@
 package org.academiadecodigo.warpers.command;
 
-import org.academiadecodigo.warpers.persistence.model.account.Account;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 import static org.academiadecodigo.warpers.command.SubscriptionDto.moneyRegex;
 
 /**
- * The {@link Account} transactions data transfer object
+ * The {@link Subscription} transactions data transfer object
  */
 public class AccountTransactionDto {
 

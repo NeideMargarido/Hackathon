@@ -3,7 +3,7 @@ package org.academiadecodigo.warpers.services;
 import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
 import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
-import org.academiadecodigo.warpers.persistence.model.account.Account;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 
 /**
  * Common interface for account services, provides methods to manage accounts and perform account transactions
@@ -16,10 +16,10 @@ public interface SubscriptionService {
      * @param id the account id
      * @return the account
      */
-    Account get(Integer id);
+    Subscription get(Integer id);
 
     /**
-     * Performs an {@link Account} deposit
+     * Performs an {@link Subscription} deposit
      *
      * @param id         the account id
      * @param customerId the customer id
@@ -32,7 +32,7 @@ public interface SubscriptionService {
             throws AccountNotFoundException, CustomerNotFoundException, TransactionInvalidException;
 
     /**
-     * Perform an {@link Account} withdrawal
+     * Perform an {@link Subscription} withdrawal
      *
      * @param id         the account id
      * @param customerId the customer id

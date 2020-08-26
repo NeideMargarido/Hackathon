@@ -5,13 +5,10 @@ import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
 import org.academiadecodigo.warpers.persistence.dao.SubscriptionDao;
 import org.academiadecodigo.warpers.persistence.dao.UserDao;
-import org.academiadecodigo.warpers.persistence.model.Customer;
-import org.academiadecodigo.warpers.persistence.model.account.Account;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * An {@link SubscriptionService} implementation
@@ -46,7 +43,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @see SubscriptionService#get(Integer)
      */
     @Override
-    public Account get(Integer id) {
+    public Subscription get(Integer id) {
         return subscriptionDao.findById(id);
     }
 
@@ -58,10 +55,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public void deposit(Integer id, Integer customerId, double amount)
             throws AccountNotFoundException, CustomerNotFoundException, TransactionInvalidException {
 
-        Customer customer = Optional.ofNullable(userDao.findById(customerId))
+        /*Customer customer = Optional.ofNullable(userDao.findById(customerId))
                 .orElseThrow(CustomerNotFoundException::new);
 
-        Account account = Optional.ofNullable(subscriptionDao.findById(id))
+        /*Account account = Optional.ofNullable(subscriptionDao.findById(id))
                 .orElseThrow(AccountNotFoundException::new);
 
         if (!account.getCustomer().getId().equals(customerId)) {
@@ -78,7 +75,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             }
         }
 
-        userDao.saveOrUpdate(customer);
+        userDao.saveOrUpdate(customer);*/
     }
 
     /**
@@ -89,7 +86,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public void withdraw(Integer id, Integer customerId, double amount)
             throws AccountNotFoundException, CustomerNotFoundException, TransactionInvalidException {
 
-        Customer customer = Optional.ofNullable(userDao.findById(customerId))
+        /*Customer customer = Optional.ofNullable(userDao.findById(customerId))
                 .orElseThrow(CustomerNotFoundException::new);
 
         Account account = Optional.ofNullable(subscriptionDao.findById(id))
@@ -116,6 +113,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             }
         }
 
-        userDao.saveOrUpdate(customer);
+        userDao.saveOrUpdate(customer);*/
     }
 }

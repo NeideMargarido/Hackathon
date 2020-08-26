@@ -2,15 +2,12 @@ package org.academiadecodigo.warpers.controller.web;
 
 import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.command.AccountTransactionDto;
-import org.academiadecodigo.warpers.command.TransferDto;
 import org.academiadecodigo.warpers.converters.AccountDtoToAccount;
 import org.academiadecodigo.warpers.converters.CustomerToCustomerDto;
-import org.academiadecodigo.warpers.converters.TransferDtoToTransfer;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
-import org.academiadecodigo.warpers.persistence.model.account.Account;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.academiadecodigo.warpers.services.SubscriptionService;
 import org.academiadecodigo.warpers.services.UserService;
-import org.academiadecodigo.warpers.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,18 +20,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 /**
- * Controller responsible for rendering {@link Account} related views
+ * Controller responsible for rendering {@link Subscription} related views
  */
 @Controller
 @RequestMapping("/customer")
 public class SubscriptionController {
 
     private UserService userService;
-    private TransferService transferService;
     private SubscriptionService subscriptionService;
 
     private AccountDtoToAccount accountDtoToAccount;
-    private TransferDtoToTransfer transferDtoToTransfer;
     private CustomerToCustomerDto customerToCustomerDto;
 
     /**
@@ -47,15 +42,6 @@ public class SubscriptionController {
         this.userService = userService;
     }
 
-    /**
-     * Sets the transfer service
-     *
-     * @param transferService the transfer service to set
-     */
-    @Autowired
-    public void setTransferService(TransferService transferService) {
-        this.transferService = transferService;
-    }
 
     /**
      * Sets the account service
@@ -77,15 +63,6 @@ public class SubscriptionController {
         this.accountDtoToAccount = accountDtoToAccount;
     }
 
-    /**
-     * Sets the converter for converting between transfer DTO objects and transfer domain objects
-     *
-     * @param transferDtoToTransfer the transfer form to transfer converter to set
-     */
-    @Autowired
-    public void setTransferDtoToTransfer(TransferDtoToTransfer transferDtoToTransfer) {
-        this.transferDtoToTransfer = transferDtoToTransfer;
-    }
 
     /**
      * Sets the converter for converting between customer model objects and customer DTO
@@ -115,9 +92,9 @@ public class SubscriptionController {
         }
 
         try {
-            Account account = accountDtoToAccount.convert(subscriptionDto);
-            userService.addAccount(cid, account);
-            redirectAttributes.addFlashAttribute("lastAction", "Created " + account.getAccountType() + " account.");
+            Subscription subscription = accountDtoToAccount.convert(subscriptionDto);
+            userService.addAccount(cid, subscription);
+            redirectAttributes.addFlashAttribute("lastAction", "Created " + subscription.getAccountType() + " subscription.");
             return "redirect:/customer/" + cid;
 
         } catch (TransactionInvalidException ex) {
@@ -202,32 +179,4 @@ public class SubscriptionController {
         }
     }
 
-    /**
-     * Transfer an amount between accounts
-     *
-     * @param cid                the customer id
-     * @param transferDto        the transfer data transfer object
-     * @param bindingResult      the binding result object
-     * @param redirectAttributes the redirect attributes object
-     * @return the view to render
-     * @throws Exception
-     */
-    @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/transfer"})
-    public String transferToAccount(@PathVariable Integer cid, @Valid @ModelAttribute("transfer") TransferDto transferDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("failure", "Transfer failed missing information");
-            return "redirect:/customer/" + cid;
-        }
-
-        try {
-            transferService.transfer(transferDtoToTransfer.convert(transferDto), cid);
-            redirectAttributes.addFlashAttribute("lastAction", "Account # " + transferDto.getSrcId() + " transfered " + transferDto.getAmount() + " to account #" + transferDto.getDstId());
-            return "redirect:/customer/" + cid;
-
-        } catch (TransactionInvalidException ex) {
-            redirectAttributes.addFlashAttribute("failure", "Unable to perform transaction: value above the allowed amount");
-            return "redirect:/customer/" + cid;
-        }
-    }
 }

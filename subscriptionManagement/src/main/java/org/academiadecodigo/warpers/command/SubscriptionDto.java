@@ -1,15 +1,15 @@
 package org.academiadecodigo.warpers.command;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.academiadecodigo.warpers.persistence.model.account.Account;
-import org.academiadecodigo.warpers.persistence.model.account.AccountType;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
+import org.academiadecodigo.warpers.persistence.model.subscription.SubscriptionType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
- * The {@link Account} data transfer object
+ * The {@link Subscription} data transfer object
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SubscriptionDto {
@@ -19,7 +19,7 @@ public class SubscriptionDto {
     private Integer id;
 
     @NotNull(message = "AccountType is mandatory")
-    private AccountType type;
+    private SubscriptionType type;
 
     @Pattern(regexp = moneyRegex, message = "Amount is not valid")
     @NotNull(message = "Initial amount is mandatory")
@@ -67,7 +67,7 @@ public class SubscriptionDto {
      *
      * @return the account type
      */
-    public AccountType getType() {
+    public SubscriptionType getType() {
         return type;
     }
 
@@ -76,7 +76,7 @@ public class SubscriptionDto {
      *
      * @param type the account type to set
      */
-    public void setType(AccountType type) {
+    public void setType(SubscriptionType type) {
         this.type = type;
     }
 

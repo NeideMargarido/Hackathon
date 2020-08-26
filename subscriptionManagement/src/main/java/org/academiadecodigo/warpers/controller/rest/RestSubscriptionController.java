@@ -6,8 +6,8 @@ import org.academiadecodigo.warpers.converters.AccountToAccountDto;
 import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
 import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
-import org.academiadecodigo.warpers.persistence.model.Customer;
-import org.academiadecodigo.warpers.persistence.model.account.Account;
+import org.academiadecodigo.warpers.persistence.model.User;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.academiadecodigo.warpers.services.SubscriptionService;
 import org.academiadecodigo.warpers.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * REST controller responsible for {@link Account} related CRUD operations
+ * REST controller responsible for {@link Subscription} related CRUD operations
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -85,13 +85,13 @@ public class RestSubscriptionController {
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account")
     public ResponseEntity<List<SubscriptionDto>> listCustomerAccounts(@PathVariable Integer cid) {
 
-        Customer customer = userService.get(cid);
+        User user = userService.get(cid);
 
-        if (customer == null) {
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<SubscriptionDto> subscriptionDtos = customer.getAccounts().stream().map(account -> accountToAccountDto.convert(account)).collect(Collectors.toList());
+        List<SubscriptionDto> subscriptionDtos = user.getSubscriptions().stream().map(account -> accountToAccountDto.convert(account)).collect(Collectors.toList());
 
         return new ResponseEntity<>(subscriptionDtos, HttpStatus.OK);
     }
@@ -106,17 +106,17 @@ public class RestSubscriptionController {
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account/{aid}")
     public ResponseEntity<SubscriptionDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
-        Account account = subscriptionService.get(aid);
+        Subscription subscription = subscriptionService.get(aid);
 
-        if (account == null || account.getCustomer() == null) {
+        if (subscription == null || subscription.getUser() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        if (!account.getCustomer().getId().equals(cid)) {
+        if (!subscription.getUser().getId().equals(cid)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(accountToAccountDto.convert(account), HttpStatus.OK);
+        return new ResponseEntity<>(accountToAccountDto.convert(subscription), HttpStatus.OK);
     }
 
     /**
@@ -137,9 +137,9 @@ public class RestSubscriptionController {
 
         try {
 
-            Account account = userService.addAccount(cid, accountDtoToAccount.convert(subscriptionDto));
+            Subscription subscription = userService.addAccount(cid, accountDtoToAccount.convert(subscriptionDto));
 
-            UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + cid + "/account/" + account.getId()).build();
+            UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + cid + "/subscription/" + subscription.getId()).build();
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(uriComponents.toUri());
 

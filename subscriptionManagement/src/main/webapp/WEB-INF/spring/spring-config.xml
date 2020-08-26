@@ -7,7 +7,7 @@
     <bean class="org.academiadecodigo.warpers.SpringBootstrap"/>
 
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-        <property name="locations" value="classpath:javabank.properties"/>
+        <property name="locations" value="classpath:users.properties"/>
     </bean>
 
     <!-- Use spring servlet for all requests, including static resources -->

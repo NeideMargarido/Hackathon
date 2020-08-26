@@ -1,15 +1,15 @@
 package org.academiadecodigo.warpers.converters;
 
 import org.academiadecodigo.warpers.command.UserDto;
-import org.academiadecodigo.warpers.persistence.model.Customer;
+import org.academiadecodigo.warpers.persistence.model.User;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
- * A {@link Converter} implementation, responsible for {@link Customer} to {@link UserDto} type conversion
+ * A {@link Converter} implementation, responsible for {@link User} to {@link UserDto} type conversion
  */
 @Component
-public class CustomerToCustomerDto extends AbstractConverter<Customer, UserDto> {
+public class CustomerToCustomerDto extends AbstractConverter<User, UserDto> {
 
     /**
      * Converts the customer model object into a customer DTO
@@ -18,7 +18,7 @@ public class CustomerToCustomerDto extends AbstractConverter<Customer, UserDto> 
      * @return the customer DTO
      */
     @Override
-    public UserDto convert(Customer customer) {
+    public UserDto convert(User customer) {
 
         UserDto userDto = new UserDto();
         userDto.setId(customer.getId());

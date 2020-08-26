@@ -1,28 +1,28 @@
 package org.academiadecodigo.warpers.converters;
 
 import org.academiadecodigo.warpers.command.SubscriptionDto;
-import org.academiadecodigo.warpers.factories.AccountFactory;
-import org.academiadecodigo.warpers.persistence.model.account.Account;
+import org.academiadecodigo.warpers.factories.SubscriptionFactory;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
- * A {@link Converter} implementation, responsible for {@link SubscriptionDto} to {@link Account} type conversion
+ * A {@link Converter} implementation, responsible for {@link SubscriptionDto} to {@link Subscription} type conversion
  */
 @Component
-public class AccountDtoToAccount implements Converter<SubscriptionDto, Account> {
+public class AccountDtoToAccount implements Converter<SubscriptionDto, Subscription> {
 
-    private AccountFactory accountFactory;
+    private SubscriptionFactory subscriptionFactory;
 
     /**
      * Sets the account factory
      *
-     * @param accountFactory the account factory to set
+     * @param subscriptionFactory the account factory to set
      */
     @Autowired
-    public void setAccountFactory(AccountFactory accountFactory) {
-        this.accountFactory = accountFactory;
+    public void setSubscriptionFactory(SubscriptionFactory subscriptionFactory) {
+        this.subscriptionFactory = subscriptionFactory;
     }
 
     /**
@@ -32,14 +32,14 @@ public class AccountDtoToAccount implements Converter<SubscriptionDto, Account> 
      * @return the account
      */
     @Override
-    public Account convert(SubscriptionDto subscriptionDto) {
+    public Subscription convert(SubscriptionDto subscriptionDto) {
 
-        Account account = null;
+        Subscription subscription = null;
 
-        account = accountFactory.createAccount(subscriptionDto.getType());
-        account.credit(subscriptionDto.getBalance() != null ? Double.parseDouble(subscriptionDto.getBalance()) : 0);
+        subscription = subscriptionFactory.createAccount(subscriptionDto.getType());
+        subscription.credit(subscriptionDto.getBalance() != null ? Double.parseDouble(subscriptionDto.getBalance()) : 0);
 
-        return account;
+        return subscription;
     }
 }
 

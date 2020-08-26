@@ -1,28 +1,28 @@
-package org.academiadecodigo.warpers.persistence.model.account;
+package org.academiadecodigo.warpers.persistence.model.subscription;
 
 import javax.persistence.Entity;
 
 /**
  * A savings account model entity which requires a minimum balance
  * and can only be used for transferring money, not for debiting
- * @see Account
- * @see AccountType#SAVINGS
+ * @see Subscription
+ * @see SubscriptionType#NETFLIX
  */
 @Entity
-public class SavingsAccount extends Account {
+public class NetflixSub extends Subscription {
 
     public static final double MIN_BALANCE = 100;
 
     /**
-     * @see Account#getAccountType()
+     * @see Subscription#getAccountType()
      */
     @Override
-    public AccountType getAccountType() {
-        return AccountType.SAVINGS;
+    public SubscriptionType getAccountType() {
+        return SubscriptionType.NETFLIX;
     }
 
     /**
-     * @see Account#canDebit(double)
+     * @see Subscription#canDebit(double)
      */
     @Override
     public boolean canDebit(double amount) {
@@ -30,7 +30,7 @@ public class SavingsAccount extends Account {
     }
 
     /**
-     * @see Account#canWithdraw()
+     * @see Subscription#canWithdraw()
      */
     @Override
     public boolean canWithdraw() {

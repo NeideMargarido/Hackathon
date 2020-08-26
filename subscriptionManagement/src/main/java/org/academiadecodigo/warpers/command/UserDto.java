@@ -1,11 +1,11 @@
 package org.academiadecodigo.warpers.command;
 
-import org.academiadecodigo.warpers.persistence.model.Customer;
+import org.academiadecodigo.warpers.persistence.model.User;
 
 import javax.validation.constraints.*;
 
 /**
- * The {@link Customer} data transfer object
+ * The {@link User} data transfer object
  */
 public class UserDto {
 
