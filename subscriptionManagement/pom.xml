@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    <groupId>subscriptionManagement</groupId>
-    <artifactId>warpers</artifactId>
+    <groupId>org.academiadecodigo.javabank</groupId>
+    <artifactId>javabank-step13-rest</artifactId>
     <version>0.0.1</version>
     <packaging>war</packaging>
-    <name>Warpers</name>
+    <name>Java Bank Webapp</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -164,7 +163,7 @@
 
     <build>
 
-        <finalName>Java Bank</finalName>
+        <finalName>Warpers</finalName>
 
         <plugins>
             <plugin>
@@ -184,7 +183,7 @@
                 <configuration>
                     <url>http://localhost:8080/manager/text</url>
                     <server>tomcat</server>
-                    <path>/hackaton</path>
+                    <path>/warpers</path>
                 </configuration>
             </plugin>
 
