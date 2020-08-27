@@ -14,7 +14,7 @@ public class SubscriptionToSubscriptionDto extends AbstractConverter<Subscriptio
 
         SubscriptionDto subscriptionDto = new SubscriptionDto();
         subscriptionDto.setId(subscription.getId());
-        subscriptionDto.setType(subscription.getSubscriptionType());
+        subscriptionDto.setSubscriptionType(subscription.getSubscriptionType());
         subscriptionDto.setMaxMembers(subscription.getMaxMembers());
 
         return subscriptionDto;

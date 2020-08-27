@@ -8,9 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "subscription_type")
+@Table(name = "subscription_type")
 public abstract class Subscription extends AbstractModel {
-
 
     @ManyToOne
     private User user;
