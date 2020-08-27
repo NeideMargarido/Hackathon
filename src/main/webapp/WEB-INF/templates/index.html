@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -17,13 +17,18 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-  <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" modelType="text/css"/>
+  <script modelType="application/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script modelType="application/javascript" async src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href="assets/css/icofont.css" rel="stylesheet">
+  <link href="assets/css/boxicons.css" rel="stylesheet">
   <link href="assets/css/owl.carousel.css" rel="stylesheet">
+  <link href="assets/css/venobox.css" rel="stylesheet">
+  <link href="assets/css/remixicon.css" rel="stylesheet">
+  <link href="assets/css/aos.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link type="text/css" href="assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -32,7 +37,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
-      <a href="index.html" ><img src="assets/img/Warpers.png" alt="" class="img-fluid"></a>
+      <a href="index.html" ><img src="assets/img/Warpers.png" alt="home image" class="img-fluid"></a>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
@@ -42,8 +47,8 @@
         </ul>
       </nav><!-- .nav-menu -->
 
-      <a href="signup.html#login" class="get-started-btn scrollto" style="margin-right:-200px;">Login</a>
-      <a href="signup.html#register" class="get-started-btn scrollto">Register</a>
+      <a href="signup.html" class="get-started-btn scrollto" style="margin-right:-200px;">Login</a>
+      <a href="signup.html" class="get-started-btn scrollto">Register</a>
 
     </div>
   </header><!-- End Header -->
@@ -119,7 +124,15 @@
             <div class="icon-box">
               <div class="icon"><img src="assets/img/netflix.svg" class="icons" alt="Logo" /></div>
               <h4><a href="">Netflix</a></h4>
-              <p>Subscription Netflix premmium</p>
+              <p>Subscription Netflix </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><img src="assets/img/netflix.svg" class="icons" alt="Logo" /></div>
+              <h4><a href="">Netflix</a></h4>
+              <p>Subscription Netflix premium</p>
             </div>
           </div>
 
@@ -157,7 +170,7 @@
       <div class="container" data-aos="zoom-in">
 
         <div class="owl-carousel clients-carousel">
-          <img src="assets/img/amazontv.png" alt="amazon"/>
+          <img src="assets/img/amazontv.png" id="img1"/>
           <img src="assets/img/applemusic.jpeg" alt="apple music icon">
           <img src="assets/img/appletv.jpg" alt="apple tv icon">
           <img src="assets/img/disney.png" alt="disney tv icon">
@@ -165,6 +178,7 @@
           <img src="assets/img/netflix.png" alt="netflix tv icon">
           <img src="assets/img/spotify.png" alt="spotify music icon">
         </div>
+
       </div>
     </section><!-- End Clients Section -->
 
@@ -181,10 +195,12 @@
 
   <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <!-- JS Files -->
   <script src="assets/js/owl.carousel.js"></script>
+  <script src="assets/js/venobox.js"></script>
+  <script src="assets/js/jquery.waypoints.js"></script>
+  <script src="assets/js/counterup.js"></script>
+  <script src="assets/js/aos.js"></script>
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
