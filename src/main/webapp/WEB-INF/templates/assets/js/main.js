@@ -224,9 +224,10 @@
     aos_init();
   });
 
-  // Preloader
-  $(window).on('load', function() {
-    $("#img1").attr("src", "../img/aaaa.png");
-  });
+
+
+  
 
 })(jQuery);
+
+$("#img1").attr("src", "../img/aaaa.png");
