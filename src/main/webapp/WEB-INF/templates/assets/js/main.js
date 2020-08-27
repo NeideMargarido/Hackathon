@@ -226,7 +226,7 @@
 
   // Preloader
   $(window).on('load', function() {
-    $("#img1").attr("src", "../img/amazontv.png");
+    $("#img1").attr("src", "../img/aaaa.png");
   });
 
 })(jQuery);
