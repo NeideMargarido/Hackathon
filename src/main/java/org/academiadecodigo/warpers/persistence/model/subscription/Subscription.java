@@ -12,21 +12,21 @@ import javax.persistence.*;
 public abstract class Subscription extends AbstractModel {
 
 
-    //@ManyToOne
-    //private User user;
+    @ManyToOne
+    private User user;
 
     private SubscriptionType subscriptionType;
 
     private String maxMembers;
 
-    /*public User getUser() {
+    public User getUser() {
         return user;
-    }*/
+    }
 
 
-    /*public void setUser(User customer) {
+    public void setUser(User customer) {
         this.user = customer;
-    }*/
+    }
 
     public SubscriptionType getSubscriptionType() {
         return subscriptionType;
@@ -48,7 +48,7 @@ public abstract class Subscription extends AbstractModel {
     public String toString() {
         return "Subscription{" +
                 "subscription type=" + getSubscriptionType() +
-                //", customerId=" + (user != null ? user.getId() : null) +
+                ", customerId=" + (user != null ? user.getId() : null) +
                 "} " + super.toString();
     }
 }

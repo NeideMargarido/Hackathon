@@ -20,9 +20,9 @@ public interface UserService {
 
     List<User> list();
 
-    /*Subscription addSubscription(Integer id, Subscription subscription)
+    Subscription addSubscription(Integer id, Subscription subscription)
             throws UserNotFoundException, TransactionInvalidException;
 
     void closeSubscription(Integer id, Integer subscriptionId)
-            throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException;*/
+            throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException;
 }

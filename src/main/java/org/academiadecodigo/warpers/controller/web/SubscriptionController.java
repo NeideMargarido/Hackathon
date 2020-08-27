@@ -54,7 +54,7 @@ public class SubscriptionController {
     }
 
 
-    /*@RequestMapping(method = RequestMethod.POST, path = {"/{cid}/subscription"})
+    @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/subscription"})
     public String addSubscription(@PathVariable Integer cid, @Valid @ModelAttribute("account") SubscriptionDto subscriptionDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
 
         if (bindingResult.hasErrors()) {
@@ -71,9 +71,9 @@ public class SubscriptionController {
             redirectAttributes.addFlashAttribute("failure", "Something unexpected happened.");
             return "redirect:/user/" + cid;
         }
-    }*/
+    }
 
-    /*@RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
     public String closeSubscription(@PathVariable Integer cid, @PathVariable Integer aid, RedirectAttributes redirectAttributes) throws Exception {
 
         try {
@@ -85,6 +85,6 @@ public class SubscriptionController {
             redirectAttributes.addFlashAttribute("failure", "Unable to perform closing operation. Subscription # " + aid);
             return "redirect:/user/" + cid;
         }
-    }*/
+    }
 
 }
