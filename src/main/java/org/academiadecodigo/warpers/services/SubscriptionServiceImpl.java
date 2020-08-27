@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
@@ -30,6 +32,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Subscription get(Integer id) {
         return subscriptionDao.findById(id);
+    }
+
+    @Override
+    public List<Subscription> list() {
+        return subscriptionDao.findAll();
     }
 
 

@@ -1,8 +1,10 @@
 package org.academiadecodigo.warpers.controller.rest;
 
 import org.academiadecodigo.warpers.command.SubscriptionDto;
+import org.academiadecodigo.warpers.command.UserDto;
 import org.academiadecodigo.warpers.converters.SubscriptionDtoToSubscription;
 import org.academiadecodigo.warpers.converters.SubscriptionToSubscriptionDto;
+import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
 import org.academiadecodigo.warpers.exceptions.UserNotFoundException;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
@@ -32,6 +34,7 @@ public class RestSubscriptionController {
     private SubscriptionService subscriptionService;
     private SubscriptionToSubscriptionDto subscriptionToSubscriptionDto;
     private SubscriptionDtoToSubscription subscriptionDtoToSubscription;
+    private UserToUserDto userToUserDto;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -128,6 +131,16 @@ public class RestSubscriptionController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = {"/subscription"})
+    public ResponseEntity<List<SubscriptionDto>> listSubscription() {
+
+        List<SubscriptionDto> subscriptionDto = subscriptionService.list().stream()
+                .map(subscription -> subscriptionToSubscriptionDto.convert(subscription))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(subscriptionDto, HttpStatus.OK);
     }
 }
 
