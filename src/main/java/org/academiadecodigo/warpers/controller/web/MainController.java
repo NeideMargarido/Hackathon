@@ -20,14 +20,14 @@ public class MainController {
         return "redirect:index";
     }
 
+    @RequestMapping(path = "/signup")
+    public String signUp() {
+        return "signup";
+    }
+
     @RequestMapping(path = "/assets/css/{item}.{extension}")
     public String serveResourcesCss(@PathVariable String item, @PathVariable String extension) {
         return "assets/css/" + item + "." + extension;
-    }
-
-    @RequestMapping(path = "/assets/img/{item}.{extension}")
-    public String serveImages(@PathVariable String item, @PathVariable String extension) {
-        return "assets/img/" + item + "." + extension;
     }
 
     @RequestMapping(path = "/assets/js/{item}.{extension}")
