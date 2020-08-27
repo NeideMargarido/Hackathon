@@ -20,9 +20,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * REST controller responsible for {@link User} related CRUD operations
- */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/user")
@@ -32,41 +29,21 @@ public class RestUserController {
     private UserDtoToUser userDtoToUser;
     private UserToUserDto userToUserDto;
 
-    /**
-     * Sets the customer service
-     *
-     * @param userService the customer service to set
-     */
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    /**
-     * Sets the converter for converting between customer DTO and customer model objects
-     *
-     * @param userDtoToUser the customer DTO to customer converter to set
-     */
     @Autowired
     public void setUserDtoToUser(UserDtoToUser userDtoToUser) {
         this.userDtoToUser = userDtoToUser;
     }
 
-    /**
-     * Sets the converter for converting between customer model objects and customer DTO
-     *
-     * @param userToUserDto the customer to customer DTO converter to set
-     */
     @Autowired
     public void setUserToUserDto(UserToUserDto userToUserDto) {
         this.userToUserDto = userToUserDto;
     }
 
-    /**
-     * Retrieves a representation of the list of customers
-     *
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
     public ResponseEntity<List<UserDto>> listCustomers() {
 
@@ -77,12 +54,6 @@ public class RestUserController {
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
-    /**
-     * Retrieves a representation of the given customer
-     *
-     * @param id the customer id
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public ResponseEntity<UserDto> showCustomer(@PathVariable Integer id) {
 
@@ -95,14 +66,6 @@ public class RestUserController {
         return new ResponseEntity<>(userToUserDto.convert(user), HttpStatus.OK);
     }
 
-    /**
-     * Adds a customer
-     *
-     * @param userDto          the customer DTO
-     * @param bindingResult        the binding result object
-     * @param uriComponentsBuilder the uri components builder
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.POST, path = {"/", ""})
     public ResponseEntity<?> addCustomer(@Valid @RequestBody UserDto userDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
@@ -112,24 +75,14 @@ public class RestUserController {
 
         User savedUser = userService.save(userDtoToUser.convert(userDto));
 
-        // get help from the framework building the path for the newly created resource
         UriComponents uriComponents = uriComponentsBuilder.path("/api/user/" + savedUser.getId()).build();
 
-        // set headers with the created path
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
 
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    /**
-     * Edits a customer
-     *
-     * @param userDto   the customer DTO
-     * @param bindingResult the binding result
-     * @param id            the customer id
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
     public ResponseEntity<UserDto> editCustomer(@Valid @RequestBody UserDto userDto, BindingResult bindingResult, @PathVariable Integer id) {
 
@@ -151,12 +104,6 @@ public class RestUserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * Deletes a customer
-     *
-     * @param id the customer id
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     public ResponseEntity<UserDto> deleteCustomer(@PathVariable Integer id) {
 

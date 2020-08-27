@@ -20,18 +20,9 @@ public interface UserService {
 
     List<User> list();
 
-    Subscription addAccount(Integer id, Subscription subscription)
+    Subscription addSubscription(Integer id, Subscription subscription)
             throws UserNotFoundException, TransactionInvalidException;
 
-    /**
-     * Closes an account from the user
-     *
-     * @param id        the user id
-     * @param accountId the account id
-     * @throws UserNotFoundException
-     * @throws AccountNotFoundException
-     * @throws TransactionInvalidException
-     */
-    void closeAccount(Integer id, Integer accountId)
+    void closeSubscription(Integer id, Integer subscriptionId)
             throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException;
 }

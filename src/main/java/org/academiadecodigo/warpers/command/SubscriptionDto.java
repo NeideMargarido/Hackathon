@@ -14,7 +14,6 @@ import javax.validation.constraints.Pattern;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SubscriptionDto {
 
-    //public static final String moneyRegex = "^\\$?0*[1-9]\\d*(\\.\\d{0,2})?|\\d*(\\.0[1-9])|\\d*(\\.[1-9]\\d?)?$?";
 
     private Integer id;
 
@@ -26,20 +25,11 @@ public class SubscriptionDto {
     @NotBlank(message = "Initial amount is mandatory")
     private String balance;
 
-    /**
-     * Gets the id of the account DTO
-     *
-     * @return the account DTO id
-     */
     public Integer getId() {
         return id;
     }
 
-    /**
-     * Sets the id of the account DTO
-     *
-     * @param id the account DTO id
-     */
+
     public void setId(Integer id) {
         this.id = id;
     }

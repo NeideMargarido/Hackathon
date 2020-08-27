@@ -54,8 +54,8 @@ public class SubscriptionController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/account"})
-    public String addAccount(@PathVariable Integer cid, @Valid @ModelAttribute("account") SubscriptionDto subscriptionDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
+    @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/subscription"})
+    public String addSubscription(@PathVariable Integer cid, @Valid @ModelAttribute("account") SubscriptionDto subscriptionDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
 
         if (bindingResult.hasErrors()) {
             return "redirect:/user/" + cid;
@@ -63,35 +63,26 @@ public class SubscriptionController {
 
         try {
             Subscription subscription = subscriptionDtoToSubscription.convert(subscriptionDto);
-            userService.addAccount(cid, subscription);
-            redirectAttributes.addFlashAttribute("lastAction", "Created " + subscription.getAccountType() + " subscription.");
+            userService.addSubscription(cid, subscription);
+            redirectAttributes.addFlashAttribute("lastAction", "Started " + subscription.getAccountType() + " subscription.");
             return "redirect:/user/" + cid;
 
         } catch (TransactionInvalidException ex) {
-            redirectAttributes.addFlashAttribute("failure", "Savings account must have a minimum value of 100 at all times");
+            redirectAttributes.addFlashAttribute("failure", "Something unexpected happened.");
             return "redirect:/user/" + cid;
         }
     }
 
-    /**
-     * Closes an account
-     *
-     * @param cid                the user id
-     * @param aid                the account id
-     * @param redirectAttributes the redirect attributes object
-     * @return the view to render
-     * @throws Exception
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account/{aid}/close")
-    public String closeAccount(@PathVariable Integer cid, @PathVariable Integer aid, RedirectAttributes redirectAttributes) throws Exception {
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
+    public String closeSubscription(@PathVariable Integer cid, @PathVariable Integer aid, RedirectAttributes redirectAttributes) throws Exception {
 
         try {
-            userService.closeAccount(cid, aid);
-            redirectAttributes.addFlashAttribute("lastAction", "Closed account " + aid);
+            userService.closeSubscription(cid, aid);
+            redirectAttributes.addFlashAttribute("lastAction", "Canceled subscription " + aid);
             return "redirect:/user/" + cid;
 
         } catch (TransactionInvalidException ex) {
-            redirectAttributes.addFlashAttribute("failure", "Unable to perform closing operation. Account # " + aid + " still has funds");
+            redirectAttributes.addFlashAttribute("failure", "Unable to perform closing operation. Subscription # " + aid);
             return "redirect:/user/" + cid;
         }
     }

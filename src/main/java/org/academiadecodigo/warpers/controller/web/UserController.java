@@ -22,9 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-/**
- * Controller responsible for rendering {@link User} related views
- */
+
 @Controller
 @RequestMapping("/")
 public class UserController {
@@ -41,12 +39,10 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @Autowired
     public void setUserToUserDto(UserToUserDto userToUserDto) {
         this.userToUserDto = userToUserDto;
     }
-
 
     @Autowired
     public void setUserDtoToUser(UserDtoToUser userDtoToUser) {
@@ -59,27 +55,24 @@ public class UserController {
         this.subscriptionToSubscriptionDto = subscriptionToSubscriptionDto;
     }
 
-
     @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
     public String listCustomers(Model model) {
         model.addAttribute("customers", userToUserDto.convert(userService.list()));
         return "index";
     }
 
-
     @RequestMapping(method = RequestMethod.GET, path = "/add")
     public String addCustomer(Model model) {
         model.addAttribute("customer", new UserDto());
-        return "customer/add-update";
+        return "user/add-update";
     }
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/edit")
     public String editCustomer(@PathVariable Integer id, Model model) {
         model.addAttribute("customer", userToUserDto.convert(userService.get(id)));
-        return "customer/add-update";
+        return "user/add-update";
     }
-
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public String showCustomer(@PathVariable Integer id, Model model) throws Exception {
@@ -88,8 +81,7 @@ public class UserController {
 
         model.addAttribute("user", userToUserDto.convert(user));
         model.addAttribute("accounts", subscriptionToSubscriptionDto.convert(user.getSubscriptions()));
-        model.addAttribute("accountTypes", SubscriptionType.list());
-        //model.addAttribute("customerBalance", userService.getBalance(id));
+        model.addAttribute("subscriptionTypes", SubscriptionType.list());
 
         SubscriptionDto subscriptionDto = new SubscriptionDto();
 
@@ -103,19 +95,19 @@ public class UserController {
     public String saveCustomer(@Valid @ModelAttribute("customer") UserDto userDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            return "customer/add-update";
+            return "user/add-update";
         }
 
         User savedUser = userService.save(userDtoToUser.convert(userDto));
 
         redirectAttributes.addFlashAttribute("lastAction", "Saved " + savedUser.getFirstName() + " " + savedUser.getLastName());
-        return "redirect:/customer/" + savedUser.getId();
+        return "redirect:/user/" + savedUser.getId();
     }
 
 
     @RequestMapping(method = RequestMethod.POST, path = {"/", ""}, params = "action=cancel")
     public String cancelSaveCustomer() {
-        return "redirect:/customer/";
+        return "redirect:/user/";
     }
 
 

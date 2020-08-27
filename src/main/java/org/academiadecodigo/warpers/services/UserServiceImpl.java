@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public Subscription addAccount(Integer id, Subscription subscription) throws UserNotFoundException, TransactionInvalidException {
+    public Subscription addSubscription(Integer id, Subscription subscription) throws UserNotFoundException, TransactionInvalidException {
 
         User user = Optional.ofNullable(userDao.findById(id))
                 .orElseThrow(UserNotFoundException::new);
@@ -76,27 +76,20 @@ public class UserServiceImpl implements UserService {
         return user.getSubscriptions().get(user.getSubscriptions().size() - 1);
     }
 
-    /**
-     * @see UserService#closeAccount(Integer, Integer)
-     */
+
     @Transactional
     @Override
-    public void closeAccount(Integer id, Integer accountId)
+    public void closeSubscription(Integer id, Integer subscriptionId)
             throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException {
 
         User user = Optional.ofNullable(userDao.findById(id))
                 .orElseThrow(UserNotFoundException::new);
 
-        Subscription subscription = Optional.ofNullable(subscriptionDao.findById(accountId))
+        Subscription subscription = Optional.ofNullable(subscriptionDao.findById(subscriptionId))
                 .orElseThrow(AccountNotFoundException::new);
 
         if (!subscription.getUser().getId().equals(id)) {
             throw new AccountNotFoundException();
-        }
-
-        //different from 0 in case we later decide that negative values are acceptable
-        if (subscription.getBalance() != 0) {
-            throw new TransactionInvalidException();
         }
 
         user.removeAccount(subscription);
