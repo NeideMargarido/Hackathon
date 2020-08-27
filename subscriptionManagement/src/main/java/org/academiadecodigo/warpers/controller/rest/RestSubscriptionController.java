@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("/api/user")
 public class RestSubscriptionController {
 
     private UserService userService;
@@ -82,7 +82,7 @@ public class RestSubscriptionController {
      * @param cid the customer id
      * @return the response entity
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account")
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription")
     public ResponseEntity<List<SubscriptionDto>> listCustomerAccounts(@PathVariable Integer cid) {
 
         User user = userService.get(cid);
@@ -103,7 +103,7 @@ public class RestSubscriptionController {
      * @param aid the account id
      * @return the response entity
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account/{aid}")
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}")
     public ResponseEntity<SubscriptionDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
         Subscription subscription = subscriptionService.get(aid);
@@ -128,7 +128,7 @@ public class RestSubscriptionController {
      * @param uriComponentsBuilder the uri components builder object
      * @return the response entity
      */
-    @RequestMapping(method = RequestMethod.POST, path = "/{cid}/account")
+    @RequestMapping(method = RequestMethod.POST, path = "/{cid}/subscription")
     public ResponseEntity<?> addAccount(@PathVariable Integer cid, @Valid @RequestBody SubscriptionDto subscriptionDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
         if (bindingResult.hasErrors() || subscriptionDto.getId() != null) {
@@ -139,7 +139,7 @@ public class RestSubscriptionController {
 
             Subscription subscription = userService.addAccount(cid, accountDtoToAccount.convert(subscriptionDto));
 
-            UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + cid + "/subscription/" + subscription.getId()).build();
+            UriComponents uriComponents = uriComponentsBuilder.path("/api/user/" + cid + "/subscription/" + subscription.getId()).build();
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(uriComponents.toUri());
 
@@ -161,7 +161,7 @@ public class RestSubscriptionController {
      * @param aid the accound id
      * @return the response entity
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account/{aid}/close")
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
     public ResponseEntity<?> closeAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
         try {
