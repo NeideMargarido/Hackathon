@@ -1,8 +1,8 @@
 package org.academiadecodigo.warpers.controller.rest;
 
 import org.academiadecodigo.warpers.command.SubscriptionDto;
-import org.academiadecodigo.warpers.converters.AccountDtoToAccount;
-import org.academiadecodigo.warpers.converters.AccountToAccountDto;
+import org.academiadecodigo.warpers.converters.SubscriptionDtoToSubscription;
+import org.academiadecodigo.warpers.converters.SubscriptionToSubscriptionDto;
 import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
 import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
@@ -33,8 +33,8 @@ public class RestSubscriptionController {
 
     private UserService userService;
     private SubscriptionService subscriptionService;
-    private AccountToAccountDto accountToAccountDto;
-    private AccountDtoToAccount accountDtoToAccount;
+    private SubscriptionToSubscriptionDto subscriptionToSubscriptionDto;
+    private SubscriptionDtoToSubscription subscriptionDtoToSubscription;
 
     /**
      * Sets the customer service
@@ -59,21 +59,21 @@ public class RestSubscriptionController {
     /**
      * Sets the converter for converting between account model object and account DTO
      *
-     * @param accountToAccountDto the account model object to account DTO converter to set
+     * @param subscriptionToSubscriptionDto the account model object to account DTO converter to set
      */
     @Autowired
-    public void setAccountToAccountDto(AccountToAccountDto accountToAccountDto) {
-        this.accountToAccountDto = accountToAccountDto;
+    public void setSubscriptionToSubscriptionDto(SubscriptionToSubscriptionDto subscriptionToSubscriptionDto) {
+        this.subscriptionToSubscriptionDto = subscriptionToSubscriptionDto;
     }
 
     /**
      * Sets the converter for converting between account DTO and account model objects
      *
-     * @param accountDtoToAccount the account DTO to account converter to set
+     * @param subscriptionDtoToSubscription the account DTO to account converter to set
      */
     @Autowired
-    public void setAccountDtoToAccount(AccountDtoToAccount accountDtoToAccount) {
-        this.accountDtoToAccount = accountDtoToAccount;
+    public void setSubscriptionDtoToSubscription(SubscriptionDtoToSubscription subscriptionDtoToSubscription) {
+        this.subscriptionDtoToSubscription = subscriptionDtoToSubscription;
     }
 
     /**
@@ -91,7 +91,7 @@ public class RestSubscriptionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<SubscriptionDto> subscriptionDtos = user.getSubscriptions().stream().map(account -> accountToAccountDto.convert(account)).collect(Collectors.toList());
+        List<SubscriptionDto> subscriptionDtos = user.getSubscriptions().stream().map(account -> subscriptionToSubscriptionDto.convert(account)).collect(Collectors.toList());
 
         return new ResponseEntity<>(subscriptionDtos, HttpStatus.OK);
     }
@@ -116,7 +116,7 @@ public class RestSubscriptionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(accountToAccountDto.convert(subscription), HttpStatus.OK);
+        return new ResponseEntity<>(subscriptionToSubscriptionDto.convert(subscription), HttpStatus.OK);
     }
 
     /**
@@ -137,7 +137,7 @@ public class RestSubscriptionController {
 
         try {
 
-            Subscription subscription = userService.addAccount(cid, accountDtoToAccount.convert(subscriptionDto));
+            Subscription subscription = userService.addAccount(cid, subscriptionDtoToSubscription.convert(subscriptionDto));
 
             UriComponents uriComponents = uriComponentsBuilder.path("/api/user/" + cid + "/subscription/" + subscription.getId()).build();
             HttpHeaders headers = new HttpHeaders();
