@@ -75,13 +75,13 @@ public class RestSubscriptionController {
 
         Subscription subscription = subscriptionService.get(aid);
 
-        if (subscription == null || subscription.getUser() == null) {
+        /*if (subscription == null || subscription.getUser() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         if (!subscription.getUser().getId().equals(cid)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        }*/
 
         return new ResponseEntity<>(subscriptionToSubscriptionDto.convert(subscription), HttpStatus.OK);
     }
@@ -94,9 +94,9 @@ public class RestSubscriptionController {
         }
 
 
-        Subscription subscription = subscriptionService.save(subscriptionDtoToSubscription.convert(subscriptionDto));
+        Subscription savedSubscription = subscriptionService.save(subscriptionDtoToSubscription.convert(subscriptionDto));
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/api/user/" + subscription.getId()).build();
+        UriComponents uriComponents = uriComponentsBuilder.path("/api/user/" + savedSubscription.getId()).build();
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
 
