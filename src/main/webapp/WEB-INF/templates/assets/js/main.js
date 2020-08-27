@@ -224,4 +224,9 @@
     aos_init();
   });
 
+  // Preloader
+  $(window).on('load', function() {
+    $("#img1").attr("src", "../img/amazontv.png");
+  });
+
 })(jQuery);
