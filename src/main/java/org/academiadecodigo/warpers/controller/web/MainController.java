@@ -20,6 +20,31 @@ public class MainController {
         return "redirect:index";
     }
 
+    @RequestMapping(path = "/signup")
+    public String signUp() {
+        return "signup";
+    }
+
+    @RequestMapping(path = "/userpage/")
+    public String userPage() {
+        return "userpage/index";
+    }
+
+    @RequestMapping(path = "/userpage/profile")
+    public String userProfile() {
+        return "userpage/profile";
+    }
+
+    @RequestMapping(path = "/userpage/settings")
+    public String userSettings() {
+        return "userpage/settings";
+    }
+
+    @RequestMapping(path = "/userpage/subscriptions")
+    public String userSubscriptions() {
+        return "userpage/subscriptions";
+    }
+
     @RequestMapping(path = "/assets/css/{item}.{extension}")
     public String serveResourcesCss(@PathVariable String item, @PathVariable String extension) {
         return "assets/css/" + item + "." + extension;

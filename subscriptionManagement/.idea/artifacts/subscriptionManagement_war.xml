@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="subscriptionManagement:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>subscriptionManagement</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Warpers.war">
+      <element id="artifact" artifact-name="subscriptionManagement:war exploded" />
+    </root>
+  </artifact>
+</component>

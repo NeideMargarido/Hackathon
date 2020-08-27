@@ -14,14 +14,14 @@ import javax.validation.constraints.Pattern;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SubscriptionDto {
 
-    public static final String moneyRegex = "^\\$?0*[1-9]\\d*(\\.\\d{0,2})?|\\d*(\\.0[1-9])|\\d*(\\.[1-9]\\d?)?$?";
+    //public static final String moneyRegex = "^\\$?0*[1-9]\\d*(\\.\\d{0,2})?|\\d*(\\.0[1-9])|\\d*(\\.[1-9]\\d?)?$?";
 
     private Integer id;
 
-    @NotNull(message = "AccountType is mandatory")
+    @NotNull(message = "SubscriptionType is mandatory")
     private SubscriptionType type;
 
-    @Pattern(regexp = moneyRegex, message = "Amount is not valid")
+    //@Pattern(regexp = moneyRegex, message = "Amount is not valid")
     @NotNull(message = "Initial amount is mandatory")
     @NotBlank(message = "Initial amount is mandatory")
     private String balance;

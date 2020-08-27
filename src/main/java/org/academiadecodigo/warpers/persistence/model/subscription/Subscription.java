@@ -18,34 +18,63 @@ public abstract class Subscription extends AbstractModel {
     @ManyToOne
     private User user;
 
+
+    public double getBalance() {
+        return balance;
+    }
+
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public User getUser() {
         return user;
     }
 
-    /**
-     * Sets the account costumer
-     *
-     * @param user the user to set
-     */
-    public void setUser(User user) {
-        this.user = user;
+
+    public void setUser(User customer) {
+        this.user = customer;
     }
 
-    /**
-     * Gets the account type
-     *
-     * @return the account type
-     */
+
     public abstract SubscriptionType getAccountType();
 
-    /**
-     * @see Object#toString()
-     */
+
+    public void credit(double amount) {
+        if (canCredit(amount)) {
+            balance += amount;
+        }
+    }
+
+
+    public void debit(double amount) {
+        if (canDebit(amount)) {
+            balance -= amount;
+        }
+    }
+
+
+    public boolean canCredit(double amount) {
+        return amount > 0;
+    }
+
+
+    public boolean canDebit(double amount) {
+        return amount > 0 && amount <= balance;
+    }
+
+
+    public boolean canWithdraw() {
+        return true;
+    }
+
+
     @Override
     public String toString() {
         return "Account{" +
                 "balance=" + balance +
-                ", userId=" + (user != null ? user.getId() : null) +
+                ", customerId=" + (user != null ? user.getId() : null) +
                 "} " + super.toString();
     }
 }

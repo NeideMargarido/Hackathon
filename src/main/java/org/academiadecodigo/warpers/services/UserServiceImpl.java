@@ -19,34 +19,23 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     private SubscriptionDao subscriptionDao;
 
-    /**
-     * Sets the user data access object
-     *
-     * @param userDao the account DAO to set
-     */
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
 
 
-    /**
-     * Sets the account data access object
-     *
-     * @param subscriptionDao the account DAO to set
-     */
     @Autowired
     public void setSubscriptionDao(SubscriptionDao subscriptionDao) {
         this.subscriptionDao = subscriptionDao;
     }
 
-    /**
-     * @see UserService#get(Integer)
-     */
+
     @Override
     public User get(Integer id) {
         return userDao.findById(id);
     }
+
 
     @Transactional
     @Override
@@ -54,9 +43,7 @@ public class UserServiceImpl implements UserService {
         return userDao.saveOrUpdate(user);
     }
 
-    /**
-     * @see UserService#delete(Integer)
-     */
+
     @Transactional
     @Override
     public void delete(Integer id) throws UserNotFoundException, AssociationExistsException {
@@ -71,9 +58,6 @@ public class UserServiceImpl implements UserService {
         userDao.delete(id);
     }
 
-    /**
-     * @see UserService#list()
-     */
     @Override
     public List<User> list() {
         return userDao.findAll();
@@ -108,6 +92,11 @@ public class UserServiceImpl implements UserService {
 
         if (!subscription.getUser().getId().equals(id)) {
             throw new AccountNotFoundException();
+        }
+
+        //different from 0 in case we later decide that negative values are acceptable
+        if (subscription.getBalance() != 0) {
+            throw new TransactionInvalidException();
         }
 
         user.removeAccount(subscription);

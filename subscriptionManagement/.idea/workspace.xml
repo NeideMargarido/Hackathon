@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4de92923-058c-46e9-b211-4b5189629d4d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/academiadecodigo/warpers/command/SubscriptionDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/academiadecodigo/warpers/command/SubscriptionDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/academiadecodigo/warpers/command/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/academiadecodigo/warpers/command/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/academiadecodigo/warpers/persistence/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/academiadecodigo/warpers/persistence/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Tag Library Descriptor" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1gdTnFfhvHdcMgNgA7NfKSfFgCE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4de92923-058c-46e9-b211-4b5189629d4d" name="Default Changelist" comment="" />
+      <created>1598443635325</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598443635325</updated>
+      <workItem from="1598443641245" duration="30717000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser" timestamp="1598526440943">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1598526440943" />
+    <state x="67" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1598477247188">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="67" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1598477247188" />
+    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598473704294">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1598473704294" />
+    <state x="131" y="38" key="MergeDialog" timestamp="1598449787956">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="131" y="38" key="MergeDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1598449787956" />
+    <state x="205" y="414" width="865" height="489" key="MultipleFileMergeDialog" timestamp="1598522541745">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="205" y="414" width="865" height="489" key="MultipleFileMergeDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1598522541745" />
+    <state x="589" y="246" key="NewModule_or_Project.wizard" timestamp="1598532494322">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="589" y="246" key="NewModule_or_Project.wizard/0.0.1920.1080@0.0.1920.1080" timestamp="1598532494322" />
+    <state x="468" y="178" key="SettingsEditor" timestamp="1598473020914">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="468" y="178" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1598473020914" />
+    <state x="661" y="266" width="598" height="548" key="find.popup" timestamp="1598462714926">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="661" y="266" width="598" height="548" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1598462714926" />
+    <state x="668" y="313" key="refactoring.ChangeSignatureDialog" timestamp="1598458774890">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="668" y="313" key="refactoring.ChangeSignatureDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1598458774890" />
+    <state x="625" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1598463077195">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="625" y="241" width="670" height="676" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1598463077195" />
+  </component>
+</project>

@@ -1,8 +1,7 @@
 package org.academiadecodigo.warpers.controller.web;
 
 import org.academiadecodigo.warpers.command.SubscriptionDto;
-import org.academiadecodigo.warpers.command.AccountTransactionDto;
-import org.academiadecodigo.warpers.converters.AccountDtoToAccount;
+import org.academiadecodigo.warpers.converters.SubscriptionDtoToSubscription;
 import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
 import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
@@ -19,9 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-/**
- * Controller responsible for rendering {@link Subscription} related views
- */
+
 @Controller
 @RequestMapping("/user")
 public class SubscriptionController {
@@ -29,59 +26,34 @@ public class SubscriptionController {
     private UserService userService;
     private SubscriptionService subscriptionService;
 
-    private AccountDtoToAccount accountDtoToAccount;
+    private SubscriptionDtoToSubscription subscriptionDtoToSubscription;
     private UserToUserDto userToUserDto;
 
-    /**
-     * Sets the user service
-     *
-     * @param userService the user service to set
-     */
+
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    /**
-     * Sets the account service
-     *
-     * @param subscriptionService the account service to set
-     */
+
     @Autowired
     public void setSubscriptionService(SubscriptionService subscriptionService) {
         this.subscriptionService = subscriptionService;
     }
 
-    /**
-     * Sets the converter for converting between account DTO and account model objects
-     *
-     * @param accountDtoToAccount the account DTO to account converter to set
-     */
+
     @Autowired
-    public void setAccountDtoToAccount(AccountDtoToAccount accountDtoToAccount) {
-        this.accountDtoToAccount = accountDtoToAccount;
+    public void setSubscriptionDtoToSubscription(SubscriptionDtoToSubscription subscriptionDtoToSubscription) {
+        this.subscriptionDtoToSubscription = subscriptionDtoToSubscription;
     }
 
-    /**
-     * Sets the converter for converting between user model objects and user DTO
-     *
-     * @param userToUserDto the user to user DTO converter to set
-     */
+
     @Autowired
     public void setUserToUserDto(UserToUserDto userToUserDto) {
         this.userToUserDto = userToUserDto;
     }
 
-    /**
-     * Adds an account
-     *
-     * @param cid                the user id
-     * @param subscriptionDto         the account data transfer object
-     * @param bindingResult      the binding result object
-     * @param redirectAttributes the redirect attributes object
-     * @return the view to render
-     * @throws Exception
-     */
+
     @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/account"})
     public String addAccount(@PathVariable Integer cid, @Valid @ModelAttribute("account") SubscriptionDto subscriptionDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
 
@@ -90,7 +62,7 @@ public class SubscriptionController {
         }
 
         try {
-            Subscription subscription = accountDtoToAccount.convert(subscriptionDto);
+            Subscription subscription = subscriptionDtoToSubscription.convert(subscriptionDto);
             userService.addAccount(cid, subscription);
             redirectAttributes.addFlashAttribute("lastAction", "Created " + subscription.getAccountType() + " subscription.");
             return "redirect:/user/" + cid;
