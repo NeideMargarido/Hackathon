@@ -7,6 +7,7 @@
     <import resource="./persistence/persistence-test.xml"/>
     <import resource="./persistence/persistence-dev.xml"/>
     <import resource="./persistence/persistence-prod.xml"/>
+    <import resource="./persistence/persistence-heroku.xml"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
