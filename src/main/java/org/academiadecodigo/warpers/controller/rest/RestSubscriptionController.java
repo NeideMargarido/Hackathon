@@ -4,7 +4,7 @@ import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.converters.SubscriptionDtoToSubscription;
 import org.academiadecodigo.warpers.converters.SubscriptionToSubscriptionDto;
 import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
-import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
+import org.academiadecodigo.warpers.exceptions.UserNotFoundException;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
 import org.academiadecodigo.warpers.persistence.model.User;
 import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
@@ -69,6 +69,7 @@ public class RestSubscriptionController {
     /**
      * Sets the converter for converting between account DTO and account model objects
      *
+     * @param accountDtoToAccount the subscription DTO to subscription converter to set
      * @param subscriptionDtoToSubscription the account DTO to account converter to set
      */
     @Autowired
@@ -145,7 +146,7 @@ public class RestSubscriptionController {
 
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
 
-        } catch (CustomerNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         } catch (TransactionInvalidException e) {
@@ -170,7 +171,7 @@ public class RestSubscriptionController {
 
             return new ResponseEntity<>(HttpStatus.OK);
 
-        } catch (CustomerNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         } catch (AccountNotFoundException e) {

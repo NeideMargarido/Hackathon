@@ -4,7 +4,7 @@ import org.academiadecodigo.warpers.command.UserDto;
 import org.academiadecodigo.warpers.converters.UserDtoToUser;
 import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.AssociationExistsException;
-import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
+import org.academiadecodigo.warpers.exceptions.UserNotFoundException;
 import org.academiadecodigo.warpers.persistence.model.User;
 import org.academiadecodigo.warpers.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,7 +168,7 @@ public class RestUserController {
         } catch (AssociationExistsException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        } catch (CustomerNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

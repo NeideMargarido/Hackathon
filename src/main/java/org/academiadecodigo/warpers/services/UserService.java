@@ -15,15 +15,23 @@ public interface UserService {
     User save(User user);
 
 
-    void delete(Integer id) throws AssociationExistsException, CustomerNotFoundException;
+    void delete(Integer id) throws AssociationExistsException, UserNotFoundException;
 
 
     List<User> list();
 
     Subscription addAccount(Integer id, Subscription subscription)
-            throws CustomerNotFoundException, TransactionInvalidException;
+            throws UserNotFoundException, TransactionInvalidException;
 
-
+    /**
+     * Closes an account from the user
+     *
+     * @param id        the user id
+     * @param accountId the account id
+     * @throws UserNotFoundException
+     * @throws AccountNotFoundException
+     * @throws TransactionInvalidException
+     */
     void closeAccount(Integer id, Integer accountId)
-            throws CustomerNotFoundException, AccountNotFoundException, TransactionInvalidException;
+            throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException;
 }

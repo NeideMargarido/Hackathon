@@ -46,10 +46,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void delete(Integer id) throws CustomerNotFoundException, AssociationExistsException {
+    public void delete(Integer id) throws UserNotFoundException, AssociationExistsException {
 
         User user = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
+                .orElseThrow(UserNotFoundException::new);
 
         if (!user.getSubscriptions().isEmpty()) {
             throw new AssociationExistsException();
@@ -65,10 +65,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public Subscription addAccount(Integer id, Subscription subscription) throws CustomerNotFoundException, TransactionInvalidException {
+    public Subscription addAccount(Integer id, Subscription subscription) throws UserNotFoundException, TransactionInvalidException {
 
         User user = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
+                .orElseThrow(UserNotFoundException::new);
 
         user.addAccount(subscription);
         userDao.saveOrUpdate(user);
@@ -82,10 +82,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void closeAccount(Integer id, Integer accountId)
-            throws CustomerNotFoundException, AccountNotFoundException, TransactionInvalidException {
+            throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException {
 
         User user = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
+                .orElseThrow(UserNotFoundException::new);
 
         Subscription subscription = Optional.ofNullable(subscriptionDao.findById(accountId))
                 .orElseThrow(AccountNotFoundException::new);

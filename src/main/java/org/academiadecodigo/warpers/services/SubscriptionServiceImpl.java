@@ -1,8 +1,5 @@
 package org.academiadecodigo.warpers.services;
 
-import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
-import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
-import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
 import org.academiadecodigo.warpers.persistence.dao.SubscriptionDao;
 import org.academiadecodigo.warpers.persistence.dao.UserDao;
 import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;

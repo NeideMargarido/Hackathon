@@ -6,7 +6,7 @@ import org.academiadecodigo.warpers.converters.SubscriptionToSubscriptionDto;
 import org.academiadecodigo.warpers.converters.UserDtoToUser;
 import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.AssociationExistsException;
-import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
+import org.academiadecodigo.warpers.exceptions.UserNotFoundException;
 import org.academiadecodigo.warpers.persistence.model.User;
 import org.academiadecodigo.warpers.persistence.model.subscription.SubscriptionType;
 import org.academiadecodigo.warpers.services.UserService;
@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-
+/**
+ * Controller responsible for rendering {@link User} related views
+ */
 @Controller
 @RequestMapping("/")
 public class UserController {
@@ -118,7 +120,7 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "{id}/delete")
-    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws AssociationExistsException, CustomerNotFoundException {
+    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws AssociationExistsException, UserNotFoundException {
         User user = userService.get(id);
         userService.delete(id);
         redirectAttributes.addFlashAttribute("lastAction", "Deleted " + user.getFirstName() + " " + user.getLastName());
