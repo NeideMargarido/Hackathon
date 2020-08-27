@@ -226,8 +226,7 @@
 
 
 
-  
+
 
 })(jQuery);
 
-$("#img1").attr("src", "../img/aaaa.png");
