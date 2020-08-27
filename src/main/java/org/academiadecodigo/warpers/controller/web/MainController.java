@@ -21,13 +21,8 @@ public class MainController {
     }
 
     @RequestMapping(path = "/signup")
-    public String signup() {
-        return "redirect:signup";
-    }
-
-    @RequestMapping(path = "/assets/css/{item}.{extension}")
-    public String serveResourcesCss(@PathVariable String item, @PathVariable String extension) {
-        return "assets/css/" + item + "." + extension;
+    public String signUp() {
+        return "signup";
     }
 
     @RequestMapping(path = "/assets/css/{item}.{extension}")
