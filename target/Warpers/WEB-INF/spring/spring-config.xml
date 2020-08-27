@@ -19,10 +19,6 @@
     <!-- Base package to search for spring beans -->
     <context:component-scan base-package="org.academiadecodigo.warpers"/>
 
-    <mvc:interceptors>
-        <bean class="org.academiadecodigo.warpers.interceptor.LogRequestsInterceptor"/>
-    </mvc:interceptors>
-
     <import resource="persistence.xml"/>
     <import resource="presentation.xml"/>
 

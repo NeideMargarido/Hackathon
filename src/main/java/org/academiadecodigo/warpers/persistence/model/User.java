@@ -11,7 +11,7 @@ import java.util.List;
  * The customer model entity
  */
 @Entity
-@Table(name = "user")
+@Table(name = "customer")
 public class User extends AbstractModel {
 
     private String firstName;

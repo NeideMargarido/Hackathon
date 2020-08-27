@@ -2,7 +2,6 @@ org/academiadecodigo/warpers/persistence/model/Model.class
 org/academiadecodigo/warpers/errors/ErrorMessage.class
 org/academiadecodigo/warpers/converters/AbstractConverter.class
 org/academiadecodigo/warpers/command/AccountTransactionDto.class
-org/academiadecodigo/warpers/controller/web/GlobalControllerExceptionHandler.class
 org/academiadecodigo/warpers/services/UserServiceImpl.class
 org/academiadecodigo/warpers/persistence/model/subscription/SpotifySub.class
 org/academiadecodigo/warpers/services/UserService.class
@@ -41,6 +40,4 @@ org/academiadecodigo/warpers/persistence/dao/jpa/JpaSubscriptionDao.class
 org/academiadecodigo/warpers/persistence/model/subscription/Subscription.class
 org/academiadecodigo/warpers/command/SubscriptionDto.class
 org/academiadecodigo/warpers/persistence/model/AbstractModel.class
-org/academiadecodigo/warpers/Log4jWebConfig.class
 org/academiadecodigo/warpers/persistence/dao/Dao.class
-org/academiadecodigo/warpers/interceptor/LogRequestsInterceptor.class

@@ -26,19 +26,6 @@
     </context-param>
 
     <!--
-        By delaying the initialization of Log4j2, we can define, programmatically, which configuration
-        to use through our own servlet context listener
-    -->
-    <context-param>
-        <param-name>isLog4jAutoInitializationDisabled</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <listener>
-        <listener-class>org.academiadecodigo.warpers.Log4jWebConfig</listener-class>
-    </listener>
-
-    <!--
         This is useful because current browsers typically do not
         set a character encoding even if specified in the HTML page or form
      -->
