@@ -233,3 +233,159 @@ function showPassword() {
   $("#btnemail").css('background-color', '#fff');
 }
 // ------ // --------
+
+
+//-----------------------------------------------------------------
+
+//JQUERY COM AJAX
+// perform an ajax http get request
+function editName(id) {
+
+  var firstName = $('#name').val();
+  var lastName = $('#hlastName').val();
+  var email = $('#hemail').val();
+  var password = $('#hpassword').val();
+  var country = $('#hcountry').val();
+  var phone = $('#hphone').val();
+
+  $("#errormessage").css("display", "none");
+
+  // perform an ajax http post request
+  $.ajax({
+    url: 'https://warpers.herokuapp.com/api/user/' + id,
+    type: 'PUT',
+    data: JSON.stringify({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      password: password,
+      country: country
+    }),
+    async: true,
+    contentType: 'application/json',
+    success: successCallbackUpdate,
+    error: errorCallbackUpdate
+  });
+
+  function successCallbackUpdate(data) {
+
+    $("#remessage").css("display", "block");
+    setTimeout(
+        function()
+        {
+          $("#remessage").css("display", "none");
+        }, 3500);
+
+  }
+
+  function errorCallbackUpdate(request, status, error) {
+    // do something with the error
+    $("#errormessage").css("display", "block");
+  }
+}
+
+// perform an ajax http get request
+function editEmail(id) {
+
+  var firstName = $('#hfirstName').val();
+  var lastName = $('#hlastName').val();
+  var email = $('#email').val();
+  var password = $('#hpassword').val();
+  var country = $('#hcountry').val();
+  var phone = $('#hphone').val();
+
+  $("#errormessage2").css("display", "none");
+
+  // perform an ajax http post request
+  $.ajax({
+    url: 'https://warpers.herokuapp.com/api/user/' + id,
+    type: 'PUT',
+    data: JSON.stringify({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      password: password,
+      country: country
+    }),
+    async: true,
+    contentType: 'application/json',
+    success: successCallbackUpdate2,
+    error: errorCallbackUpdate2
+  });
+
+  function successCallbackUpdate2(data) {
+
+    $("#remessage2").css("display", "block");
+    setTimeout(
+        function()
+        {
+          $("#remessage2").css("display", "none");
+        }, 3500);
+
+  }
+
+  function errorCallbackUpdate2(request, status, error) {
+    // do something with the error
+    $("#errormessage2").css("display", "block");
+  }
+}
+
+// perform an ajax http get request
+function editPassword(id) {
+
+  var firstName = $('#hfirstName').val();
+  var lastName = $('#hlastName').val();
+  var email = $('#hemail').val();
+  var password = $('#password').val();
+  var cpassword = $('#confimar').val();
+  var country = $('#hcountry').val();
+  var phone = $('#hphone').val();
+
+  $("#errormessage4").css("display", "none");
+  $("#errormessage3").css("display", "none");
+
+  if(password === cpassword) {
+    // perform an ajax http post request
+    $.ajax({
+      url: 'https://warpers.herokuapp.com/api/user/' + id,
+      type: 'PUT',
+      data: JSON.stringify({
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        password: password,
+        country: country
+      }),
+      async: true,
+      contentType: 'application/json',
+      success: successCallbackUpdate3,
+      error: errorCallbackUpdate3
+    });
+
+    function successCallbackUpdate3(data) {
+
+      $("#remessage3").css("display", "block");
+      setTimeout(
+          function()
+          {
+            $("#remessage3").css("display", "none");
+          }, 3500);
+
+    }
+
+    function errorCallbackUpdate3(request, status, error) {
+      // do something with the error
+      $("#errormessage3").css("display", "block");
+    }
+  } else {
+    $("#errormessage4").css("display", "block");
+  }
+}
+
+//-----------------------------------------------------------------
