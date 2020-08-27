@@ -25,8 +25,7 @@ public class SubscriptionDtoToSubscription implements Converter<SubscriptionDto,
 
         Subscription subscription = null;
 
-        subscription = subscriptionFactory.createAccount(subscriptionDto.getType());
-        subscription.credit(subscriptionDto.getBalance() != null ? Double.parseDouble(subscriptionDto.getBalance()) : 0);
+        subscription = subscriptionFactory.createSubscription(subscriptionDto.getType());
 
         return subscription;
     }

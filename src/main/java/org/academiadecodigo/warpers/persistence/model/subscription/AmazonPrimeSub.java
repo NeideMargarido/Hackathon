@@ -1,10 +1,6 @@
 package org.academiadecodigo.warpers.persistence.model.subscription;
 
-import javax.persistence.Entity;
-
-
-@Entity
-public class NetflixSub extends Subscription {
+public class AmazonPrimeSub extends Subscription{
 
     private String maxMembers;
 
@@ -12,12 +8,13 @@ public class NetflixSub extends Subscription {
         this.maxMembers = maxMembers;
     }
 
-    @Override
-    public SubscriptionType getSubscriptionType() {
-        return SubscriptionType.NETFLIX;
-    }
 
     public String getMaxMembers() {
-        return getMaxMembers();
+        return maxMembers;
+    }
+
+    @Override
+    public SubscriptionType getSubscriptionType() {
+        return SubscriptionType.AMAZONPRIME;
     }
 }

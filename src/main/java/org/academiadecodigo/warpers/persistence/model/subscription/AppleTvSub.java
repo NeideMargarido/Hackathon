@@ -1,12 +1,8 @@
 package org.academiadecodigo.warpers.persistence.model.subscription;
 
-import javax.persistence.Entity;
+public class AppleTvSub extends Subscription {
 
-
-@Entity
-public class SpotifySub extends Subscription {
-
-private String maxMembers;
+    private String maxMembers;
 
     public String getMaxMembers() {
         return maxMembers;
@@ -18,9 +14,6 @@ private String maxMembers;
 
     @Override
     public SubscriptionType getSubscriptionType() {
-        return SubscriptionType.SPOTIFY;
+        return SubscriptionType.APPLETV_APPLEMUSIC;
     }
-
-
-
 }
