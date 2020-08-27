@@ -1,22 +1,24 @@
 package org.academiadecodigo.warpers.command;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.academiadecodigo.warpers.persistence.model.subscription.SubscriptionType;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SubscriptionDto {
 
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @NotNull(message = "Subscription Type is mandatory")
-    private SubscriptionType type;
+    private SubscriptionType subscriptionType;
 
 
     @NotNull(message = "Max number of members is mandatory")
@@ -42,21 +44,21 @@ public class SubscriptionDto {
     }
 
 
-    public SubscriptionType getType() {
-        return type;
+    public SubscriptionType getSubscriptionType() {
+        return subscriptionType;
     }
 
 
-    public void setType(SubscriptionType type) {
-        this.type = type;
+    public void setSubscriptionType(SubscriptionType subscriptionType) {
+        this.subscriptionType = subscriptionType;
     }
 
 
-    @Override
+    /*@Override
     public String toString() {
         return "AccountDto{" +
-                ", type=" + type +
+                ", type=" + subscriptionType +
                 ", maxMembers=" + maxMembers +
                 '}';
-    }
+    }*/
 }

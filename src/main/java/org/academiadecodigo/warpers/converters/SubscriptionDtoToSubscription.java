@@ -25,7 +25,7 @@ public class SubscriptionDtoToSubscription implements Converter<SubscriptionDto,
 
         Subscription subscription = null;
 
-        subscription = subscriptionFactory.createSubscription(subscriptionDto.getType());
+        subscription = subscriptionFactory.createSubscription(subscriptionDto.getSubscriptionType());
 
         return subscription;
     }

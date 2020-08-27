@@ -75,40 +75,34 @@ public class RestSubscriptionController {
 
         Subscription subscription = subscriptionService.get(aid);
 
-        if (subscription == null || subscription.getUser() == null) {
+        /*if (subscription == null || subscription.getUser() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         if (!subscription.getUser().getId().equals(cid)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        }*/
 
         return new ResponseEntity<>(subscriptionToSubscriptionDto.convert(subscription), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/{cid}/subscription")
-    public ResponseEntity<?> addAccount(@PathVariable Integer cid, @Valid @RequestBody SubscriptionDto subscriptionDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
+    @RequestMapping(method = RequestMethod.POST, path = "/subscription")
+    public ResponseEntity<?> addAccount(@Valid @RequestBody SubscriptionDto subscriptionDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
         if (bindingResult.hasErrors() || subscriptionDto.getId() != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        try {
 
-            Subscription subscription = userService.addSubscription(cid, subscriptionDtoToSubscription.convert(subscriptionDto));
+        Subscription savedSubscription = subscriptionService.save(subscriptionDtoToSubscription.convert(subscriptionDto));
 
-            UriComponents uriComponents = uriComponentsBuilder.path("/api/user/" + cid + "/subscription/" + subscription.getId()).build();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(uriComponents.toUri());
+        UriComponents uriComponents = uriComponentsBuilder.path("/api/user/" + savedSubscription.getId()).build();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
 
-            return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
 
-        } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        } catch (TransactionInvalidException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
     }
 

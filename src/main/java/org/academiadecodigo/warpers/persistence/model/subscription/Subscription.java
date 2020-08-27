@@ -8,12 +8,15 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "subscription_type")
+@Table(name = "subscription_type")
 public abstract class Subscription extends AbstractModel {
-
 
     @ManyToOne
     private User user;
+
+    private SubscriptionType subscriptionType;
+
+    private String maxMembers;
 
     public User getUser() {
         return user;
@@ -24,9 +27,21 @@ public abstract class Subscription extends AbstractModel {
         this.user = customer;
     }
 
+    public SubscriptionType getSubscriptionType() {
+        return subscriptionType;
+    }
 
-    public abstract SubscriptionType getSubscriptionType();
-    public abstract String getMaxMembers();
+    public void setSubscriptionType(SubscriptionType subscriptionType) {
+        this.subscriptionType = subscriptionType;
+    }
+
+    public String getMaxMembers() {
+        return maxMembers;
+    }
+
+    public void setMaxMembers(String maxMembers) {
+        this.maxMembers = maxMembers;
+    }
 
     @Override
     public String toString() {

@@ -1,6 +1,6 @@
 package org.academiadecodigo.warpers.persistence.model;
 
-//import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 
 import javax.persistence.*;
