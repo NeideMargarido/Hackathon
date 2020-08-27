@@ -106,7 +106,7 @@ public class RestSubscriptionController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
+    /*@RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
     public ResponseEntity<?> closeAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
         try {
@@ -125,7 +125,7 @@ public class RestSubscriptionController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         }
-    }
+    }*/
 
     @RequestMapping(method = RequestMethod.GET, path = {"/subscription"})
     public ResponseEntity<List<SubscriptionDto>> listSubscription() {

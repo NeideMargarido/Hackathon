@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         return userDao.findAll();
     }
 
-    @Transactional
+    /*@Transactional
     @Override
     public Subscription addSubscription(Integer id, Subscription subscription) throws UserNotFoundException, TransactionInvalidException {
 
@@ -74,10 +74,10 @@ public class UserServiceImpl implements UserService {
         userDao.saveOrUpdate(user);
 
         return user.getSubscriptions().get(user.getSubscriptions().size() - 1);
-    }
+    }*/
 
 
-    @Transactional
+    /*@Transactional
     @Override
     public void closeSubscription(Integer id, Integer subscriptionId)
             throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException {
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 
         user.removeAccount(subscription);
         userDao.saveOrUpdate(user);
-    }
+    }*/
 
     private Set<Integer> getAccountIds(User user) {
         List<Subscription> subscriptions = user.getSubscriptions();
