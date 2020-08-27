@@ -230,3 +230,56 @@
 
 })(jQuery);
 
+function register() {
+
+  var firstName = $('#firstName').val();
+  var lastName =  $('#lastName').val();
+  var email = $('#email').val();
+  var phone = $('#phone').val();
+  var country = $('#country').val();
+  var password = $('#password').val();
+
+  $("#errormessage").css("display", "none");
+  $('#loading').css("display", "none");
+  $("#remessage").css("display", "none");
+
+  // perform an ajax http post request
+  $.ajax({
+    url: 'https://warpers.herokuapp.com/api/user',
+    type: 'POST',
+    data: JSON.stringify({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      country: country,
+      password: password,
+      phone: phone
+    }),
+    async: true,
+    contentType: 'application/json',
+    success: successCallbackUpdate,
+    error: errorCallbackUpdate
+  });
+
+  function successCallbackUpdate(data) {
+    $('#loading').css("display", "block");
+    setTimeout(
+        function()
+        {
+          $('#loading').css("display", "none");
+          $("#remessage").css("display", "block");
+        }, 1500);
+
+    setTimeout( function () {
+
+        window.location.replace("https://warpers.herokuapp.com/userpage/");
+
+      }, 2500);
+
+  }
+
+  function errorCallbackUpdate(request, status, error) {
+    // do something with the error
+    $("#errormessage").css("display", "block");
+  }
+}
