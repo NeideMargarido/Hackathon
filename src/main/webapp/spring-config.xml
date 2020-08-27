@@ -20,8 +20,8 @@
     <!-- Base package to search for spring beans -->
     <context:component-scan base-package="org.academiadecodigo.warpers"/>
 
-    <import resource="spring/persistence.xml"/>
-    <import resource="spring/presentation.xml"/>
+    <import resource="WEB-INF/spring/persistence.xml"/>
+    <import resource="WEB-INF/spring/presentation.xml"/>
 
 
 
