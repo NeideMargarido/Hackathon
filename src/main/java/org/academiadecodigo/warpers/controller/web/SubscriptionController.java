@@ -64,7 +64,7 @@ public class SubscriptionController {
         try {
             Subscription subscription = subscriptionDtoToSubscription.convert(subscriptionDto);
             userService.addSubscription(cid, subscription);
-            redirectAttributes.addFlashAttribute("lastAction", "Started " + subscription.getAccountType() + " subscription.");
+            redirectAttributes.addFlashAttribute("lastAction", "Started " + subscription.getSubscriptionType() + " subscription.");
             return "redirect:/user/" + cid;
 
         } catch (TransactionInvalidException ex) {
