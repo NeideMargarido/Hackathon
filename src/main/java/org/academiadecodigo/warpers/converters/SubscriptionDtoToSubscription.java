@@ -7,30 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-/**
- * A {@link Converter} implementation, responsible for {@link SubscriptionDto} to {@link Subscription} type conversion
- */
+
 @Component
-public class AccountDtoToAccount implements Converter<SubscriptionDto, Subscription> {
+public class SubscriptionDtoToSubscription implements Converter<SubscriptionDto, Subscription> {
 
     private SubscriptionFactory subscriptionFactory;
 
-    /**
-     * Sets the account factory
-     *
-     * @param subscriptionFactory the account factory to set
-     */
+
     @Autowired
     public void setSubscriptionFactory(SubscriptionFactory subscriptionFactory) {
         this.subscriptionFactory = subscriptionFactory;
     }
 
-    /**
-     * Converts the account DTO into a account model object
-     *
-     * @param subscriptionDto the account DTO
-     * @return the account
-     */
+
     @Override
     public Subscription convert(SubscriptionDto subscriptionDto) {
 

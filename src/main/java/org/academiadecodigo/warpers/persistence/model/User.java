@@ -7,9 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The customer model entity
- */
+
 @Entity
 @Table(name = "customer")
 public class User extends AbstractModel {
@@ -112,7 +110,7 @@ public class User extends AbstractModel {
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", country='" + country + '\'' +
-                ", accounts='" + subscriptions +
+                ", subscriptions='" + subscriptions +
                 "} " + super.toString();
     }
 }

@@ -2,7 +2,7 @@ package org.academiadecodigo.warpers.controller.web;
 
 import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.command.UserDto;
-import org.academiadecodigo.warpers.converters.AccountToAccountDto;
+import org.academiadecodigo.warpers.converters.SubscriptionToSubscriptionDto;
 import org.academiadecodigo.warpers.converters.UserDtoToUser;
 import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.AssociationExistsException;
@@ -22,9 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-/**
- * Controller responsible for rendering {@link User} related views
- */
+
 @Controller
 @RequestMapping("/")
 public class UserController {
@@ -33,122 +31,72 @@ public class UserController {
 
     private UserToUserDto userToUserDto;
     private UserDtoToUser userDtoToUser;
-    private AccountToAccountDto accountToAccountDto;
+    private SubscriptionToSubscriptionDto subscriptionToSubscriptionDto;
 
-    /**
-     * Sets the customer service
-     *
-     * @param userService the customer service to set
-     */
+
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    /**
-     * Sets the converter for converting between customer model objects and customer DTO
-     *
-     * @param userToUserDto the customer to customer DTO converter to set
-     */
+
     @Autowired
     public void setUserToUserDto(UserToUserDto userToUserDto) {
         this.userToUserDto = userToUserDto;
     }
 
-    /**
-     * Sets the converter for converting between customer DTO and customer model objects
-     *
-     * @param userDtoToUser the customer DTO to customer converter to set
-     */
+
     @Autowired
     public void setUserDtoToUser(UserDtoToUser userDtoToUser) {
         this.userDtoToUser = userDtoToUser;
     }
 
-    /**
-     * Sets the converter for converting between account model object and account DTO
-     *
-     * @param accountToAccountDto the account model object to account DTO converter to set
-     */
+
     @Autowired
-    public void setAccountToAccountDto(AccountToAccountDto accountToAccountDto) {
-        this.accountToAccountDto = accountToAccountDto;
+    public void setSubscriptionToSubscriptionDto(SubscriptionToSubscriptionDto subscriptionToSubscriptionDto) {
+        this.subscriptionToSubscriptionDto = subscriptionToSubscriptionDto;
     }
 
-    /**
-     * Renders a view with a list of customers
-     *
-     * @param model the model object
-     * @return the view to render
-     */
+
     @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
     public String listCustomers(Model model) {
         model.addAttribute("customers", userToUserDto.convert(userService.list()));
         return "index";
     }
 
-    /**
-     * Adds a customer
-     *
-     * @param model the model object
-     * @return the view to render
-     */
+
     @RequestMapping(method = RequestMethod.GET, path = "/add")
     public String addCustomer(Model model) {
         model.addAttribute("customer", new UserDto());
         return "customer/add-update";
     }
 
-    /**
-     * Edits a customer
-     *
-     * @param id    the customer id
-     * @param model the model object
-     * @return the view to render
-     */
+
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/edit")
     public String editCustomer(@PathVariable Integer id, Model model) {
         model.addAttribute("customer", userToUserDto.convert(userService.get(id)));
         return "customer/add-update";
     }
 
-    /**
-     * Renders a view with customer details
-     *
-     * @param id    the customer id
-     * @param model the model object
-     * @return the view to render
-     * @throws Exception
-     */
+
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public String showCustomer(@PathVariable Integer id, Model model) throws Exception {
 
         User user = userService.get(id);
 
-        // command objects for user show view
         model.addAttribute("user", userToUserDto.convert(user));
-        model.addAttribute("accounts", accountToAccountDto.convert(user.getSubscriptions()));
+        model.addAttribute("accounts", subscriptionToSubscriptionDto.convert(user.getSubscriptions()));
         model.addAttribute("accountTypes", SubscriptionType.list());
         //model.addAttribute("customerBalance", userService.getBalance(id));
 
-        // command objects for modals
         SubscriptionDto subscriptionDto = new SubscriptionDto();
-        AccountTransactionDto accountTransactionDto = new AccountTransactionDto();
-        accountTransactionDto.setId(id);
 
         model.addAttribute("account", subscriptionDto);
 
         return "user/show";
     }
 
-    /**
-     * Saves the customer form submission and renders a view
-     *
-     * @param userDto        the customer DTO object
-     * @param bindingResult      the binding result object
-     * @param redirectAttributes the redirect attributes object
-     * @return the view to render
-     */
+
     @RequestMapping(method = RequestMethod.POST, path = {"/", ""}, params = "action=save")
     public String saveCustomer(@Valid @ModelAttribute("customer") UserDto userDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
@@ -162,26 +110,13 @@ public class UserController {
         return "redirect:/customer/" + savedUser.getId();
     }
 
-    /**
-     * Cancels the customer submission and renders the default the customer view
-     *
-     * @return the view to render
-     */
+
     @RequestMapping(method = RequestMethod.POST, path = {"/", ""}, params = "action=cancel")
     public String cancelSaveCustomer() {
-        // we could use an anchor tag in the view for this, but we might want to do something clever in the future here
         return "redirect:/customer/";
     }
 
-    /**
-     * Deletes the customer and renders the default customer view
-     *
-     * @param id                 the customer id
-     * @param redirectAttributes the redirect attributes object
-     * @return the view to render
-     * @throws AssociationExistsException
-     * @throws CustomerNotFoundException
-     */
+
     @RequestMapping(method = RequestMethod.GET, path = "{id}/delete")
     public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws AssociationExistsException, CustomerNotFoundException {
         User user = userService.get(id);

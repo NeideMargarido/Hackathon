@@ -5,17 +5,11 @@ import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-/**
- * A {@link Converter} implementation, responsible for {@link Subscription} to {@link SubscriptionDto} type conversion
- */
-@Component
-public class AccountToAccountDto extends AbstractConverter<Subscription, SubscriptionDto> {
 
-    /**
-     * Converts the subscription model object into an subscription DTO
-     * @param subscription the subscription
-     * @return the subscription DTO
-     */
+@Component
+public class SubscriptionToSubscriptionDto extends AbstractConverter<Subscription, SubscriptionDto> {
+
+
     @Override
     public SubscriptionDto convert(Subscription subscription) {
 
