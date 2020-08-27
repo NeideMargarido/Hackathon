@@ -30,7 +30,7 @@ public class UserDtoToUser implements Converter<UserDto, User> {
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
         user.setPassword(userDto.getPassword());
-        user.setCountry(userDto.getCountry());
+        user.setCountry(userDto.getCountry().toLowerCase());
 
         return user;
     }
