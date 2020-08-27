@@ -18,7 +18,7 @@ public class SubscriptionDto {
     private Integer id;
 
     @NotNull(message = "Subscription Type is mandatory")
-    private SubscriptionType subscriptionType;
+    private String subscriptionType;
 
 
     @NotNull(message = "Max number of members is mandatory")
@@ -43,15 +43,22 @@ public class SubscriptionDto {
         this.id = id;
     }
 
+    public String getSubscriptionType() {
+        return subscriptionType;
+    }
 
-    public SubscriptionType getSubscriptionType() {
+    public void setSubscriptionType(String subscriptionType) {
+        this.subscriptionType = subscriptionType;
+    }
+
+    /*public SubscriptionType getSubscriptionType() {
         return subscriptionType;
     }
 
 
     public void setSubscriptionType(SubscriptionType subscriptionType) {
         this.subscriptionType = subscriptionType;
-    }
+    }*/
 
 
     /*@Override

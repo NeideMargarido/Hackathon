@@ -13,7 +13,7 @@ public abstract class Subscription extends AbstractModel {
     @ManyToOne
     private User user;
 
-    private SubscriptionType subscriptionType;
+    private String subscriptionType;
 
     private String maxMembers;
 
@@ -25,13 +25,21 @@ public abstract class Subscription extends AbstractModel {
         this.user = customer;
     }
 
-    public SubscriptionType getSubscriptionType() {
+    public String getSubscriptionType() {
+        return subscriptionType;
+    }
+
+    public void setSubscriptionType(String subscriptionType) {
+        this.subscriptionType = subscriptionType;
+    }
+
+    /*public SubscriptionType getSubscriptionType() {
         return subscriptionType;
     }
 
     public void setSubscriptionType(SubscriptionType subscriptionType) {
         this.subscriptionType = subscriptionType;
-    }
+    }*/
 
     public String getMaxMembers() {
         return maxMembers;
