@@ -27,7 +27,7 @@ public class MainController {
 
     @RequestMapping(path = "/userpage/")
     public String userPage() {
-        return "userpage/index";
+        return "userpage/profile";
     }
 
     @RequestMapping(path = "/userpage/profile")
@@ -62,7 +62,7 @@ public class MainController {
 
     @RequestMapping(path = "userpage/assets/js/{item}.{extension}")
     public String serveResourcesJsUser(@PathVariable String item, @PathVariable String extension) {
-        return "userpage/assetsjs/" + item + "." + extension;
+        return "userpage/assets/js/" + item + "." + extension;
     }
 
 
