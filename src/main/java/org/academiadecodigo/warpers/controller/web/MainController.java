@@ -54,4 +54,18 @@ public class MainController {
     public String serveResourcesJs(@PathVariable String item, @PathVariable String extension) {
         return "assets/js/" + item + "." + extension;
     }
+
+    @RequestMapping(path = "userpage/assets/css/{item}.{extension}")
+    public String serveResourcesCssUser(@PathVariable String item, @PathVariable String extension) {
+        return "userpage/assets/css/" + item + "." + extension;
+    }
+
+    @RequestMapping(path = "userpage/assets/js/{item}.{extension}")
+    public String serveResourcesJsUser(@PathVariable String item, @PathVariable String extension) {
+        return "userpage/assetsjs/" + item + "." + extension;
+    }
+
+
+
+
 }
