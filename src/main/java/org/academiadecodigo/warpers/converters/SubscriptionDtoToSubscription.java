@@ -25,7 +25,10 @@ public class SubscriptionDtoToSubscription implements Converter<SubscriptionDto,
 
         Subscription subscription = null;
 
-        subscription = subscriptionFactory.createSubscription(subscriptionDto.getSubscriptionType());
+        subscription.setSubscriptionType(subscriptionDto.getSubscriptionType());
+        subscription.setMaxMembers(subscriptionDto.getMaxMembers());
+
+        //subscription = subscriptionFactory.createSubscription(subscriptionDto.getSubscriptionType());
 
         return subscription;
     }
