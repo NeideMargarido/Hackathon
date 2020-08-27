@@ -34,7 +34,7 @@
                 <entry key="hibernate.hbm2ddl.auto" value="${dev.schema.auto}"/>
 
                 <!-- Insert test data if dev.schema.auto property set to create -->
-                <entry key="hibernate.hbm2ddl.import_files" value="db/test-data.sql"/>
+                <entry key="hibernate.hbm2ddl.import_files" value="db/subscriptions-table.sql"/>
                 <entry key="hibernate.hbm2ddl.import_files_sql_extractor"
                        value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor"/>
 
