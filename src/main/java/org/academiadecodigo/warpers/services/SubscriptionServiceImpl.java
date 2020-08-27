@@ -39,5 +39,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return subscriptionDao.findAll();
     }
 
-
+    @Override
+    public Subscription save(Subscription subscription) {
+        return subscriptionDao.saveOrUpdate(subscription);
+    }
 }
