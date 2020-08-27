@@ -17,7 +17,7 @@ public class MainController {
      */
     @RequestMapping("/")
     public String home() {
-        return "redirect:/index";
+        return "redirect:index";
     }
 
     @RequestMapping(path = "/assets/css/{item}.{extension}")
