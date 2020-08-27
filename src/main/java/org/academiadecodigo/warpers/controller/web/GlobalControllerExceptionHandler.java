@@ -1,4 +1,4 @@
-package org.academiadecodigo.warpers.controller.web;
+/*package org.academiadecodigo.warpers.controller.web;
 
 import org.academiadecodigo.warpers.exceptions.JavaBankException;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ import java.util.Date;
 
 /**
  * A {@link ControllerAdvice} implementation, responsible for {@link Controller} exception handling
- */
+
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
 
@@ -25,7 +25,7 @@ public class GlobalControllerExceptionHandler {
      * @param req the http request
      * @param ex  the thrown exception
      * @return the model to render
-     */
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = JavaBankException.class)
     public ModelAndView handleClientErrors(HttpServletRequest req, JavaBankException ex) {
@@ -40,7 +40,7 @@ public class GlobalControllerExceptionHandler {
      * @param req the http request
      * @param ex  the thrown exception
      * @return the model to render
-     */
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public ModelAndView handleServerErrors(HttpServletRequest req, Exception ex) {
@@ -75,3 +75,4 @@ public class GlobalControllerExceptionHandler {
         logger.error(errorOrigin + " error on " + throwingMethodName + "() - " + ex.getMessage());
     }
 }
+*/
