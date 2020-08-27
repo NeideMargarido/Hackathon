@@ -7,8 +7,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "subscription_type")
+@Table(name = "subscriptionType")
 public abstract class Subscription extends AbstractModel {
 
     @ManyToOne
@@ -21,7 +20,6 @@ public abstract class Subscription extends AbstractModel {
     public User getUser() {
         return user;
     }
-
 
     public void setUser(User customer) {
         this.user = customer;
@@ -47,7 +45,7 @@ public abstract class Subscription extends AbstractModel {
     public String toString() {
         return "Subscription{" +
                 "subscription type=" + getSubscriptionType() +
-                ", customerId=" + (user != null ? user.getId() : null) +
+                //", customerId=" + (user != null ? user.getId() : null) +
                 "} " + super.toString();
     }
 }

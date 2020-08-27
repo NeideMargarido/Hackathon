@@ -10,11 +10,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+//@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SubscriptionDto {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @NotNull(message = "Subscription Type is mandatory")
