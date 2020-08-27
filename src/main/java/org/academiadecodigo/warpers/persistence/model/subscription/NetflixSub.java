@@ -20,20 +20,4 @@ public class NetflixSub extends Subscription {
     public SubscriptionType getAccountType() {
         return SubscriptionType.NETFLIX;
     }
-
-    /**
-     * @see Subscription#canDebit(double)
-     */
-    @Override
-    public boolean canDebit(double amount) {
-        return super.canDebit(amount) && (getBalance() - amount) >= MIN_BALANCE;
-    }
-
-    /**
-     * @see Subscription#canWithdraw()
-     */
-    @Override
-    public boolean canWithdraw() {
-        return false;
-    }
 }

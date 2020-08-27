@@ -23,7 +23,7 @@ import javax.validation.Valid;
  * Controller responsible for rendering {@link Subscription} related views
  */
 @Controller
-@RequestMapping("/customer")
+@RequestMapping("/user")
 public class SubscriptionController {
 
     private UserService userService;
@@ -33,15 +33,14 @@ public class SubscriptionController {
     private UserToUserDto userToUserDto;
 
     /**
-     * Sets the customer service
+     * Sets the user service
      *
-     * @param userService the customer service to set
+     * @param userService the user service to set
      */
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
 
     /**
      * Sets the account service
@@ -63,11 +62,10 @@ public class SubscriptionController {
         this.accountDtoToAccount = accountDtoToAccount;
     }
 
-
     /**
-     * Sets the converter for converting between customer model objects and customer DTO
+     * Sets the converter for converting between user model objects and user DTO
      *
-     * @param userToUserDto the customer to customer DTO converter to set
+     * @param userToUserDto the user to user DTO converter to set
      */
     @Autowired
     public void setUserToUserDto(UserToUserDto userToUserDto) {
@@ -77,7 +75,7 @@ public class SubscriptionController {
     /**
      * Adds an account
      *
-     * @param cid                the customer id
+     * @param cid                the user id
      * @param subscriptionDto         the account data transfer object
      * @param bindingResult      the binding result object
      * @param redirectAttributes the redirect attributes object
@@ -88,78 +86,25 @@ public class SubscriptionController {
     public String addAccount(@PathVariable Integer cid, @Valid @ModelAttribute("account") SubscriptionDto subscriptionDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
 
         if (bindingResult.hasErrors()) {
-            return "redirect:/customer/" + cid;
+            return "redirect:/user/" + cid;
         }
 
         try {
             Subscription subscription = accountDtoToAccount.convert(subscriptionDto);
             userService.addAccount(cid, subscription);
             redirectAttributes.addFlashAttribute("lastAction", "Created " + subscription.getAccountType() + " subscription.");
-            return "redirect:/customer/" + cid;
+            return "redirect:/user/" + cid;
 
         } catch (TransactionInvalidException ex) {
             redirectAttributes.addFlashAttribute("failure", "Savings account must have a minimum value of 100 at all times");
-            return "redirect:/customer/" + cid;
-        }
-    }
-
-    /**
-     * Deposits a given amount to an account
-     *
-     * @param cid                   the customer id
-     * @param accountTransactionDto the account transaction data transfer object
-     * @param bindingResult         the binding result object
-     * @param redirectAttributes    the redirect attributes object
-     * @return the view to render
-     * @throws Exception
-     */
-    @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/deposit"})
-    public String deposit(@PathVariable Integer cid, @Valid @ModelAttribute("transaction") AccountTransactionDto accountTransactionDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("failure", "Deposit failed missing information");
-            return "redirect:/customer/" + cid;
-        }
-
-        subscriptionService.deposit(accountTransactionDto.getId(), cid, Double.parseDouble(accountTransactionDto.getAmount()));
-        redirectAttributes.addFlashAttribute("lastAction", "Deposited " + accountTransactionDto.getAmount() + " into account # " + accountTransactionDto.getId());
-        return "redirect:/customer/" + cid;
-    }
-
-    /**
-     * Withdraws a given amount from an account
-     *
-     * @param cid                   the customer id
-     * @param accountTransactionDto the account transaction data transfer object
-     * @param bindingResult         the binding result object
-     * @param redirectAttributes    the redirect attributes object
-     * @return the view to render
-     * @throws Exception
-     */
-    @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/withdraw"})
-    public String withdraw(@PathVariable Integer cid, @Valid @ModelAttribute("transaction") AccountTransactionDto accountTransactionDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
-
-        if (bindingResult.hasErrors()) {
-            //this message appears when the form is submitted with value blank
-            redirectAttributes.addFlashAttribute("failure", "Withdraw failed missing information");
-            return "redirect:/customer/" + cid;
-        }
-
-        try {
-            subscriptionService.withdraw(accountTransactionDto.getId(), cid, Double.parseDouble(accountTransactionDto.getAmount()));
-            redirectAttributes.addFlashAttribute("lastAction", "Withdrew " + accountTransactionDto.getAmount() + " from account # " + accountTransactionDto.getId());
-            return "redirect:/customer/" + cid;
-
-        } catch (TransactionInvalidException ex) {
-            redirectAttributes.addFlashAttribute("failure", "Withdraw failed. " + accountTransactionDto.getAmount() + " is over the current balance for account # " + accountTransactionDto.getId());
-            return "redirect:/customer/" + cid;
+            return "redirect:/user/" + cid;
         }
     }
 
     /**
      * Closes an account
      *
-     * @param cid                the customer id
+     * @param cid                the user id
      * @param aid                the account id
      * @param redirectAttributes the redirect attributes object
      * @return the view to render
@@ -171,11 +116,11 @@ public class SubscriptionController {
         try {
             userService.closeAccount(cid, aid);
             redirectAttributes.addFlashAttribute("lastAction", "Closed account " + aid);
-            return "redirect:/customer/" + cid;
+            return "redirect:/user/" + cid;
 
         } catch (TransactionInvalidException ex) {
             redirectAttributes.addFlashAttribute("failure", "Unable to perform closing operation. Account # " + aid + " still has funds");
-            return "redirect:/customer/" + cid;
+            return "redirect:/user/" + cid;
         }
     }
 

@@ -4,7 +4,7 @@ import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.converters.AccountDtoToAccount;
 import org.academiadecodigo.warpers.converters.AccountToAccountDto;
 import org.academiadecodigo.warpers.exceptions.AccountNotFoundException;
-import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
+import org.academiadecodigo.warpers.exceptions.UserNotFoundException;
 import org.academiadecodigo.warpers.exceptions.TransactionInvalidException;
 import org.academiadecodigo.warpers.persistence.model.User;
 import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
@@ -37,9 +37,9 @@ public class RestSubscriptionController {
     private AccountDtoToAccount accountDtoToAccount;
 
     /**
-     * Sets the customer service
+     * Sets the user service
      *
-     * @param userService the customer service to set
+     * @param userService the user service to set
      */
     @Autowired
     public void setUserService(UserService userService) {
@@ -47,9 +47,9 @@ public class RestSubscriptionController {
     }
 
     /**
-     * Sets the account service
+     * Sets the subscription service
      *
-     * @param subscriptionService the account service to set
+     * @param subscriptionService the subscription service to set
      */
     @Autowired
     public void setSubscriptionService(SubscriptionService subscriptionService) {
@@ -57,9 +57,9 @@ public class RestSubscriptionController {
     }
 
     /**
-     * Sets the converter for converting between account model object and account DTO
+     * Sets the converter for converting between subscription model object and subscription DTO
      *
-     * @param accountToAccountDto the account model object to account DTO converter to set
+     * @param accountToAccountDto the subscription model object to subscription DTO converter to set
      */
     @Autowired
     public void setAccountToAccountDto(AccountToAccountDto accountToAccountDto) {
@@ -67,9 +67,9 @@ public class RestSubscriptionController {
     }
 
     /**
-     * Sets the converter for converting between account DTO and account model objects
+     * Sets the converter for converting between subscription DTO and subscription model objects
      *
-     * @param accountDtoToAccount the account DTO to account converter to set
+     * @param accountDtoToAccount the subscription DTO to subscription converter to set
      */
     @Autowired
     public void setAccountDtoToAccount(AccountDtoToAccount accountDtoToAccount) {
@@ -77,13 +77,13 @@ public class RestSubscriptionController {
     }
 
     /**
-     * Retrieves a representation of the given customer accounts
+     * Retrieves a representation of the given user subscriptions
      *
-     * @param cid the customer id
+     * @param cid the user id
      * @return the response entity
      */
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription")
-    public ResponseEntity<List<SubscriptionDto>> listCustomerAccounts(@PathVariable Integer cid) {
+    public ResponseEntity<List<SubscriptionDto>> listUserAccounts(@PathVariable Integer cid) {
 
         User user = userService.get(cid);
 
@@ -91,20 +91,20 @@ public class RestSubscriptionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<SubscriptionDto> subscriptionDtos = user.getSubscriptions().stream().map(account -> accountToAccountDto.convert(account)).collect(Collectors.toList());
+        List<SubscriptionDto> subscriptionDtos = user.getSubscriptions().stream().map(subscription -> accountToAccountDto.convert(subscription)).collect(Collectors.toList());
 
         return new ResponseEntity<>(subscriptionDtos, HttpStatus.OK);
     }
 
     /**
-     * Retrieves a representation of the customer account
+     * Retrieves a representation of the user subscription
      *
-     * @param cid the customer id
-     * @param aid the account id
+     * @param cid the user id
+     * @param aid the subscription id
      * @return the response entity
      */
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}")
-    public ResponseEntity<SubscriptionDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
+    public ResponseEntity<SubscriptionDto> showUserAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
         Subscription subscription = subscriptionService.get(aid);
 
@@ -120,10 +120,10 @@ public class RestSubscriptionController {
     }
 
     /**
-     * Adds an account
+     * Adds an subscription
      *
-     * @param cid                  the customer id
-     * @param subscriptionDto           the account DTO
+     * @param cid                  the user id
+     * @param subscriptionDto           the subscription DTO
      * @param bindingResult        the binding result object
      * @param uriComponentsBuilder the uri components builder object
      * @return the response entity
@@ -145,7 +145,7 @@ public class RestSubscriptionController {
 
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
 
-        } catch (CustomerNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         } catch (TransactionInvalidException e) {
@@ -155,10 +155,10 @@ public class RestSubscriptionController {
     }
 
     /**
-     * Closes an account
+     * Closes an subscription
      *
-     * @param cid the customer id
-     * @param aid the accound id
+     * @param cid the user id
+     * @param aid the subscription id
      * @return the response entity
      */
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
@@ -170,7 +170,7 @@ public class RestSubscriptionController {
 
             return new ResponseEntity<>(HttpStatus.OK);
 
-        } catch (CustomerNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         } catch (AccountNotFoundException e) {

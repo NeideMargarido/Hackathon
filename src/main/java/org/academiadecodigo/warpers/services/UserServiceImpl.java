@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private SubscriptionDao subscriptionDao;
 
     /**
-     * Sets the customer data access object
+     * Sets the user data access object
      *
      * @param userDao the account DAO to set
      */
@@ -48,19 +48,6 @@ public class UserServiceImpl implements UserService {
         return userDao.findById(id);
     }
 
-
-    /*@Override
-    public double getBalance(Integer id) throws CustomerNotFoundException {
-
-        /*Customer customer = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);*/
-
-        /*return 0;customer.getAccounts().stream()
-                .mapToDouble(Account::getBalance)
-                .sum();
-    }*/
-
-
     @Transactional
     @Override
     public User save(User user) {
@@ -72,10 +59,10 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional
     @Override
-    public void delete(Integer id) throws CustomerNotFoundException, AssociationExistsException {
+    public void delete(Integer id) throws UserNotFoundException, AssociationExistsException {
 
         User user = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
+                .orElseThrow(UserNotFoundException::new);
 
         if (!user.getSubscriptions().isEmpty()) {
             throw new AssociationExistsException();
@@ -92,79 +79,12 @@ public class UserServiceImpl implements UserService {
         return userDao.findAll();
     }
 
-
-    /*@Transactional(readOnly = true)
-    @Override
-    public List<Recipient> listRecipients(Integer id) throws CustomerNotFoundException {
-
-        // check then act logic requires transaction,
-        // event if read only
-
-        Customer customer = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
-
-        return new ArrayList<>(customer.getRecipients());
-    }
-
-    /**
-     * @see UserService#addRecipient(Integer, Recipient)
-     */
-   /* @Transactional
-    @Override
-    public Recipient addRecipient(Integer id, Recipient recipient) throws CustomerNotFoundException, AccountNotFoundException {
-
-        Customer customer = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
-
-        if (subscriptionDao.findById(recipient.getAccountNumber()) == null ||
-                getAccountIds(customer).contains(recipient.getAccountNumber())) {
-            throw new AccountNotFoundException();
-        }
-
-        if (recipient.getId() == null) {
-            customer.addRecipient(recipient);
-            userDao.saveOrUpdate(customer);
-        } else {
-            recipientDao.saveOrUpdate(recipient);
-        }
-        return customer.getRecipients().get(customer.getRecipients().size() - 1);
-    }
-
-    /**
-     * @see UserService#removeRecipient(Integer, Integer)
-     */
-   /* @Transactional
-    @Override
-    public void removeRecipient(Integer id, Integer recipientId) throws CustomerNotFoundException, RecipientNotFoundException {
-
-        Customer customer = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
-
-        Recipient recipient = Optional.ofNullable(recipientDao.findById(recipientId))
-                .orElseThrow(RecipientNotFoundException::new);
-
-        if (!customer.getRecipients().contains(recipient)) {
-            throw new RecipientNotFoundException();
-        }
-
-        customer.removeRecipient(recipient);
-        userDao.saveOrUpdate(customer);
-    }
-
-    /**
-     * @see UserService#addAccount(Integer, Subscription)
-     */
     @Transactional
     @Override
-    public Subscription addAccount(Integer id, Subscription subscription) throws CustomerNotFoundException, TransactionInvalidException {
+    public Subscription addAccount(Integer id, Subscription subscription) throws UserNotFoundException, TransactionInvalidException {
 
         User user = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
-
-        /*if (!subscription.canWithdraw() &&
-                subscription.getBalance() < NetflixSub.MIN_BALANCE) {
-            throw new TransactionInvalidException();
-        }*/
+                .orElseThrow(UserNotFoundException::new);
 
         user.addAccount(subscription);
         userDao.saveOrUpdate(user);
@@ -178,10 +98,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void closeAccount(Integer id, Integer accountId)
-            throws CustomerNotFoundException, AccountNotFoundException, TransactionInvalidException {
+            throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException {
 
         User user = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
+                .orElseThrow(UserNotFoundException::new);
 
         Subscription subscription = Optional.ofNullable(subscriptionDao.findById(accountId))
                 .orElseThrow(AccountNotFoundException::new);
@@ -190,17 +110,12 @@ public class UserServiceImpl implements UserService {
             throw new AccountNotFoundException();
         }
 
-        //different from 0 in case we later decide that negative values are acceptable
-        if (subscription.getBalance() != 0) {
-            throw new TransactionInvalidException();
-        }
-
         user.removeAccount(subscription);
         userDao.saveOrUpdate(user);
     }
 
-    private Set<Integer> getAccountIds(User customer) {
-        List<Subscription> subscriptions = customer.getSubscriptions();
+    private Set<Integer> getAccountIds(User user) {
+        List<Subscription> subscriptions = user.getSubscriptions();
 
         return subscriptions.stream()
                 .map(AbstractModel::getId)

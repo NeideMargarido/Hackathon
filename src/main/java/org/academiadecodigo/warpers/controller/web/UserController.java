@@ -7,7 +7,7 @@ import org.academiadecodigo.warpers.converters.AccountToAccountDto;
 import org.academiadecodigo.warpers.converters.UserDtoToUser;
 import org.academiadecodigo.warpers.converters.UserToUserDto;
 import org.academiadecodigo.warpers.exceptions.AssociationExistsException;
-import org.academiadecodigo.warpers.exceptions.CustomerNotFoundException;
+import org.academiadecodigo.warpers.exceptions.UserNotFoundException;
 import org.academiadecodigo.warpers.persistence.model.User;
 import org.academiadecodigo.warpers.persistence.model.subscription.SubscriptionType;
 import org.academiadecodigo.warpers.services.UserService;
@@ -181,10 +181,10 @@ public class UserController {
      * @param redirectAttributes the redirect attributes object
      * @return the view to render
      * @throws AssociationExistsException
-     * @throws CustomerNotFoundException
+     * @throws UserNotFoundException
      */
     @RequestMapping(method = RequestMethod.GET, path = "{id}/delete")
-    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws AssociationExistsException, CustomerNotFoundException {
+    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws AssociationExistsException, UserNotFoundException {
         User user = userService.get(id);
         userService.delete(id);
         redirectAttributes.addFlashAttribute("lastAction", "Deleted " + user.getFirstName() + " " + user.getLastName());

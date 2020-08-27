@@ -7,157 +7,62 @@ import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import java.util.List;
 
 /**
- * Common interface for customer services, provides methods to manage customers
+ * Common interface for user services, provides methods to manage users
  */
 public interface UserService {
 
     /**
-     * Gets the customer with the given id
+     * Gets the user with the given id
      *
-     * @param id the customer id
-     * @return the customer
+     * @param id the user id
+     * @return the user
      */
     User get(Integer id);
-
-    /**
-     * Gets the balance of the customer
-     *
-     * @param id the customer id
-     * @return the balance of the customer with the given id
-     * @throws CustomerNotFoundException
-     */
-    //double getBalance(Integer id) throws CustomerNotFoundException;
 
     /**
      * Saves a user
      *
      * @param user the user to save
-     * @return the saved custoemr
+     * @return the saved user
      */
     User save(User user);
 
     /**
-     * Deletes the customer
+     * Deletes the user
      *
-     * @param id the customer id
-     * @throws CustomerNotFoundException
+     * @param id the user id
+     * @throws UserNotFoundException
      * @throws AssociationExistsException
      */
-    void delete(Integer id) throws AssociationExistsException, CustomerNotFoundException;
+    void delete(Integer id) throws AssociationExistsException, UserNotFoundException;
 
     /**
-     * Gets a list of the customers
+     * Gets a list of the users
      *
-     * @return the customers list
+     * @return the users list
      */
     List<User> list();
 
     /**
-     * Gets the list of customer recipients
+     * Gets the list of user recipients
      *
-     * @param id the customer id
-     * @return the list of recipients of the customer
-     * @throws CustomerNotFoundException
+     * @param id the user id
+     * @return the list of recipients of the user
+     * @throws UserNotFoundException
      */
-    //List<Recipient> listRecipients(Integer id) throws CustomerNotFoundException;
-    /*Recipient addRecipient(Integer id, Recipient recipient)
-            throws CustomerNotFoundException, AccountNotFoundException;
 
-    /**
-     * Removes a recipient from the customer
-     *
-     * @param id          the customer id
-     * @param recipientId the recipient id
-     * @throws CustomerNotFoundException
-     * @throws AccountNotFoundException
-     * @throws RecipientNotFoundException
-     */
-    /*void removeRecipient(Integer id, Integer recipientId)
-            throws CustomerNotFoundException, AccountNotFoundException, RecipientNotFoundException;
-
-    /**
-     * Adds an subscriptions to a customer
-     *
-     * @param id      the customer id
-     * @param subscription the subscriptions
-     * @throws CustomerNotFoundException
-     * @throws TransactionInvalidException
-     */
     Subscription addAccount(Integer id, Subscription subscription)
-            throws CustomerNotFoundException, TransactionInvalidException;
-
-    /*@Transactional(readOnly = true)
-    @Override
-    public List<Recipient> listRecipients(Integer id) throws CustomerNotFoundException {
-
-        // check then act logic requires transaction,
-        // event if read only
-
-        Customer customer = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
-
-        return new ArrayList<>(customer.getRecipients());
-    }
+            throws UserNotFoundException, TransactionInvalidException;
 
     /**
-     * @see UserService#addRecipient(Integer, Recipient)
-     */
-   /* @Transactional
-    @Override
-    public Recipient addRecipient(Integer id, Recipient recipient) throws CustomerNotFoundException, AccountNotFoundException {
-
-        Customer customer = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
-
-        if (subscriptionDao.findById(recipient.getAccountNumber()) == null ||
-                getAccountIds(customer).contains(recipient.getAccountNumber())) {
-            throw new AccountNotFoundException();
-        }
-
-        if (recipient.getId() == null) {
-            customer.addRecipient(recipient);
-            userDao.saveOrUpdate(customer);
-        } else {
-            recipientDao.saveOrUpdate(recipient);
-        }
-        return customer.getRecipients().get(customer.getRecipients().size() - 1);
-    }
-
-    /**
-     * @see UserService#removeRecipient(Integer, Integer)
-     */
-   /* @Transactional
-    @Override
-    public void removeRecipient(Integer id, Integer recipientId) throws CustomerNotFoundException, RecipientNotFoundException {
-
-        Customer customer = Optional.ofNullable(userDao.findById(id))
-                .orElseThrow(CustomerNotFoundException::new);
-
-        Recipient recipient = Optional.ofNullable(recipientDao.findById(recipientId))
-                .orElseThrow(RecipientNotFoundException::new);
-
-        if (!customer.getRecipients().contains(recipient)) {
-            throw new RecipientNotFoundException();
-        }
-
-        customer.removeRecipient(recipient);
-        userDao.saveOrUpdate(customer);
-    }
-
-    /**
-     * @see UserService#addAccount(Integer, Subscription)
-     */
-
-
-    /**
-     * Closes an account from the customer
+     * Closes an account from the user
      *
-     * @param id        the customer id
+     * @param id        the user id
      * @param accountId the account id
-     * @throws CustomerNotFoundException
+     * @throws UserNotFoundException
      * @throws AccountNotFoundException
      * @throws TransactionInvalidException
      */
     void closeAccount(Integer id, Integer accountId)
-            throws CustomerNotFoundException, AccountNotFoundException, TransactionInvalidException;
+            throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException;
 }
