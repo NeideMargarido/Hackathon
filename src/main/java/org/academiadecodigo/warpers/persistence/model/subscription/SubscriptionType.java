@@ -8,8 +8,15 @@ public enum SubscriptionType {
 
     SPOTIFY,
 
+    NETFLIX,
 
-    NETFLIX;
+    HBO,
+
+    AMAZONPRIME,
+
+    APPLETV_APPLEMUSIC,
+
+    DISNEYPLUS;
 
 
     public static List<SubscriptionType> list() {

@@ -1,17 +1,14 @@
 package org.academiadecodigo.warpers.factories;
 
 import org.academiadecodigo.warpers.errors.ErrorMessage;
-import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
-import org.academiadecodigo.warpers.persistence.model.subscription.SubscriptionType;
-import org.academiadecodigo.warpers.persistence.model.subscription.SpotifySub;
-import org.academiadecodigo.warpers.persistence.model.subscription.NetflixSub;
+import org.academiadecodigo.warpers.persistence.model.subscription.*;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SubscriptionFactory {
 
 
-    public Subscription createAccount(SubscriptionType subscriptionType) {
+    public Subscription createSubscription(SubscriptionType subscriptionType) {
 
         Subscription newSubscription;
 
@@ -21,6 +18,17 @@ public class SubscriptionFactory {
                 break;
             case NETFLIX:
                 newSubscription = new NetflixSub();
+                break;
+            case HBO:
+                newSubscription = new HBOSub();
+                break;
+            case AMAZONPRIME:
+                newSubscription = new AmazonPrimeSub();
+                break;
+            case APPLETV_APPLEMUSIC:
+                newSubscription = new AppleTvSub();
+            case DISNEYPLUS:
+                newSubscription = new DisneyPlusSub();
                 break;
             default:
                 throw new IllegalArgumentException(ErrorMessage.TRANSACTION_INVALID);
