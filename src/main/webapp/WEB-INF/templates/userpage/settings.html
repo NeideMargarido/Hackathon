@@ -81,25 +81,37 @@
               </ul>
           </div>
 
-          <div class="col-lg-8 mt-5 mt-lg-0 align-items-stretch" id="cname">
-            <form action="" method="post" role="form" class="php-email-form">
+          <div class="col-lg-8 mt-5 mt-lg-0 align-items-stretch php-email-form" id="cname">
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="name">New Name</label>
+                  <input type="hidden" name="hfirstName" class="form-control" id="hfirstName" value="Rafael" />
+                  <input type="hidden" name="hlastName" class="form-control" id="hlastName" value="Moreira" />
+                  <input type="hidden" name="hemail" class="form-control" id="hemail" value="rfnm99@gmail.com" />
+                  <input type="hidden" name="hpassword" class="form-control" id="hpassword" value="12345" />
+                  <input type="hidden" name="hphone" class="form-control" id="hphone" value="911868762" />
+                  <input type="hidden" name="hcountry" class="form-control" id="hcountry" value="Portugal" />
                   <input type="text" name="name" class="form-control" id="name" placeholder="New name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                   <div class="validate"></div>
                 </div>
               </div>
               <div class="mb-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Save success!</div>
+                <div class="spinner-border" role="status" id="loading" style="display: none;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="alert alert-danger" role="alert" id="errormessage" style="display:none;">
+                  An error occurred!
+                </div>
+                <div class="alert alert-success" role="alert" id="remessage" style="display:none;">
+                  Save success!
+                </div>
               </div>
-              <div class="text-center"><button type="submit">Save</button></div>
-            </form>
+              <div class="text-center"><button class="btnsetting btn" onclick="editName(1)">Save</button></div>
           </div>
-          <div class="col-lg-8 mt-5 mt-lg-0 align-items-stretch" id="cemail" style="display: none !important;">
-            <form action="" method="post" role="form" class="php-email-form">
+
+          <!------------------------------>
+
+          <div class="col-lg-8 mt-5 mt-lg-0 align-items-stretch php-email-form" id="cemail" style="display: none !important;">
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="name">New Email</label>
@@ -108,15 +120,22 @@
                 </div>
               </div>
               <div class="mb-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Save success!</div>
+                <div class="spinner-border" role="status" id="loading" style="display: none;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="alert alert-danger" role="alert" id="errormessage2" style="display:none;">
+                  An error occurred!
+                </div>
+                <div class="alert alert-success" role="alert" id="remessage2" style="display:none;">
+                  Save success!
+                </div>
               </div>
-              <div class="text-center"><button type="submit">Save</button></div>
-            </form>
+              <div class="text-center"><button class="btnsetting btn" onclick="editEmail(1)">Save</button></div>
           </div>
-          <div class="col-lg-8 mt-5 mt-lg-0 align-items-stretch" id="cpassword" style="display: none !important; ">
-            <form action="" method="post" role="form" class="php-email-form">
+
+          <!------------------------------>
+
+          <div class="col-lg-8 mt-5 mt-lg-0 align-items-stretch php-email-form" id="cpassword" style="display: none !important; ">
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="name">New Password</label>
@@ -126,18 +145,25 @@
                 </div>
                 <div class="form-group col-md-12">
                   <label for="name">Confirm Password</label>
-                  <input type="password" name="cpassword" class="form-control" id="cpassword" placeholder="Confirm password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <input type="password" name="confimar" class="form-control" id="confimar" placeholder="Confirm password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                   <div class="validate"></div>
-                  
                 </div>
               </div>
               <div class="mb-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Save success!</div>
+                <div class="spinner-border" role="status" id="loading" style="display: none;">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="alert alert-danger" role="alert" id="errormessage3" style="display:none;">
+                  An error occurred!
+                </div>
+                <div class="alert alert-danger" role="alert" id="errormessage4" style="display:none;">
+                  Passwords do not coincide!
+                </div>
+                <div class="alert alert-success" role="alert" id="remessage3" style="display:none;">
+                  Save success!
+                </div>
               </div>
-              <div class="text-center"><button type="submit">Save</button></div>
-            </form>
+              <div class="text-center"><button class="btnsetting btn" onclick="editPassword(1)">Save</button></div>
           </div>
 
         </div>
