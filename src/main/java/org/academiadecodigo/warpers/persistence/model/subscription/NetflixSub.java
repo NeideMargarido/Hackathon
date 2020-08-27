@@ -13,8 +13,8 @@ public class NetflixSub extends Subscription {
     }
 
     @Override
-    public SubscriptionType getSubscriptionType() {
-        return SubscriptionType.NETFLIX;
+    public String getSubscriptionType() {
+        return SubscriptionType.NETFLIX.toString();
     }
 
     public String getMaxMembers() {

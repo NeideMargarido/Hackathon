@@ -13,7 +13,7 @@ public class DisneyPlusSub extends Subscription {
     }
 
     @Override
-    public SubscriptionType getSubscriptionType() {
-        return SubscriptionType.DISNEYPLUS;
+    public String getSubscriptionType() {
+        return SubscriptionType.DISNEYPLUS.toString();
     }
 }

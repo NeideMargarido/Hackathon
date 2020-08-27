@@ -17,8 +17,8 @@ private String maxMembers;
     }
 
     @Override
-    public SubscriptionType getSubscriptionType() {
-        return SubscriptionType.SPOTIFY;
+    public String getSubscriptionType() {
+        return SubscriptionType.SPOTIFY.toString();
     }
 
 

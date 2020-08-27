@@ -14,7 +14,7 @@ public class AmazonPrimeSub extends Subscription{
     }
 
     @Override
-    public SubscriptionType getSubscriptionType() {
-        return SubscriptionType.AMAZONPRIME;
+    public String getSubscriptionType() {
+        return SubscriptionType.AMAZONPRIME.toString();
     }
 }

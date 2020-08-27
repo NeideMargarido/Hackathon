@@ -8,8 +8,8 @@ public class HBOSub extends Subscription{
     }
 
     @Override
-    public SubscriptionType getSubscriptionType() {
-       return  SubscriptionType.HBO;
+    public String getSubscriptionType() {
+       return  SubscriptionType.HBO.toString();
     }
 
 
