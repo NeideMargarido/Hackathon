@@ -23,9 +23,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * REST controller responsible for {@link Subscription} related CRUD operations
- */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/user")
@@ -36,53 +33,26 @@ public class RestSubscriptionController {
     private SubscriptionToSubscriptionDto subscriptionToSubscriptionDto;
     private SubscriptionDtoToSubscription subscriptionDtoToSubscription;
 
-    /**
-     * Sets the customer service
-     *
-     * @param userService the customer service to set
-     */
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    /**
-     * Sets the account service
-     *
-     * @param subscriptionService the account service to set
-     */
     @Autowired
     public void setSubscriptionService(SubscriptionService subscriptionService) {
         this.subscriptionService = subscriptionService;
     }
 
-    /**
-     * Sets the converter for converting between account model object and account DTO
-     *
-     * @param subscriptionToSubscriptionDto the account model object to account DTO converter to set
-     */
     @Autowired
     public void setSubscriptionToSubscriptionDto(SubscriptionToSubscriptionDto subscriptionToSubscriptionDto) {
         this.subscriptionToSubscriptionDto = subscriptionToSubscriptionDto;
     }
 
-    /**
-     * Sets the converter for converting between account DTO and account model objects
-     *
-     * @param accountDtoToAccount the subscription DTO to subscription converter to set
-     * @param subscriptionDtoToSubscription the account DTO to account converter to set
-     */
     @Autowired
     public void setSubscriptionDtoToSubscription(SubscriptionDtoToSubscription subscriptionDtoToSubscription) {
         this.subscriptionDtoToSubscription = subscriptionDtoToSubscription;
     }
 
-    /**
-     * Retrieves a representation of the given customer accounts
-     *
-     * @param cid the customer id
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription")
     public ResponseEntity<List<SubscriptionDto>> listCustomerAccounts(@PathVariable Integer cid) {
 
@@ -97,13 +67,6 @@ public class RestSubscriptionController {
         return new ResponseEntity<>(subscriptionDtos, HttpStatus.OK);
     }
 
-    /**
-     * Retrieves a representation of the customer account
-     *
-     * @param cid the customer id
-     * @param aid the account id
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}")
     public ResponseEntity<SubscriptionDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
@@ -120,15 +83,6 @@ public class RestSubscriptionController {
         return new ResponseEntity<>(subscriptionToSubscriptionDto.convert(subscription), HttpStatus.OK);
     }
 
-    /**
-     * Adds an account
-     *
-     * @param cid                  the customer id
-     * @param subscriptionDto           the account DTO
-     * @param bindingResult        the binding result object
-     * @param uriComponentsBuilder the uri components builder object
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.POST, path = "/{cid}/subscription")
     public ResponseEntity<?> addAccount(@PathVariable Integer cid, @Valid @RequestBody SubscriptionDto subscriptionDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
@@ -138,7 +92,7 @@ public class RestSubscriptionController {
 
         try {
 
-            Subscription subscription = userService.addAccount(cid, subscriptionDtoToSubscription.convert(subscriptionDto));
+            Subscription subscription = userService.addSubscription(cid, subscriptionDtoToSubscription.convert(subscriptionDto));
 
             UriComponents uriComponents = uriComponentsBuilder.path("/api/user/" + cid + "/subscription/" + subscription.getId()).build();
             HttpHeaders headers = new HttpHeaders();
@@ -155,19 +109,12 @@ public class RestSubscriptionController {
 
     }
 
-    /**
-     * Closes an account
-     *
-     * @param cid the customer id
-     * @param aid the accound id
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
     public ResponseEntity<?> closeAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
         try {
 
-            userService.closeAccount(cid, aid);
+            userService.closeSubscription(cid, aid);
 
             return new ResponseEntity<>(HttpStatus.OK);
 

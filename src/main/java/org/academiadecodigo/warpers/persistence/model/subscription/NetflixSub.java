@@ -2,6 +2,7 @@ package org.academiadecodigo.warpers.persistence.model.subscription;
 
 import javax.persistence.Entity;
 
+
 @Entity
 public class NetflixSub extends Subscription {
 
