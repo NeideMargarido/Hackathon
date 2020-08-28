@@ -4,9 +4,7 @@ import org.academiadecodigo.warpers.persistence.model.User;
 
 import javax.validation.constraints.*;
 
-/**
- * The {@link User} data transfer object
- */
+
 public class UserDto {
 
     private Integer id;

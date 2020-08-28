@@ -1,6 +1,7 @@
 package org.academiadecodigo.warpers.command;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.academiadecodigo.warpers.persistence.model.subscription.Subscription;
 import org.academiadecodigo.warpers.persistence.model.subscription.SubscriptionType;
 
 import javax.persistence.GeneratedValue;
@@ -13,8 +14,8 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SubscriptionDto {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @NotNull(message = "Subscription Type is mandatory")
@@ -43,16 +44,13 @@ public class SubscriptionDto {
         this.id = id;
     }
 
-
     public SubscriptionType getSubscriptionType() {
         return subscriptionType;
     }
 
-
     public void setSubscriptionType(SubscriptionType subscriptionType) {
         this.subscriptionType = subscriptionType;
     }
-
 
     /*@Override
     public String toString() {
