@@ -399,6 +399,7 @@ function editPassword(id) {
 
 function addNetflix() {
   $('#netflix').toggleClass('btn btn-subscribe btn btn-cancel');
+  $('#nerflix').html('Unsubscribe');
 }
 
 //-----------------------------------------------------------------
