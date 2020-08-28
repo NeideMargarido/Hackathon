@@ -3,48 +3,7 @@
           function() {
             if(!localStorage.getItem('log')){
               window.location.replace("https://warpers.herokuapp.com/");
-            } else {
-              if(localStorage.getItem('netflix') === 'true') {
-                $('#netflix').toggleClass('btn btn-subscribe btn btn-cancel');
-                document.getElementById('netflix').innerHTML= 'Unsubscribe';
-              }
-
-              if(localStorage.getItem('hulu') === 'true') {
-                $('#hulu').toggleClass('btn btn-subscribe btn btn-cancel');
-                document.getElementById('hulu').innerHTML= 'Unsubscribe';
-              }
-
-              if(localStorage.getItem('spotify') === 'true') {
-                $('#spotify').toggleClass('btn btn-subscribe btn btn-cancel');
-                document.getElementById('spotify').innerHTML= 'Unsubscribe';
-              }
-
-              if(localStorage.getItem('hbo') === 'true') {
-                $('#hbo').toggleClass('btn btn-subscribe btn btn-cancel');
-                document.getElementById('hbo').innerHTML= 'Unsubscribe';
-              }
-
-              if(localStorage.getItem('amazon') === 'true') {
-                $('#amazon').toggleClass('btn btn-subscribe btn btn-cancel');
-                document.getElementById('amazon').innerHTML= 'Unsubscribe';
-              }
-
-              if(localStorage.getItem('appletv') === 'true') {
-                $('#appletv').toggleClass('btn btn-subscribe btn btn-cancel');
-                document.getElementById('appletv').innerHTML= 'Unsubscribe';
-              }
-
-              if(localStorage.getItem('disney') === 'true') {
-                $('#disney').toggleClass('btn btn-subscribe btn btn-cancel');
-                document.getElementById('disney').innerHTML= 'Unsubscribe';
-              }
-
-              if(localStorage.getItem('applem') === 'true') {
-                $('#applem').toggleClass('btn btn-subscribe btn btn-cancel');
-                document.getElementById('applem').innerHTML= 'Unsubscribe';
-              }
-
-            }
+            } 
           }, false);
 </script>
 <!DOCTYPE html>
