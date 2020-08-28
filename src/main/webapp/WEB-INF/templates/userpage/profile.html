@@ -1,3 +1,12 @@
+<script>
+  window.addEventListener('load',
+          function() {
+            if(!localStorage.getItem('log')){
+              console.log(localStorage.getItem('log'));
+              window.location.replace("https://warpers.herokuapp.com/");
+            }
+          }, false);
+</script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +47,7 @@
 
       <div class="profile">
        <img src="assets/img/1.png" alt="profile picture" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="profile">Username</a></h1>
+        <h1 class="text-light"><a href="profile" id="userName"><script>document.getElementById("userName").innerHTML = localStorage.getItem('firstName');</script></a></h1>
      
 
       <nav class="nav-menu">
@@ -46,7 +55,7 @@
           <li class="active"><a href="profile"><i class="bx bx-dna"></i> <span>Your profile</span></a></li>
           <li ><a href="subscriptions"><i class="bx bx-movie"></i> <span>Your subscriptions</span></a></li>
           <li ><a href="settings"><i class="bx bx-archive"></i> Account Settings</a></li>
-          <li><a href="#"><i class="bx bx-power-off"></i> Logout</a></li>
+          <li><a href="#" onclick='localStorage.clear(); window.location.replace("https://warpers.herokuapp.com/");'><i class="bx bx-power-off"></i> Logout</a></li>
         </ul>
       </nav><!-- .nav-menu -->
       <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
@@ -74,26 +83,15 @@
             <p>Check-out all the information we have regarding your account. To change the information available, go to Account Settings.</p> <br><br>
                        
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <ul>
-                  <li><i class="icofont-rounded-right"></i> <strong>Username:</strong> this.getUsername </li>
-                  <li><i class="icofont-rounded-right"></i> <strong>E-mail:</strong> this.getEmail</li>
-                  <li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> this.getPhone</li>
-                  <li><i class="icofont-rounded-right"></i> <strong>Location:</strong> this.getLocation</li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="icofont-rounded-right"></i> <strong>Client ID:</strong>this.getClientID</li>
-                  <li><i class="icofont-rounded-right"></i> <strong>Favorite platform:</strong> this.getFavouritePlatform</li>
-                  <li><i class="icofont-rounded-right"></i> <strong>Joined:</strong> this.firstSubscriptionDate</li>
-                  <li><i class="icofont-rounded-right"></i> <strong>Subscriptions:</strong> this.getTotalSubscriptions</li>
+                  <li id="lname"> <script>document.getElementById("lname").innerHTML = '<i class=\"icofont-rounded-right\"></i> <strong>Username:</strong>' + ' ' + localStorage.getItem('firstName');</script> </li>
+                  <li id="lemail"><script> document.getElementById("lemail").innerHTML = '<i class=\"icofont-rounded-right\"></i> <strong>Email:</strong>' + ' ' + localStorage.getItem('email');</script></li>
+                  <li id="lphone"><script>document.getElementById("lphone").innerHTML = '<i class=\"icofont-rounded-right\"></i> <strong>Phone:</strong>' + ' ' + localStorage.getItem('phone');</script></li>
+                  <li id="lcountry"> <script>document.getElementById("lcountry").innerHTML = '<i class=\"icofont-rounded-right\"></i> <strong>Location:</strong>' + ' ' + localStorage.getItem('country');</script></li>
                 </ul>
               </div>
             </div>
-            <p>
-            Did you know that you already saved <strong>(this.totalSavingsaccount)€</strong> with WARPER? <br> Keep warping your time, at the lowest prices!
-            </p>
           </div>
         </div>
 
@@ -129,6 +127,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
 
 </body>
 
