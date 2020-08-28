@@ -400,6 +400,49 @@ function editPassword(id) {
 function addNetflix() {
   $('#netflix').toggleClass('btn btn-subscribe btn btn-cancel');
   document.getElementById('netflix').innerHTML= 'Unsubscribe';
+  localStorage.setItem('netflix', 'true');
+}
+
+function addHulu() {
+  $('#hulu').toggleClass('btn btn-subscribe btn btn-cancel');
+  document.getElementById('hulu').innerHTML= 'Unsubscribe';
+  localStorage.setItem('hulu', 'true');
+}
+
+function addSpotify() {
+  $('#spotify').toggleClass('btn btn-subscribe btn btn-cancel');
+  document.getElementById('spotify').innerHTML= 'Unsubscribe';
+  localStorage.setItem('spotify', 'true');
+}
+
+function addHbo() {
+  $('#hbo').toggleClass('btn btn-subscribe btn btn-cancel');
+  document.getElementById('hbo').innerHTML= 'Unsubscribe';
+  localStorage.setItem('hbo', 'true');
+}
+
+function addAmazon() {
+  $('#amazon').toggleClass('btn btn-subscribe btn btn-cancel');
+  document.getElementById('amazon').innerHTML= 'Unsubscribe';
+  localStorage.setItem('amazon', 'true');
+}
+
+function addAppletv() {
+  $('#appletv').toggleClass('btn btn-subscribe btn btn-cancel');
+  document.getElementById('appletv').innerHTML= 'Unsubscribe';
+  localStorage.setItem('appletv', 'true');
+}
+
+function addDisney() {
+  $('#disney').toggleClass('btn btn-subscribe btn btn-cancel');
+  document.getElementById('disney').innerHTML= 'Unsubscribe';
+  localStorage.setItem('disney', 'true');
+}
+
+function addApplem() {
+  $('#applem').toggleClass('btn btn-subscribe btn btn-cancel');
+  document.getElementById('applem').innerHTML= 'Unsubscribe';
+  localStorage.setItem('applem', 'true');
 }
 
 //-----------------------------------------------------------------
