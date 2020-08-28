@@ -20,12 +20,13 @@ public class SubscriptionToSubscriptionDto extends AbstractConverter<Subscriptio
 
         return subscriptionDto;*/
 
-        SubsDto subsDto = new SubsDto();
+        /*SubsDto subsDto = new SubsDto();
         subsDto.setId(subscription.getId());
         subsDto.setSubscriptionType(subscription.getSubsType());
         //subsDto.setSubscriptionType(subscription.getSubscriptionType());
         subsDto.setMaxMembers(subscription.getMaxMembers());
 
-        return subsDto;
+        return subsDto;*/
+        return null;
     }
 }

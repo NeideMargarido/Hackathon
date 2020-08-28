@@ -30,23 +30,28 @@ public class SubscriptionDtoToSubscription implements Converter<SubsDto, Subscri
         this.subscriptionFactory = subscriptionFactory;
     }
 
-
     @Override
-    public Subscription convert(/*SubscriptionDto subscriptionDto*/SubsDto subsDto) {
+    public Subscription convert(SubsDto subsDto) {
+        return null;
+    }
+
+
+    /*@Override
+    public Subscription convert(/*SubscriptionDto subscriptionDto*///SubsDto subsDto) {
 
         //Subscription subscription = null;
 
-        Subscription subscription = (subsDto.getId() != null ? subscriptionService.get(subsDto.getId()) : new Subscription());
+        //Subscription subscription = (subsDto.getId() != null ? subscriptionService.get(subsDto.getId()) : new Subscription());
 
-        subscription.setSubsType(subsDto.getSubscriptionType());
-        subscription.setMaxMembers(subsDto.getMaxMembers());
+        //subscription.setSubsType(subsDto.getSubscriptionType());
+        //subscription.setMaxMembers(subsDto.getMaxMembers());
 
         //subscription.setSubscriptionType(subscriptionDto.getSubscriptionType());
         //subscription.setMaxMembers(subscriptionDto.getMaxMembers());
 
         //subscription = subscriptionFactory.createSubscription(subsDto.getSubscriptionType());
 
-        return subscription;
-    }
+        //return subscription;
+    //}
 }
 
