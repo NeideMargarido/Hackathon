@@ -224,10 +224,6 @@
     aos_init();
   });
 
-
-
-
-
 })(jQuery);
 
 function register() {
@@ -270,11 +266,6 @@ function register() {
           $("#remessage").css("display", "block");
         }, 1500);
 
-    setTimeout( function () {
-
-        window.location.replace("https://warpers.herokuapp.com/userpage/");
-
-      }, 2500);
 
   }
 
@@ -282,4 +273,77 @@ function register() {
     // do something with the error
     $("#errormessage").css("display", "block");
   }
+
+
 }
+
+function login() {
+
+  var email2 = $('#email2').val();
+  var password2 = $('#password2').val();
+
+  $("#remessage2").css("display", "none");
+  $("#errormessage2").css("display", "none");
+
+  $.ajax({
+    url: 'https://warpers.herokuapp.com/api/user/',
+    async: true,
+    success: successCallback2,
+    error: errorCallback2
+  });
+
+  function successCallback2(userData) {
+    var valid = false;
+
+    for(var i=0;i<userData.length;i++){
+
+
+
+      if(userData[i].email === email2 && userData[i].password === password2) {
+
+
+        valid = true;
+
+      }
+
+      if (!valid) {
+        $("#errormessage2").css("display", "block");
+      } else {
+        $("#remessage2").css("display", "block");
+
+        // Check browser support
+        if (typeof(Storage) !== "undefined") {
+          // Store
+          localStorage.setItem("firstName", userData[i].firstName);
+          localStorage.setItem("lastName", userData[i].lastName);
+          localStorage.setItem("email", userData[i].email);
+          localStorage.setItem("password", userData[i].password);
+          localStorage.setItem("country", userData[i].country);
+          localStorage.setItem("id", userData[i].id);
+          localStorage.setItem("phone", userData[i].phone);
+          localStorage.setItem("log", "true");
+
+          setTimeout( function () {
+
+            window.location.replace("https://warpers.herokuapp.com/userpage/profile");
+
+          }, 2500);
+        } else {
+          alert("Sorry, your browser does not support Web Storage...");
+        }
+      }
+
+    }
+
+  }
+
+  function errorCallback2(request, status, error) {
+    // do something with the error
+    $("#errormessage2").css("display", "block");
+  }
+
+
+}
+
+
+

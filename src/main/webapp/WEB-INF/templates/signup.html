@@ -1,3 +1,11 @@
+<script>
+    window.addEventListener('load',
+        function() {
+            if(localStorage.getItem('log')){
+                window.location.replace("https://warpers.herokuapp.com/userpage/profile");
+            }
+        }, false);
+</script>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://thymeleaf.org">
 
@@ -105,11 +113,11 @@
 
                   <div class="form-row">
                       <div class="col-md-12 form-group">
-                          <input type="email" name="email" class="form-control" id="email" placeholder="Email" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                          <input type="email" name="email2" class="form-control" id="email2" placeholder="Email" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                           <div class="validate"></div>
                       </div>
                       <div class="col-md-12 form-group">
-                          <input type="password" name="password" class="form-control" id="password" placeholder="Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                          <input type="password" name="password2" class="form-control" id="password2" placeholder="Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                           <div class="validate"></div>
                       </div>
                   </div>
@@ -117,10 +125,10 @@
                   <div class="spinner-border" role="status" id="loading" style="display: none;">
                     <span class="sr-only">Loading...</span>
                   </div>
-                  <div class="alert alert-danger" role="alert" id="errormessage" style="display:none;">
+                  <div class="alert alert-danger" role="alert" id="errormessage2" style="display:none;">
                     Password or email incorret!
                   </div>
-                  <div class="alert alert-success" role="alert" id="remessage" style="display:none;">
+                  <div class="alert alert-success" role="alert" id="remessage2" style="display:none;">
                     Login successfuly!
                   </div>
                 </div>

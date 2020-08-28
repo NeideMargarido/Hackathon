@@ -32,7 +32,7 @@ public class RestSubscriptionController {
 
     private UserService userService;
     private SubscriptionService subscriptionService;
-    private SubscriptionToSubscriptionDto subscriptionToSubscriptionDto;
+    private SubscriptionToSubscriptionDto subscriptionToSubscriptiionDto;
     private SubscriptionDtoToSubscription subscriptionDtoToSubscription;
     private UserToUserDto userToUserDto;
 
@@ -46,17 +46,17 @@ public class RestSubscriptionController {
         this.subscriptionService = subscriptionService;
     }
 
-    @Autowired
+   /* @Autowired
     public void setSubscriptionToSubscriptionDto(SubscriptionToSubscriptionDto subscriptionToSubscriptionDto) {
         this.subscriptionToSubscriptionDto = subscriptionToSubscriptionDto;
-    }
+    }*/
 
     @Autowired
     public void setSubscriptionDtoToSubscription(SubscriptionDtoToSubscription subscriptionDtoToSubscription) {
         this.subscriptionDtoToSubscription = subscriptionDtoToSubscription;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription")
+    /*@RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription")
     public ResponseEntity<List<SubscriptionDto>> listCustomerAccounts(@PathVariable Integer cid) {
 
         User user = userService.get(cid);
@@ -68,7 +68,7 @@ public class RestSubscriptionController {
         List<SubscriptionDto> subscriptionDtos = user.getSubscriptions().stream().map(account -> subscriptionToSubscriptionDto.convert(account)).collect(Collectors.toList());
 
         return new ResponseEntity<>(subscriptionDtos, HttpStatus.OK);
-    }
+    }*/
 
     /*@RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}")
     public ResponseEntity<SubscriptionDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
@@ -83,7 +83,7 @@ public class RestSubscriptionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }*/
 
-        //return new ResponseEntity<>(subscriptionToSubscriptionDto.convert(subscription), HttpStatus.OK);
+    //return new ResponseEntity<>(subscriptionToSubscriptionDto.convert(subscription), HttpStatus.OK);
     //}
 
     /*@RequestMapping(method = RequestMethod.POST, path = "/subscription")
@@ -106,7 +106,7 @@ public class RestSubscriptionController {
 
     }*/
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
+   /* @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
     public ResponseEntity<?> closeAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
         try {
@@ -125,7 +125,7 @@ public class RestSubscriptionController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         }
-    }
+    }*/
 
     /*@RequestMapping(method = RequestMethod.GET, path = {"/subscription"})
     public ResponseEntity<List<SubscriptionDto>> listSubscription() {
@@ -137,5 +137,6 @@ public class RestSubscriptionController {
         return new ResponseEntity<>(subscriptionDto, HttpStatus.OK);
     }*/
 }
+
 
 

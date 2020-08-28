@@ -8,10 +8,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "subscriptionType")
-public abstract class Subscription extends AbstractModel {
+public  class Subscription extends AbstractModel {
 
     @ManyToOne
     private User user;
+
+    private String subsType;
 
     private SubscriptionType subscriptionType;
 
@@ -33,6 +35,14 @@ public abstract class Subscription extends AbstractModel {
         this.subscriptionType = subscriptionType;
     }
 
+    public String getSubsType() {
+        return subsType;
+    }
+
+    public void setSubsType(String subsType) {
+        this.subsType = subsType;
+    }
+
     public String getMaxMembers() {
         return maxMembers;
     }
@@ -45,7 +55,7 @@ public abstract class Subscription extends AbstractModel {
     public String toString() {
         return "Subscription{" +
                 "subscription type=" + getSubscriptionType() +
-                //", customerId=" + (user != null ? user.getId() : null) +
+                ", customerId=" + (user != null ? user.getId() : null) +
                 "} " + super.toString();
     }
 }
