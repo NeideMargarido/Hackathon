@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Transactional
+    /*@Transactional
     @Override
     public void closeSubscription(Integer id, Integer subscriptionId)
             throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException {
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
         User user = Optional.ofNullable(userDao.findById(id))
                 .orElseThrow(UserNotFoundException::new);
 
-        Subscription subscription = Optional.ofNullable(subscriptionDao.findById(subscriptionId))
+        /*Subscription subscription = Optional.ofNullable(subscriptionDao.findById(subscriptionId))
                 .orElseThrow(AccountNotFoundException::new);
 
         if (!subscription.getUser().getId().equals(id)) {
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 
         user.removeAccount(subscription);
         userDao.saveOrUpdate(user);
-    }
+    }*/
 
     private Set<Integer> getAccountIds(User user) {
         List<Subscription> subscriptions = user.getSubscriptions();

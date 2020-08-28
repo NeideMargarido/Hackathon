@@ -73,7 +73,7 @@ public class SubscriptionController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
+    /*@RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}/close")
     public String closeSubscription(@PathVariable Integer cid, @PathVariable Integer aid, RedirectAttributes redirectAttributes) throws Exception {
 
         try {
@@ -85,6 +85,6 @@ public class SubscriptionController {
             redirectAttributes.addFlashAttribute("failure", "Unable to perform closing operation. Subscription # " + aid);
             return "redirect:/user/" + cid;
         }
-    }
+    }*/
 
 }

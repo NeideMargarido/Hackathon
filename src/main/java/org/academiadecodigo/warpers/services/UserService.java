@@ -23,6 +23,6 @@ public interface UserService {
     Subscription addSubscription(Integer id, Subscription subscription)
             throws UserNotFoundException, TransactionInvalidException;
 
-    void closeSubscription(Integer id, Integer subscriptionId)
-            throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException;
+    //void closeSubscription(Integer id, Integer subscriptionId)
+            //throws UserNotFoundException, AccountNotFoundException, TransactionInvalidException;
 }
