@@ -1,5 +1,6 @@
 package org.academiadecodigo.warpers.controller.web;
 
+import org.academiadecodigo.warpers.command.SubsDto;
 import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.converters.SubscriptionDtoToSubscription;
 import org.academiadecodigo.warpers.converters.UserToUserDto;
@@ -55,14 +56,14 @@ public class SubscriptionController {
 
 
     @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/subscription"})
-    public String addSubscription(@PathVariable Integer cid, @Valid @ModelAttribute("account") SubscriptionDto subscriptionDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
+    public String addSubscription(@PathVariable Integer cid, @Valid @ModelAttribute("account") SubsDto subsDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
 
         if (bindingResult.hasErrors()) {
             return "redirect:/user/" + cid;
         }
 
         try {
-            Subscription subscription = subscriptionDtoToSubscription.convert(subscriptionDto);
+            Subscription subscription = subscriptionDtoToSubscription.convert(subsDto);
             userService.addSubscription(cid, subscription);
             redirectAttributes.addFlashAttribute("lastAction", "Started " + subscription.getSubscriptionType() + " subscription.");
             return "redirect:/user/" + cid;
