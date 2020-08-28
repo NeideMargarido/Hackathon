@@ -1,5 +1,6 @@
 package org.academiadecodigo.warpers.controller.rest;
 
+import org.academiadecodigo.warpers.command.SubsDto;
 import org.academiadecodigo.warpers.command.SubscriptionDto;
 import org.academiadecodigo.warpers.command.UserDto;
 import org.academiadecodigo.warpers.converters.SubscriptionDtoToSubscription;
@@ -57,7 +58,7 @@ public class RestSubscriptionController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription")
-    public ResponseEntity<List<SubscriptionDto>> listCustomerAccounts(@PathVariable Integer cid) {
+    public ResponseEntity<List<SubsDto>> listCustomerAccounts(@PathVariable Integer cid) {
 
         User user = userService.get(cid);
 
@@ -65,13 +66,13 @@ public class RestSubscriptionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<SubscriptionDto> subscriptionDtos = user.getSubscriptions().stream().map(account -> subscriptionToSubscriptionDto.convert(account)).collect(Collectors.toList());
+        List<SubsDto> subscriptionDtos = user.getSubscriptions().stream().map(account -> subscriptionToSubscriptionDto.convert(account)).collect(Collectors.toList());
 
         return new ResponseEntity<>(subscriptionDtos, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/subscription/{aid}")
-    public ResponseEntity<SubscriptionDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
+    public ResponseEntity<SubsDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
         Subscription subscription = subscriptionService.get(aid);
 
@@ -87,7 +88,7 @@ public class RestSubscriptionController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/subscription")
-    public ResponseEntity<?> addAccount(@Valid @RequestBody SubscriptionDto subscriptionDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<?> addAccount(@Valid @RequestBody SubsDto subscriptionDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
         if (bindingResult.hasErrors() || subscriptionDto.getId() != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -128,9 +129,9 @@ public class RestSubscriptionController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = {"/subscription"})
-    public ResponseEntity<List<SubscriptionDto>> listSubscription() {
+    public ResponseEntity<List<SubsDto>> listSubscription() {
 
-        List<SubscriptionDto> subscriptionDto = subscriptionService.list().stream()
+        List<SubsDto> subscriptionDto = subscriptionService.list().stream()
                 .map(subscription -> subscriptionToSubscriptionDto.convert(subscription))
                 .collect(Collectors.toList());
 
