@@ -1,3 +1,19 @@
+<script>
+  window.addEventListener('load',
+          function() {
+            if(!localStorage.getItem('log')){
+              console.log(localStorage.getItem('log'));
+              window.location.replace("https://warpers.herokuapp.com/");
+            }
+          $('#hfirstName').val(localStorage.getItem('firstName'));
+            $('#hlastName').val(localStorage.getItem('lastName'));
+            $('#hemail').val(localStorage.getItem('email'));
+            $('#hpassword').val(localStorage.getItem('password'));
+            $('#hphone').val(localStorage.getItem('phone'));
+            $('#hcountry').val(localStorage.getItem('country'));
+
+          }, false);
+</script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +54,7 @@
 
       <div class="profile">
        <img src="assets/img/1.png" alt="profile picture" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="profile">Username</a></h1>
+        <h1 class="text-light"><a href="profile" id="userName"><script>document.getElementById("userName").innerHTML = localStorage.getItem('firstName');</script></a></h1>
      
 
       <nav class="nav-menu">
@@ -46,7 +62,7 @@
           <li><a href="profile"><i class="bx bx-dna"></i> <span>Your profile</span></a></li>
           <li ><a href="subscriptions"><i class="bx bx-movie"></i> <span>Your subscriptions</span></a></li>
           <li class="active"><a href="settings"><i class="bx bx-archive"></i> Account Settings</a></li>
-          <li><a href="#"><i class="bx bx-power-off"></i> Logout</a></li>
+          <li><a href="#" onclick='localStorage.clear(); window.location.replace("https://warpers.herokuapp.com/");'><i class="bx bx-power-off"></i> Logout</a></li>
         </ul>
       </nav><!-- .nav-menu -->
       <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
@@ -85,12 +101,12 @@
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="name">New Name</label>
-                  <input type="hidden" name="hfirstName" class="form-control" id="hfirstName" value="Rafael" />
-                  <input type="hidden" name="hlastName" class="form-control" id="hlastName" value="Moreira" />
-                  <input type="hidden" name="hemail" class="form-control" id="hemail" value="rfnm99@gmail.com" />
-                  <input type="hidden" name="hpassword" class="form-control" id="hpassword" value="12345" />
-                  <input type="hidden" name="hphone" class="form-control" id="hphone" value="911868762" />
-                  <input type="hidden" name="hcountry" class="form-control" id="hcountry" value="Portugal" />
+                  <input type="hidden" name="hfirstName" class="form-control" id="hfirstName" value="" />
+                  <input type="hidden" name="hlastName" class="form-control" id="hlastName" value="" />
+                  <input type="hidden" name="hemail" class="form-control" id="hemail" value="" />
+                  <input type="hidden" name="hpassword" class="form-control" id="hpassword" value="" />
+                  <input type="hidden" name="hphone" class="form-control" id="hphone" value="" />
+                  <input type="hidden" name="hcountry" class="form-control" id="hcountry" value="" />
                   <input type="text" name="name" class="form-control" id="name" placeholder="New name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                   <div class="validate"></div>
                 </div>
@@ -200,6 +216,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
 
 </body>
 

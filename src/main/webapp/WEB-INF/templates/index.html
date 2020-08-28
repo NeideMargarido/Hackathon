@@ -1,3 +1,11 @@
+<script>
+  window.addEventListener('load',
+          function() {
+            if(localStorage.getItem('log')){
+              window.location.replace("https://warpers.herokuapp.com/userpage/profile");
+            }
+          }, false);
+</script>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://thymeleaf.org">
 

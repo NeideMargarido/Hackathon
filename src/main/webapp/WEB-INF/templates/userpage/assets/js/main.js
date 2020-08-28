@@ -272,12 +272,15 @@ function editName(id) {
   function successCallbackUpdate(data) {
 
     $("#remessage").css("display", "block");
+    localStorage.setItem("firstName",firstName);
     setTimeout(
         function()
         {
           $("#remessage").css("display", "none");
         }, 3500);
-
+    setTimeout( function () {
+      location.reload();
+    }, 4500);
   }
 
   function errorCallbackUpdate(request, status, error) {
@@ -320,12 +323,15 @@ function editEmail(id) {
   function successCallbackUpdate2(data) {
 
     $("#remessage2").css("display", "block");
+    localStorage.setItem("email",email);
     setTimeout(
         function()
         {
           $("#remessage2").css("display", "none");
         }, 3500);
-
+    setTimeout( function () {
+      location.reload();
+    }, 4500);
   }
 
   function errorCallbackUpdate2(request, status, error) {
@@ -371,12 +377,15 @@ function editPassword(id) {
     function successCallbackUpdate3(data) {
 
       $("#remessage3").css("display", "block");
+      localStorage.setItem("password",password);
       setTimeout(
           function()
           {
             $("#remessage3").css("display", "none");
           }, 3500);
-
+      setTimeout( function () {
+        location.reload();
+      }, 4500);
     }
 
     function errorCallbackUpdate3(request, status, error) {
