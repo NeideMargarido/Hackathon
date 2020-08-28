@@ -293,10 +293,22 @@ function login() {
   });
 
   function successCallback2(userData) {
+    var valid = false;
 
     for(var i=0;i<userData.length;i++){
 
+
+
       if(userData[i].email === email2 && userData[i].password === password2) {
+
+
+        valid = true;
+
+      }
+
+      if (!valid) {
+        $("#errormessage2").css("display", "block");
+      } else {
         $("#remessage2").css("display", "block");
 
         // Check browser support
@@ -319,7 +331,6 @@ function login() {
         } else {
           alert("Sorry, your browser does not support Web Storage...");
         }
-
       }
 
     }
