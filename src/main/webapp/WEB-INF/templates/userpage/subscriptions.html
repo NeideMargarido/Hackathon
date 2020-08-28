@@ -2,8 +2,48 @@
   window.addEventListener('load',
           function() {
             if(!localStorage.getItem('log')){
-              console.log(localStorage.getItem('log'));
               window.location.replace("https://warpers.herokuapp.com/");
+            } else {
+              if(localStorage.getItem('netflix')) {
+                $('#netflix').toggleClass('btn btn-subscribe btn btn-cancel');
+                document.getElementById('netflix').innerHTML= 'Unsubscribe';
+              }
+
+              if(localStorage.getItem('hulu')) {
+                $('#hulu').toggleClass('btn btn-subscribe btn btn-cancel');
+                document.getElementById('hulu').innerHTML= 'Unsubscribe';
+              }
+
+              if(localStorage.getItem('spotify')) {
+                $('#spotify').toggleClass('btn btn-subscribe btn btn-cancel');
+                document.getElementById('spotify').innerHTML= 'Unsubscribe';
+              }
+
+              if(localStorage.getItem('hbo')) {
+                $('#hbo').toggleClass('btn btn-subscribe btn btn-cancel');
+                document.getElementById('hbo').innerHTML= 'Unsubscribe';
+              }
+
+              if(localStorage.getItem('amazon')) {
+                $('#amazon').toggleClass('btn btn-subscribe btn btn-cancel');
+                document.getElementById('amazon').innerHTML= 'Unsubscribe';
+              }
+
+              if(localStorage.getItem('appletv')) {
+                $('#appletv').toggleClass('btn btn-subscribe btn btn-cancel');
+                document.getElementById('appletv').innerHTML= 'Unsubscribe';
+              }
+
+              if(localStorage.getItem('disney')) {
+                $('#disney').toggleClass('btn btn-subscribe btn btn-cancel');
+                document.getElementById('disney').innerHTML= 'Unsubscribe';
+              }
+
+              if(localStorage.getItem('applem')) {
+                $('#applem').toggleClass('btn btn-subscribe btn btn-cancel');
+                document.getElementById('applem').innerHTML= 'Unsubscribe';
+              }
+
             }
           }, false);
 </script>
