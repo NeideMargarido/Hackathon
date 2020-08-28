@@ -71,7 +71,7 @@ public class User extends AbstractModel {
         return subscriptions;
     }
 
-    /*public void addAccount(Subscription subscription) {
+    public void addAccount(Subscription subscription) {
         subscriptions.add(subscription);
         subscription.setUser(this);
     }
@@ -80,7 +80,7 @@ public class User extends AbstractModel {
     public void removeAccount(Subscription subscription) {
         subscriptions.remove(subscription);
         subscription.setUser(null);
-    }*/
+    }
 
     public String getPassword() {
         return password;

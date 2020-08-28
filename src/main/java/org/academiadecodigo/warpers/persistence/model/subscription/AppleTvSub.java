@@ -13,7 +13,7 @@ public class AppleTvSub extends Subscription {
     }
 
     @Override
-    public String getSubscriptionType() {
-        return SubscriptionType.APPLETV_APPLEMUSIC.toString();
+    public SubscriptionType getSubscriptionType() {
+        return SubscriptionType.APPLETV_APPLEMUSIC;
     }
 }

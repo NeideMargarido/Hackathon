@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         User user = Optional.ofNullable(userDao.findById(id))
                 .orElseThrow(UserNotFoundException::new);
 
-        //user.addAccount(subscription);
+        user.addAccount(subscription);
         userDao.saveOrUpdate(user);
 
         return user.getSubscriptions().get(user.getSubscriptions().size() - 1);
@@ -88,11 +88,11 @@ public class UserServiceImpl implements UserService {
         Subscription subscription = Optional.ofNullable(subscriptionDao.findById(subscriptionId))
                 .orElseThrow(AccountNotFoundException::new);
 
-        /*if (!subscription.getUser().getId().equals(id)) {
+        if (!subscription.getUser().getId().equals(id)) {
             throw new AccountNotFoundException();
-        }*/
+        }
 
-        //user.removeAccount(subscription);
+        user.removeAccount(subscription);
         userDao.saveOrUpdate(user);
     }
 
