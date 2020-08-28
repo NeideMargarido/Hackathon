@@ -311,7 +311,6 @@ function login() {
           localStorage.setItem("phone", userData[i].phone);
           localStorage.setItem("log", "true");
 
-          console.log(localStorage.getItem("firstName"));
           setTimeout( function () {
 
             window.location.replace("https://warpers.herokuapp.com/userpage/profile");
@@ -321,12 +320,9 @@ function login() {
           alert("Sorry, your browser does not support Web Storage...");
         }
 
-      } else {
-        $("#errormessage2").css("display", "block");
       }
 
     }
-
 
   }
 
