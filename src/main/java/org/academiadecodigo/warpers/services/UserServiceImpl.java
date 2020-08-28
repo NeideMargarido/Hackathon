@@ -88,9 +88,9 @@ public class UserServiceImpl implements UserService {
         Subscription subscription = Optional.ofNullable(subscriptionDao.findById(subscriptionId))
                 .orElseThrow(AccountNotFoundException::new);
 
-        if (!subscription.getUser().getId().equals(id)) {
+        /*if (!subscription.getUser().getId().equals(id)) {
             throw new AccountNotFoundException();
-        }
+        }*/
 
         user.removeAccount(subscription);
         userDao.saveOrUpdate(user);

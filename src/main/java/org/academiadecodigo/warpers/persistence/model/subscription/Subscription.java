@@ -10,20 +10,20 @@ import javax.persistence.*;
 @Table(name = "subscriptionType")
 public abstract class Subscription extends AbstractModel {
 
-    @ManyToOne
-    private User user;
+    //@ManyToOne
+    //private User user;
 
     private String subscriptionType;
 
     private String maxMembers;
 
-    public User getUser() {
+    /*public User getUser() {
         return user;
     }
 
     public void setUser(User customer) {
         this.user = customer;
-    }
+    }*/
 
     public String getSubscriptionType() {
         return subscriptionType;
