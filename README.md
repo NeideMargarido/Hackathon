@@ -8,4 +8,4 @@ Well, we created the perfect solution for you. Warpers is a web-app that helps r
 
 The main technologies user in these project were: Java, JavaScript, HTML, CSS, Bootstrap, Heroku, Spring, Hibernate, Maven, Rest API, Persistence.
 
-# Other Creators: Adriana Alves; Nelson Santos; Rafael Moreira; Rui Lopes;
+Other Creators: Adriana Alves; Nelson Santos; Rafael Moreira; Rui Lopes;
